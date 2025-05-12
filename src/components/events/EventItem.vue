@@ -21,15 +21,15 @@
                 }">
                     <img 
                         src="../../assets/img/img-53.jpg" 
-                        alt="Imagen de evento"
+                        :alt="event.slug"
                         class="rounded-lg">
             </RouterLink>
         </div>
         <div class="mt-2 flex-1">
-            <p class="uppercase dark:text-white">
+            <p class="uppercase dark:text-white text-lg font-light">
                 {{ event.title }}
             </p>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">
+            <p class="mt-4 text-gray-600 dark:text-gray-400 font-light">
                 {{ event.short_description }}
             </p>
         </div>
