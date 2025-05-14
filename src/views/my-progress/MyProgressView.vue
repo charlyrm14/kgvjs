@@ -2,18 +2,33 @@
     import SwimmingCategoriesAPI from '@/api/SwimmingCategoriesAPI';
     import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
     import { useUserStore } from '@/stores/user';
-    import { onMounted, ref } from 'vue';
+    import { onMounted, reactive, ref } from 'vue';
 
     const categories = useSwimmingCategoriesStore()
     const user = useUserStore() 
     const userCategories = ref([])
+    const userCurrentCategory = reactive({})
+    const hasCategories = ref(false)
+    const errorMessage = ref('')
 
     onMounted(async() => {
+        try {
 
-        await user.loadUser()
+            await user.loadUser()
 
-        const data = await SwimmingCategoriesAPI.getUserSwimmingCategories(user.user.id)
-        userCategories.value = data.data
+            const data = await SwimmingCategoriesAPI.getUserSwimmingCategories(user.user.id)
+            userCategories.value = data.data.categories
+            Object.assign(userCurrentCategory, data.data.current_category)
+            hasCategories.value = true
+            
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                hasCategories.value = false
+                errorMessage.value = 'No se encontraron categorías asignadas para este usuario.'
+            } else {
+                errorMessage.value = 'Cada categoría es un paso más en tu camino como nadador. Esfuérzate en cada entrenamiento, supera tus límites y avanza con orgullo. ¡Con disciplina y pasión, conquistarás todas las categorías!'
+            }
+        }
     })
 
     const isUserCategory = (categoryId) => {
@@ -24,15 +39,21 @@
 
 <template>
     <section class="p-8 my-8">
-        <div class="px-8">
-            <h2 class="uppercase text-lg text-gray-600 dark:text-slate-300 text-center"> Nivel actual </h2>
-            <h1 class="uppercase text-center text-6xl text-amber-500 dark:text-ambar-400"> Tiburón </h1>
-            <div class="flex justify-center items-center mt-6">
-                <img 
-                    src="../../assets/img/shark.png" 
-                    alt="shark"
-                    class="w-32">
-            </div>
+        <div
+            v-if="hasCategories"
+            class="px-8">
+                <h2 class="uppercase text-lg text-gray-600 dark:text-slate-300 text-center"> Nivel actual </h2>
+                <h1 class="uppercase text-center text-6xl text-amber-500 dark:text-ambar-400"> {{ userCurrentCategory.category }} </h1>
+                <div class="flex justify-center items-center mt-6">
+                    <img 
+                        :src="categories.url_api + '/' + userCurrentCategory.image" 
+                        alt="shark"
+                        class="w-32">
+                </div>
+        </div>
+        <div v-else
+            class="px-8">
+                <h2 class="uppercase text-lg text-gray-600 dark:text-slate-300 text-center"> {{ errorMessage }} </h2>
         </div>
         <div class="mt-10">
             <div class="bg-white dark:bg-slate-700 py-8 px-4 sm:px-6 lg:px-8 rounded-lg shadow">
@@ -72,9 +93,9 @@
                     
                 </div>
 
-                <div>
-                    <h4 class="mt-10 text-amber-500 dark:text-ambar-400 font-extralight uppercase text-center text-xl"> 
-                    Felicidades por tu esfuerzo, eres todo un tiburón, no pares de aprender 
+                <div v-if="hasCategories">
+                    <h4 class="mt-10 text-amber-500 dark:text-ambar-400 font-extralight uppercase text-center text-base"> 
+                    {{ userCurrentCategory.message }} 
                     </h4>
                     <div class="flex justify-center items-center mt-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12 text-amber-500 dark:text-ambar-400">
