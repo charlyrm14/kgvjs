@@ -1,4 +1,24 @@
 <script setup>
+    import SwimmingCategoriesAPI from '@/api/SwimmingCategoriesAPI';
+    import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
+    import { useUserStore } from '@/stores/user';
+    import { onMounted, ref } from 'vue';
+
+    const categories = useSwimmingCategoriesStore()
+    const user = useUserStore() 
+    const userCategories = ref([])
+
+    onMounted(async() => {
+
+        await user.loadUser()
+
+        const data = await SwimmingCategoriesAPI.getUserSwimmingCategories(user.user.id)
+        userCategories.value = data.data
+    })
+
+    const isUserCategory = (categoryId) => {
+        return userCategories.value.some(userCat => userCat.swimming_category_id === categoryId)
+    }
 
 </script>
 
@@ -19,88 +39,39 @@
                 <div class="flex justify-between items-center relative max-w-4xl mx-auto mt-5">
                     
                     <!-- Línea horizontal -->
-                    <div class="absolute top-1/2 left-0 w-full h-1 bg-teal-400 transform -translate-y-1/2 z-0"></div>
+                    <div class="absolute top-1/3 left-0 w-full h-1 bg-teal-400 transform -translate-y-1/2 z-0"></div>
 
-                    <!-- Paso -->
-                    <div class="relative z-10 flex flex-col items-center w-1/5">
-                        <div class="relative bg-white rounded-full border-4 border-teal-400 p-2 md:p-4 lg:p-4">
+                    <div
+                        v-for="category in categories.categories"
+                        :key="category.id"
+                        class="relative z-10 flex flex-col items-center w-1/5">
+                        <div
+                            :class="[
+                                'relative bg-white rounded-full p-2 md:p-4 lg:p-4 border-4',
+                                isUserCategory(category.id) ? 'border-teal-400' : 'border-gray-400'
+                            ]">
                             <img 
-                                src="../../assets/img/kid.png" 
+                                :src="categories.url_api + '/' + category.image" 
                                 class="w-10 h-10 rounded-full" 
-                                alt="kid">
-                            <div class="absolute -top-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white">
-                                <svg class="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                :alt="category.title">
+                            <div
+                                v-if="isUserCategory(category.id)"
+                                class="absolute -top-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white">
+                                <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                 </svg>
                             </div>
                         </div>
-                        <span class="mt-2 text-sm md:text-base lg::text-base dark:text-slate-400 uppercase">Principiante</span>
+                        <span 
+                            class="mt-2 text-sm md:text-base lg::text-base uppercase"
+                            :class="[isUserCategory(category.id) ? 'text-teal-400' : 'dark:text-slate-400']"> 
+                            {{ category.title }} 
+                        </span>
                     </div>
 
-                    <!-- Paso -->
-                    <div class="relative z-10 flex flex-col items-center w-1/5">
-                        <div class="relative bg-white rounded-full border-4 border-teal-400 p-2 md:p-4 lg:p-4">
-                            <img 
-                                src="../../assets/img/otter.png" 
-                                class="w-10 h-10 rounded-full" 
-                                alt="Nutria">
-                            <div class="absolute -top-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white">
-                            <svg class="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            </div>
-                        </div>
-                        <span class="mt-2 text-sm md:text-base lg::text-base dark:text-slate-400 uppercase"> Nutria </span>
-                    </div>
-
-                    <!-- Paso -->
-                    <div class="relative z-10 flex flex-col items-center w-1/5">
-                        <div class="relative bg-white rounded-full border-4 border-teal-400 p-2 md:p-4 lg:p-4">
-                            <img 
-                                src="../../assets/img/sea-turtle.png" 
-                                class="w-10 h-10 rounded-full" 
-                                alt="Tortuga">
-                            <div class="absolute -top-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white">
-                                <svg class="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="mt-2 text-sm md:text-base lg::text-base dark:text-slate-400 uppercase"> Tortuga </span>
-                    </div>
-
-                    <!-- Paso -->
-                    <div class="relative z-10 flex flex-col items-center w-1/5">
-                        <div class="relative bg-white rounded-full border-4 border-teal-400 p-2 md:p-4 lg:p-4">
-                            <img 
-                                src="../../assets/img/dolphin.png" 
-                                class="w-10 h-10 rounded-full" 
-                                alt="Delfin">
-                            <div class="absolute -top-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white">
-                                <svg class="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="mt-2 text-sm md:text-base lg::text-base dark:text-slate-400 uppercase"> Delfín </span>
-                    </div>
-
-                    <!-- Paso actual -->
-                    <div class="relative z-10 flex flex-col items-center w-1/5">
-                        <div class="relative bg-white rounded-full border-4 border-teal-400 p-2 md:p-4 lg:p-4">
-                            <img 
-                                src="../../assets/img/shark.png" 
-                                class="w-10 h-10 rounded-full" 
-                                alt="Tiburón">
-                            <div class="absolute -top-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white">
-                                <svg class="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="mt-2 text-sm md:text-base lg::text-base dark:text-slate-400 uppercase"> Tiburón </span>
-                    </div>
+                    
                 </div>
+
                 <div>
                     <h4 class="mt-10 text-amber-500 dark:text-ambar-400 font-extralight uppercase text-center text-xl"> 
                     Felicidades por tu esfuerzo, eres todo un tiburón, no pares de aprender 
@@ -111,6 +82,7 @@
                         </svg>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
