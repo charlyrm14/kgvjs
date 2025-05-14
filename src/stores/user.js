@@ -1,10 +1,12 @@
 import AuthAPI from "@/api/AuthAPI"
+import { useRouter } from "vue-router"
 import { defineStore } from "pinia"
-import { onMounted, ref } from "vue"
+import { ref } from "vue"
 
 export const useUserStore = defineStore('user', () => {
 
     const user = ref({})
+    const router = useRouter()
 
     const loadUser = async () => {
 
@@ -17,8 +19,15 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const logOut = () => {
+        localStorage.removeItem('auth_token')
+        user.value = {}
+        router.push({ name: 'login' })
+    }
+
 return {
         user,
-        loadUser
+        loadUser,
+        logOut
     }
 })
