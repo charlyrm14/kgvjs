@@ -30,7 +30,7 @@
                 </button>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-8 gap-x-4 gap-y-6">
+        <div class="p-8 mt-10">
             <EventItem
                 v-for="event in events.events"
                 :key="event.id"
