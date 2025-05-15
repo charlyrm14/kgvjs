@@ -1,31 +1,19 @@
 <script setup>
-    import { onMounted, onBeforeUnmount, reactive } from 'vue';
-    import pusher from '@/lib/pusher.js';
+    import { onMounted, onBeforeUnmount } from 'vue';
     import Header from '@/components/layout/Header.vue';
     import NavMenu from '@/components/layout/NavMenu.vue';
+    import NotificationEvent from '@/components/notifications/NotificationEvent.vue';
     import Footer from '@/components/layout/Footer.vue';
+    import { useNotificationsStore } from '@/stores/notifications';
+
+    const notificationStore = useNotificationsStore()
     
-    const event = reactive({
-        title: '',
-        short_description: '',
-        start_date: ''
-    })
-
-    let channel;
-
     onMounted(() => {
-        channel = pusher.subscribe('channel-notifications');
-        
-        channel.bind('new-notification-event', (data) => {
-            console.log(data);
-        });
+        notificationStore.subscribeToNotifications()
     });
 
     onBeforeUnmount(() => {
-        if (channel) {
-            channel.unbind_all();
-            pusher.unsubscribe('channel-notifications');
-        }
+        notificationStore.unsubscribeFromNotifications()
     });
 
 </script>
@@ -33,6 +21,9 @@
 <template>
     <Header/>
     <NavMenu/>
-    <RouterView/>
+        <NotificationEvent
+            v-if="notificationStore.showNotification"
+            :event="notificationStore.event"/>
+        <RouterView/>
     <Footer/>
 </template>
