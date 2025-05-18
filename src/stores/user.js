@@ -2,8 +2,11 @@ import AuthAPI from "@/api/AuthAPI"
 import { useRouter } from "vue-router"
 import { defineStore } from "pinia"
 import { ref } from "vue"
+import { useChatIAStore } from "./chat"
 
 export const useUserStore = defineStore('user', () => {
+
+    const chat = useChatIAStore()
 
     const user = ref({})
     const router = useRouter()
@@ -22,6 +25,7 @@ export const useUserStore = defineStore('user', () => {
     const logOut = () => {
         localStorage.removeItem('auth_token')
         user.value = {}
+        chat.conversation = [];
         router.push({ name: 'login' })
     }
 
