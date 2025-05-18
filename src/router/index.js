@@ -28,6 +28,11 @@ const router = createRouter({
           component: () => import('../views/home/HomeView.vue')
         },
         {
+          path: 'i/chat',
+          name: 'chat-ia',
+          component: () => import('../views/chat-ia/ChatIAView.vue')
+        },
+        {
           path: 'mi-progreso',
           name: 'mi-progreso',
           component: () => import('../views/my-progress/MyProgressView.vue')
