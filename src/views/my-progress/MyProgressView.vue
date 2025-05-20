@@ -11,6 +11,14 @@
     const hasCategories = ref(false)
     const errorMessage = ref('')
 
+    const percentageBySkills = {
+        1:  20,
+        2:  40,
+        3:  60,
+        4:  80,
+        5:  100,
+    };
+
     onMounted(async() => {
         try {
 
@@ -38,72 +46,109 @@
 </script>
 
 <template>
-    <section class="p-8 my-8">
+    <section class="p-8">
+
         <div
             v-if="hasCategories"
             class="px-8">
-                <h2 class="uppercase text-lg text-gray-600 dark:text-slate-300 text-center"> Nivel actual </h2>
-                <h1 class="uppercase text-center text-6xl text-amber-500 dark:text-ambar-400"> {{ userCurrentCategory.category }} </h1>
-                <div class="flex justify-center items-center mt-6">
-                    <img 
-                        :src="categories.url_api + '/' + userCurrentCategory.image" 
-                        alt="shark"
-                        class="w-32">
-                </div>
-        </div>
-        <div v-else
-            class="px-8">
-                <h2 class="uppercase text-lg text-gray-600 dark:text-slate-300 text-center"> {{ errorMessage }} </h2>
-        </div>
-        <div class="mt-10">
-            <div class="bg-white dark:bg-slate-700 py-8 px-4 sm:px-6 lg:px-8 rounded-lg shadow">
-                <div class="flex justify-between items-center relative max-w-4xl mx-auto mt-5">
-                    
-                    <!-- Línea horizontal -->
-                    <div class="absolute top-1/3 left-0 w-full h-1 bg-teal-400 transform -translate-y-1/2 z-0"></div>
-
-                    <div
-                        v-for="category in categories.categories"
-                        :key="category.id"
-                        class="relative z-10 flex flex-col items-center w-1/5">
-                        <div
-                            :class="[
-                                'relative bg-white rounded-full p-2 md:p-4 lg:p-4 border-4',
-                                isUserCategory(category.id) ? 'border-teal-400' : 'border-gray-400'
-                            ]">
-                            <img 
-                                :src="categories.url_api + '/' + category.image" 
-                                class="w-10 h-10 rounded-full" 
-                                :alt="category.title">
-                            <div
-                                v-if="isUserCategory(category.id)"
-                                class="absolute -top-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white">
-                                <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15 3.293 9.879a1 1 0 011.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span 
-                            class="mt-2 text-sm md:text-base lg::text-base uppercase"
-                            :class="[isUserCategory(category.id) ? 'text-teal-400' : 'dark:text-slate-400']"> 
-                            {{ category.title }} 
-                        </span>
+                <div class="relative w-32 mx-auto">
+                    <!-- Círculo con overflow-hidden para recortar imagen -->
+                    <div class="w-36 h-36 rounded-full dark:bg-white overflow-hidden shadow-md mx-auto relative z-10 border-4 border-amber-500">
+                        <img
+                            :src="categories.url_api + '/' + userCurrentCategory.image" 
+                            alt="Foquita"
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32"/>
                     </div>
 
-                    
-                </div>
-
-                <div v-if="hasCategories">
-                    <h4 class="mt-10 text-amber-500 dark:text-ambar-400 font-extralight uppercase text-center text-base"> 
-                    {{ userCurrentCategory.message }} 
-                    </h4>
-                    <div class="flex justify-center items-center mt-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12 text-amber-500 dark:text-ambar-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
+                    <!-- Ícono que sobresale del borde inferior del círculo -->
+                    <div
+                        class="absolute bottom-1 left-18 -translate-x-1/2 translate-y-1/2 text-amber-500 rounded-full p-2 shadow-lg z-20">
+                        <!-- Icono SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
                         </svg>
                     </div>
                 </div>
-                
+        </div>
+
+        <div class="mt-6 flex justify-center">
+            <div class="w-60 bg-slate-600 rounded-lg">
+                <p class="text-center uppercase text-sm mt-2 dark:text-gray-300"> Nivel Actual </p>
+                <h2 class="text-amber-500 text-center uppercase text-4xl mb-2"> FOCA </h2>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="p-8">
+        <div class="px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-3 lg:gap-1">
+
+                <div
+                    v-for="category in categories.categories"
+                    :key="category.id"
+                    class="max-w-xs mx-auto mt-10 dark:bg-slate-900 text-white rounded-xl overflow-hidden shadow-lg">
+
+                    <div class="relative dark:bg-slate-300 h-20 flex items-end justify-center">
+                        <!-- Imagen circular -->
+                        <div 
+                            class="absolute -bottom-8 w-24 h-24 rounded-full border-4 bg-white overflow-hidden"
+                            :class="[isUserCategory(category.id) ? 'border-amber-500' : 'border-cyan-500']">
+                                <img 
+                                    :src="categories.url_api + '/' + category.image" 
+                                    :alt="category.title" 
+                                    class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <div class="pt-10  pb-4 text-center">
+                        <h2 
+                            class="text-xl font-light flex justify-center items-center gap-2 uppercase"
+                            :class="isUserCategory(category.id) ? 'dark:text-amber-500' : 'dark:text-cyan-500' "> 
+                                {{ category.title }}  
+                                    <svg
+                                        v-if="isUserCategory(category.id)"
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        viewBox="0 0 24 24" 
+                                        fill="currentColor" 
+                                        class="size-5">
+                                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                    </svg>
+                        </h2>
+                    </div>
+
+                    <div class="px-4 pb-4">
+                        <h3
+                            v-if="isUserCategory(category.id)"
+                            class="text-sm text-gray-200 mb-3"> {{ category.message }} 
+                        </h3>
+                        <h3 
+                            v-else
+                            class="text-sm dark:text-slate-500 mb-3">
+                                ¡Sigue nadando con entusiasmo! Con cada brazada mejoras más. Esfuérzate y pronto conquistarás las demás categorías. ¡Tú puedes lograrlo, campeón del agua!. ¡Vamos paso a paso!
+                        </h3>
+                    </div>
+
+                    <div class="px-4 pb-4">
+                        <h3 class="text-sm text-gray-200 mb-3">HABILIDADES</h3>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                            <div class="bg-slate-800 p-2 rounded-lg">
+                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
+                                <p> VELOCIDAD </p>
+                            </div>
+                            <div class="bg-slate-800 p-2 rounded-lg">
+                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
+                                <p> FUERZA </p>
+                            </div>
+                            <div class="bg-slate-800 p-2 rounded-lg">
+                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
+                                <p> TÉCNICA </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </section>
