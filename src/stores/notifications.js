@@ -5,10 +5,22 @@ import pusher from '@/lib/pusher.js';
 export const useNotificationsStore = defineStore('notifications', () => {
 
     const notificationStatus = ref(false)
-    const event = reactive({
+    const content = reactive({
         title: '',
+        content:'',
         slug: ''
     })
+
+    const contentCategories = {
+        1: {
+            title: 'Nuevo aviso de King Dreams',
+            url: '/avisos' 
+        },
+        2: {
+            title: 'Nuevo evento en King Dreams',
+            url: '/eventos' 
+        }
+    }
 
     let channel;
     
@@ -24,12 +36,12 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
         channel = pusher.subscribe('channel-notifications');
         
-        channel.bind('new-notification-event', (data) => {
+        channel.bind('new-notification-content', (data) => {
 
             notificationStatus.value = true
-            event.title = data.event.title
-            event.short_description = data.event.short_description
-            event.slug = data.event.slug            
+            content.title = data.content.title
+            content.content = data.content.content.slice(0, 30)
+            content.slug = `${contentCategories[data.content.content_category_id].url}/${data.content.slug}`         
         });
     }
 
@@ -50,7 +62,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
     }
 
     return {
-        event,
+        content,
         subscribeToNotifications,
         unsubscribeFromNotifications,
         notificationStatus,

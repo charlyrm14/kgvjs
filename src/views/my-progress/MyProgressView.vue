@@ -53,7 +53,7 @@
             class="px-8">
                 <div class="relative w-32 mx-auto">
                     <!-- Círculo con overflow-hidden para recortar imagen -->
-                    <div class="w-36 h-36 rounded-full dark:bg-white overflow-hidden shadow-md mx-auto relative z-10 border-4 border-amber-500">
+                    <div class="w-36 h-36 rounded-full bg-white dark:bg-white overflow-hidden shadow-md mx-auto relative z-10 border-4 border-amber-500">
                         <img
                             :src="categories.url_api + '/' + userCurrentCategory.image" 
                             alt="Foquita"
@@ -62,7 +62,7 @@
 
                     <!-- Ícono que sobresale del borde inferior del círculo -->
                     <div
-                        class="absolute bottom-1 left-18 -translate-x-1/2 translate-y-1/2 text-amber-500 rounded-full p-2 shadow-lg z-20">
+                        class="absolute bottom-1 left-18 -translate-x-1/2 translate-y-1/2 text-amber-500 rounded-full p-2  z-20">
                         <!-- Icono SVG -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
                             <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
@@ -72,7 +72,7 @@
         </div>
 
         <div class="mt-6 flex justify-center">
-            <div class="w-60 bg-slate-600 rounded-lg">
+            <div class="w-60 bg-white dark:bg-slate-600 rounded-lg shadow">
                 <p class="text-center uppercase text-sm mt-2 dark:text-gray-300"> Nivel Actual </p>
                 <h2 class="text-amber-500 text-center uppercase text-4xl mb-2"> FOCA </h2>
             </div>
@@ -87,13 +87,13 @@
                 <div
                     v-for="category in categories.categories"
                     :key="category.id"
-                    class="max-w-xs mx-auto mt-10 dark:bg-slate-900 text-white rounded-xl overflow-hidden shadow-lg">
+                    class="max-w-xs mx-auto mt-10 bg-white dark:bg-slate-900 text-white rounded-xl overflow-hidden shadow-lg">
 
-                    <div class="relative dark:bg-slate-300 h-20 flex items-end justify-center">
+                    <div class="relative bg-gray-400 dark:bg-slate-300 h-20 flex items-end justify-center">
                         <!-- Imagen circular -->
                         <div 
                             class="absolute -bottom-8 w-24 h-24 rounded-full border-4 bg-white overflow-hidden"
-                            :class="[isUserCategory(category.id) ? 'border-amber-500' : 'border-cyan-500']">
+                            :class="[isUserCategory(category.id) ? 'border-amber-500' : 'border-cyan-300']">
                                 <img 
                                     :src="categories.url_api + '/' + category.image" 
                                     :alt="category.title" 
@@ -104,7 +104,7 @@
                     <div class="pt-10  pb-4 text-center">
                         <h2 
                             class="text-xl font-light flex justify-center items-center gap-2 uppercase"
-                            :class="isUserCategory(category.id) ? 'dark:text-amber-500' : 'dark:text-cyan-500' "> 
+                            :class="isUserCategory(category.id) ? 'text-amber-500' : 'text-cyan-300' "> 
                                 {{ category.title }}  
                                     <svg
                                         v-if="isUserCategory(category.id)"
@@ -120,29 +120,56 @@
                     <div class="px-4 pb-4">
                         <h3
                             v-if="isUserCategory(category.id)"
-                            class="text-sm text-gray-200 mb-3"> {{ category.message }} 
+                            class="text-sm text-gray-600 dark:text-gray-200 mb-3"> {{ category.message }} 
                         </h3>
                         <h3 
                             v-else
-                            class="text-sm dark:text-slate-500 mb-3">
+                            class="text-sm text-gray-400 dark:text-slate-500 mb-3">
                                 ¡Sigue nadando con entusiasmo! Con cada brazada mejoras más. Esfuérzate y pronto conquistarás las demás categorías. ¡Tú puedes lograrlo, campeón del agua!. ¡Vamos paso a paso!
                         </h3>
                     </div>
 
                     <div class="px-4 pb-4">
-                        <h3 class="text-sm text-gray-200 mb-3">HABILIDADES</h3>
+                        <h3 class="text-sm text-gray-600 dark:text-gray-200 mb-3"> HABILIDADES </h3>
                         <div class="grid grid-cols-3 gap-2 text-center text-xs">
-                            <div class="bg-slate-800 p-2 rounded-lg">
-                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
-                                <p> VELOCIDAD </p>
+                            <div
+                                :class="isUserCategory(category.id) ? 'bg-amber-500' : 'bg-gray-300 dark:bg-slate-800'"
+                                class="p-2 rounded-lg">
+                                    <p
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "
+                                        class="font-bold"> 
+                                            {{ percentageBySkills[category.id] }}% 
+                                    </p>
+                                    <p 
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "> 
+                                            VELOCIDAD 
+                                    </p>
                             </div>
-                            <div class="bg-slate-800 p-2 rounded-lg">
-                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
-                                <p> FUERZA </p>
+                            <div
+                                :class="isUserCategory(category.id) ? 'bg-amber-500' : 'bg-gray-300 dark:bg-slate-800'" 
+                                class="p-2 rounded-lg">
+                                    <p 
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "
+                                        class="font-bold"> 
+                                            {{ percentageBySkills[category.id] }}% 
+                                    </p>
+                                    <p 
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "> 
+                                            FUERZA 
+                                    </p>
                             </div>
-                            <div class="bg-slate-800 p-2 rounded-lg">
-                                <p class="font-bold"> {{ percentageBySkills[category.id] }}% </p>
-                                <p> TÉCNICA </p>
+                            <div 
+                                :class="isUserCategory(category.id) ? 'bg-amber-500' : 'bg-gray-300 dark:bg-slate-800'"
+                                class="p-2 rounded-lg">
+                                    <p
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "
+                                        class="font-bold"> 
+                                            {{ percentageBySkills[category.id] }}% 
+                                    </p>
+                                    <p 
+                                        :class="isUserCategory(category.id) ? 'text-white' : 'text-gray-500' "> 
+                                            TÉCNICA 
+                                    </p>
                             </div>
                         </div>
                     </div>

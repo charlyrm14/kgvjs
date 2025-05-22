@@ -2,11 +2,11 @@ const url = import.meta.env.VITE_API_URL
 
 export default {
 
-    async getEvents() {
+    async getInfo(userId) {
 
         try {
 
-            const response = await fetch(`${url}/api/v1/content/events`)
+            const response = await fetch(`${url}/api/v1/info/${userId}`)
 
             const result = await response.json();
             return result
@@ -14,5 +14,5 @@ export default {
         } catch (error) {
             console.error(error);
         }
-    }
+    },
 }
