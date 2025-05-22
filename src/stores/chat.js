@@ -1,11 +1,8 @@
 import IAAPI from '@/api/IAAPI'
 import { defineStore } from 'pinia'
 import { computed, ref, nextTick, reactive } from 'vue'
-import { useUserStore } from './user'
 
 export const useChatIAStore = defineStore('chat-ia', () => {
-
-    const userStore = useUserStore()
 
     const conversation = ref([])
     const loading = ref(false)

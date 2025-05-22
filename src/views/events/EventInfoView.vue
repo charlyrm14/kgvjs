@@ -1,14 +1,12 @@
 <script setup>
-    import EventsAPI from '@/api/EventsAPI';
-    import EventItem from '@/components/events/EventItem.vue';
     import { onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
     import { 
         randomColor, 
         getDayByDate, 
-        getMonthNameByDate, 
-        getHourByDate 
+        getMonthNameByDate
     } from '@/helpers'
+import ContentAPI from '@/api/ContentAPI';
 
     const route = useRoute()
     const { slug } = route.params
@@ -17,7 +15,7 @@
 
     onMounted( async () => {
 
-        const response = await EventsAPI.getEventBySlug(slug)
+        const response = await ContentAPI.getContentBySlug(slug)
         event.value = response.data
     })
 
@@ -28,7 +26,7 @@
         <div class="flex justify-end items-center my-6">
             <RouterLink
                 :to="{ name: 'eventos' }"
-                class="uppercase bg-pink-500 text-white border border-black dark:border-white inline-flex gap-x-2 items-center px-4 py-2 cursor-pointer hover:opacity-75">
+                class="uppercase bg-pink-500 text-white  inline-flex gap-x-2 items-center px-4 py-2 cursor-pointer rounded-lg hover:opacity-75">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
                     </svg> Regresar

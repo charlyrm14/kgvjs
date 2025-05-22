@@ -64,9 +64,9 @@
                             <div class="bg-gray-300 dark:bg-slate-500 rounded-full w-12 md:w-14 lg:w-14">
                                 <img src="../../assets/img/sharky.png" alt="sharky" class="p-1 md:p-2 lg:p-2">
                             </div>
-                            <p class="uppercase text-xl text-start"> 
+                            <p class="uppercase text-xl text-start text-blue-500"> 
                                 Sharky 
-                                <span class="block text-sm font-light"> King Dreams </span>
+                                <span class="block text-sm text-blue-500 font-light"> King Dreams </span>
                             </p>
                         </div>
                         <div>

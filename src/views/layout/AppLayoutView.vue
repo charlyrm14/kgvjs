@@ -17,13 +17,13 @@
     const showBrowserNotification = () => {
         if (Notification.permission === 'granted') {
             const notification = new Notification('Nuevo evento en King Dreams', {
-                body: notificationStore.event.short_description,
+                body: notificationStore.content.content.slice(0, 30),
                 icon: '/shark.png'
             })
 
             notification.onclick = () => {
                 window.focus()
-                window.location.href = `/eventos/${notificationStore.event.slug}`
+                window.location.href = `${notificationStore.content.slug}`
             }
 
             setTimeout(() => {
