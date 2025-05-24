@@ -18,7 +18,7 @@ import { ref } from 'vue';
                     <div class="relative">
                         <img
                             @click="dropdownMenu = !dropdownMenu"
-                            src="../../assets/img/300-27.jpg" 
+                            src="../../../assets/img/300-27.jpg" 
                             alt="Profile image"
                             class="rounded-full w-13 h-13 p-1 border-2 border-cyan-500 cursor-pointer">
                         <div
@@ -51,7 +51,7 @@ import { ref } from 'vue';
                         class="absolute -bottom-68 -left-75 w-85 bg-white dark:bg-slate-600 rounded-lg shadow-2xl border border-gray-300 dark:border-slate-500">
                             <div class="flex justify-start items-center gap-x-2 px-4 py-3">
                                 <img 
-                                    src="../../assets/img/300-27.jpg" 
+                                    src="../../../assets/img/300-27.jpg" 
                                     alt="Profile image"
                                     class="rounded-full w-13 h-13 p-1 border-2 dark:border-white">
                                 <p class="text-gray-800 dark:text-slate-300">
