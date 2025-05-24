@@ -8,7 +8,7 @@
         <p class="text-center uppercase text-md text-cyan-500"> Circuito Acuático </p>
         <div class="flex justify-center items-center mt-5">
             <img 
-                src="../../assets/img/poseidon.png" 
+                src="../../../assets/img/poseidon.png" 
                 alt="Equipo king dreams" 
                 class="w-48 sm:w-56 md:w-64 lg:w-72">
         </div>

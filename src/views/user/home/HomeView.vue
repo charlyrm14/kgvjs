@@ -1,11 +1,11 @@
 <script setup>
     import BirthdateModal from '@/components/modals/user/BirthdateModal.vue';
     import { useHomeStore } from '@/stores/home';
-    import UserBirthdate from '@/components/home/UserBirthdate.vue';
-    import UserFeatured from '@/components/home/UserFeatured.vue';
-    import HomeEventCard from '@/components/home/HomeEventCard.vue';
-    import HomeNoticeCard from '@/components/home/HomeNoticeCard.vue';
-    import HomeMainCard from '@/components/home/HomeMainCard.vue';
+    import UserBirthdate from '@/components/user/home/UserBirthdate.vue';
+    import UserFeatured from '@/components/user/home/UserFeatured.vue';
+    import HomeEventCard from '@/components/user/home/HomeEventCard.vue';
+    import HomeNoticeCard from '@/components/user/home/HomeNoticeCard.vue';
+    import HomeMainCard from '@/components/user/home/HomeMainCard.vue';
     
     const home = useHomeStore()
 

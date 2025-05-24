@@ -2,7 +2,7 @@
     
     import AdminFooter from '@/components/admin/layout/AdminFooter.vue';
     import AdminNavMenu from '@/components/admin/layout/AdminNavMenu.vue';
-    import Header from '@/components/layout/Header.vue';
+    import Header from '@/components/user/layout/Header.vue';
     
 
     

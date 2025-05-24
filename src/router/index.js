@@ -17,7 +17,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('../views/layout/AppLayoutView.vue'),
+      component: () => import('../views/user/layout/AppLayoutView.vue'),
       meta: { 
         requiresAuth: true 
       },
@@ -25,32 +25,32 @@ const router = createRouter({
         {
           path: '',
           name: 'home',
-          component: () => import('../views/home/HomeView.vue')
+          component: () => import('../views/user/home/HomeView.vue')
         },
         {
           path: 'i/chat',
           name: 'chat-ia',
-          component: () => import('../views/chat-ia/ChatIAView.vue')
+          component: () => import('../views/user/chat-ia/ChatIAView.vue')
         },
         {
           path: 'mi-progreso',
           name: 'mi-progreso',
-          component: () => import('../views/my-progress/MyProgressView.vue')
+          component: () => import('../views/user/my-progress/MyProgressView.vue')
         },
         {
           path: 'mis-clases',
           name: 'mis-clases',
-          component: () => import('../views/my-classes/MyClassesView.vue')
+          component: () => import('../views/user/my-classes/MyClassesView.vue')
         },
         {
           path: 'eventos',
           name: 'eventos',
-          component: () => import('../views/events/EventsView.vue')
+          component: () => import('../views/user/events/EventsView.vue')
         },
         {
           path: 'eventos/:slug',
           name: 'evento-info',
-          component: () => import('../views/events/EventInfoView.vue')
+          component: () => import('../views/user/events/EventInfoView.vue')
         },
       ]
     },

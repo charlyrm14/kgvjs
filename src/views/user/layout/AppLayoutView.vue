@@ -1,8 +1,8 @@
 <script setup>
     import { onMounted, onBeforeUnmount, watch } from 'vue';
-    import Header from '@/components/layout/Header.vue';
-    import NavMenu from '@/components/layout/NavMenu.vue';
-    import Footer from '@/components/layout/Footer.vue';
+    import Header from '@/components/user/layout/Header.vue';
+    import NavMenu from '@/components/user/layout/NavMenu.vue';
+    import Footer from '@/components/user/layout/Footer.vue';
     import { useNotificationsStore } from '@/stores/notifications';
 
     const notificationStore = useNotificationsStore()

@@ -1,6 +1,6 @@
 <script setup>
 
-    import EventItem from '@/components/events/EventItem.vue'
+    import EventItem from '@/components/user/events/EventItem.vue'
     import { useEventsStore } from '@/stores/events'
 
     const events = useEventsStore()

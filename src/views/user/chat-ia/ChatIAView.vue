@@ -62,7 +62,7 @@
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
                             <div class="bg-gray-300 dark:bg-slate-500 rounded-full w-12 md:w-14 lg:w-14">
-                                <img src="../../assets/img/sharky.png" alt="sharky" class="p-1 md:p-2 lg:p-2">
+                                <img src="../../../assets/img/sharky.png" alt="sharky" class="p-1 md:p-2 lg:p-2">
                             </div>
                             <p class="uppercase text-xl text-start text-blue-500"> 
                                 Sharky 
