@@ -1,5 +1,5 @@
 <script setup>
-    import BirthdateModal from '@/components/modals/BirthdateModal.vue';
+    import BirthdateModal from '@/components/modals/user/BirthdateModal.vue';
     import { useHomeStore } from '@/stores/home';
     import UserBirthdate from '@/components/home/UserBirthdate.vue';
     import UserFeatured from '@/components/home/UserFeatured.vue';
