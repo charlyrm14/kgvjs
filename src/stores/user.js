@@ -1,8 +1,9 @@
 import AuthAPI from "@/api/AuthAPI"
 import { useRouter } from "vue-router"
 import { defineStore } from "pinia"
-import { ref } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { useChatIAStore } from "./chat"
+import UserAPI from "@/api/UserAPI"
 
 export const useUserStore = defineStore('user', () => {
 
@@ -11,9 +12,33 @@ export const useUserStore = defineStore('user', () => {
     const chat = useChatIAStore()
 
     const user = ref({})
+    const users = ref([])
     const statusAddUserModal = ref(false) 
     const statusEditUserModal = ref(false)
     const statusDeleteUserModal = ref(false)
+    const alert = reactive({
+        status: false,
+        bgColor: '',
+        textColor: '',
+        text: ''
+    })
+
+    const errorMessage = reactive({
+        text: '',
+        status: false
+    })
+
+    onMounted( async () => {
+
+        try {
+
+            const response = await UserAPI.getUsers()
+            users.value = response.data
+
+        } catch (error) {
+            
+        }
+    })
 
     /**
      * The function `loadUser` asynchronously loads user data from an authentication API and assigns it
@@ -49,8 +74,62 @@ export const useUserStore = defineStore('user', () => {
         statusAddUserModal.value = true
     }
 
+    
+    /**
+     * The function `createUser` is an asynchronous function that adds a new user using data from a
+     * form, displays success or error messages, and handles errors gracefully.
+     * @param data - The `data` parameter in the `createUser` function likely contains information
+     * about the user being created. This data could include details such as the user's name, email,
+     * role ID, and any other relevant information needed to create a new user. This data is passed to
+     * the `UserAPI.add
+     */
+    const createUser = async (data) => {
+        
+        try {
+
+            const response = await UserAPI.addUser(data)
+
+            if (response.data) {
+
+                users.value.unshift(response.data)
+
+                alert.status = true,
+                alert.bgColor = 'bg-green-500',
+                alert.textColor = 'text-white',
+                alert.text = response.message
+
+                statusAddUserModal.value = false
+                
+                setTimeout(() => {
+                    alert.status = false,
+                    alert.bgColor = '',
+                    alert.textColor = '',
+                    alert.text = ''
+                }, 3000);
+
+            }   
+
+            if (response.errors) {
+                if (response.errors.email) {
+                    errorMessage.text = response.errors.email[0]
+                    errorMessage.status = true
+                }
+                if (response.errors.role_id) {
+                    errorMessage.text = response.errors.role_id[0]
+                    errorMessage.status = true
+                }
+            }    
+
+        } catch (error) {
+
+            console.log(error)
+        } 
+    }
+
     const hideAddUserModal = () => {
         statusAddUserModal.value = false
+        errorMessage.text = ''
+        errorMessage.status = false
     }
     
     /**
@@ -76,17 +155,21 @@ export const useUserStore = defineStore('user', () => {
     }
 
 return {
+        users,
         user,
         loadUser,
         logOut,
         statusAddUserModal,
         showAddUserModal,
         hideAddUserModal,
+        createUser,
         statusEditUserModal,
         showEditUserModal,
         hideEditUserModal,
         statusDeleteUserModal,
         showDeletetUserModal,
-        hideDeleteUserModal
+        hideDeleteUserModal,
+        alert,
+        errorMessage
     }
 })
