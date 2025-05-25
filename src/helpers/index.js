@@ -72,3 +72,16 @@ export const getHourByDate = (date = '2025-05-14 09:00:00') => {
         hour12: false
     });
 }
+
+/**
+ * The function currentDate returns the current date in the format "YYYY-MM-DD".
+ * @returns The function `currentDate` is returning a formatted date string in the format "YYYY-MM-DD".
+ */
+export const currentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Mes inicia en 0
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
