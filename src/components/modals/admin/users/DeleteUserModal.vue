@@ -2,10 +2,11 @@
     import { useUserStore } from '@/stores/user';
     
     const userStore = useUserStore()
+
 </script>
 
 <template>
-<div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-[90%] max-w-md p-6 mx-4">
             
             <!-- Encabezado -->
@@ -32,7 +33,12 @@
 
             <!-- Contenido -->
             <div class="text-slate-600 dark:text-slate-300 mb-6">
-                <p class="text-2xl uppercase mb-3 text-red-400"> Aqui ira un modal para eliminar un usuario </p>
+                <p 
+                    v-if="userStore.userToDelete !== null"
+                    class="text-2xl uppercase mb-3 text-red-400 text-center font-extralight"> 
+                        ¿Estas seguro de querer eliminar a 
+                            <span class="font-bold"> {{ userStore.userToDelete.name + ' ' + userStore.userToDelete.last_name }} </span> ?
+                    </p>
             </div>
 
             <!-- Acciones -->
@@ -43,6 +49,8 @@
                         Cancelar
                 </button>
                 <button
+                    v-if="userStore.userToDelete !== null"
+                    @click="userStore.deleteUser(userStore.userToDelete.id)"
                     class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-700 transition uppercase cursor-pointer">
                         Eliminar
                 </button>

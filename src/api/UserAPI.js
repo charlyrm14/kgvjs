@@ -14,7 +14,6 @@ export default {
         } catch (error) {
             console.error(error);
         }
-
     },
 
     async addUser( data ) {
@@ -35,6 +34,29 @@ export default {
         } catch (error) {
             console.error(error);
         }
+    },
 
+    async deleteUser( userId ) {
+
+        try {
+
+            const response = await fetch(`${url}/api/v1/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            if (response.ok) {
+
+                const result = await response.json();
+                return result
+            }
+            
+            if (response.status === 404) return null;
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
