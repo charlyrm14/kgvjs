@@ -13,9 +13,13 @@ export const useUserStore = defineStore('user', () => {
 
     const user = ref({})
     const users = ref([])
+    const userToDelete = ref(null)
+    const userToSendMessage = ref(null)
     const statusAddUserModal = ref(false) 
     const statusEditUserModal = ref(false)
     const statusDeleteUserModal = ref(false)
+    const statusSendMessageUserModal = ref(false)
+    
     const alert = reactive({
         status: false,
         bgColor: '',
@@ -146,12 +150,73 @@ export const useUserStore = defineStore('user', () => {
     /**
      * Delete user
      */
-    const showDeletetUserModal = () => {
+    const showDeletetUserModal = (dataUser) => {
         statusDeleteUserModal.value = true
+        userToDelete.value = dataUser
+    }
+
+    const deleteUser = async (userId) => {
+        
+        try {
+
+            const response = await UserAPI.deleteUser(userId)
+
+            if (response) {
+
+                statusDeleteUserModal.value = false
+
+                alert.status = true,
+                alert.bgColor = 'bg-green-500',
+                alert.textColor = 'text-white',
+                alert.text = 'Usuario eliminado con éxito'
+
+                setTimeout(() => {
+                    alert.status = false,
+                    alert.bgColor = '',
+                    alert.textColor = '',
+                    alert.text = ''
+                }, 3000);
+
+                users.value = users.value.filter((usr) => usr.id !== userId)
+
+            } else {
+                
+                    statusDeleteUserModal.value = false
+
+                    alert.status = true,
+                    alert.bgColor = 'bg-red-500',
+                    alert.textColor = 'text-white',
+                    alert.text = 'Usuario no encontrado'
+
+                    setTimeout(() => {
+                        alert.status = false,
+                        alert.bgColor = '',
+                        alert.textColor = '',
+                        alert.text = ''
+                    }, 3000);
+            }
+
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const hideDeleteUserModal = () => {
         statusDeleteUserModal.value = false
+    }
+
+    /**
+     * Send Message
+     */
+
+    const showSendMessageModal = (dataUser) => {
+        statusSendMessageUserModal.value = true
+        userToSendMessage.value = dataUser
+    }
+
+    const hideSendMessageModal = () => {
+        statusSendMessageUserModal.value = false
     }
 
 return {
@@ -169,7 +234,13 @@ return {
         statusDeleteUserModal,
         showDeletetUserModal,
         hideDeleteUserModal,
+        userToDelete,
+        deleteUser,
         alert,
-        errorMessage
+        errorMessage,
+        statusSendMessageUserModal,
+        showSendMessageModal,
+        hideSendMessageModal,
+        userToSendMessage
     }
 })
