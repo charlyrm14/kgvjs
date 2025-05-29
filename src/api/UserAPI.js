@@ -36,6 +36,24 @@ export default {
         }
     },
 
+    async getUserByEmail(email) {
+
+        try {
+
+            const response = await fetch(`${url}/api/v1/users/search/${email}`)
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async deleteUser( userId ) {
 
         try {

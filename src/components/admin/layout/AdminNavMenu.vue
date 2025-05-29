@@ -9,7 +9,7 @@
         <div class="flex justify-center gap-5 p-1 rounded-full bg-gray-200 dark:bg-slate-700 border border-gray-300 dark:border-slate-700">
             <div>
                 <RouterLink
-                    to="#"
+                    :to="{ name: 'admin-home' }"
                     class="font-extralight py-2 px-3 cursor-pointer uppercase flex items-center gap-2"
                     :class="route.name === 'admin-home' ? 'border border-gray-300 dark:border-slate-700 rounded-full py-2 px-3 bg-white dark:bg-slate-800 text-black dark:text-white' : 'text-gray-500' ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -29,7 +29,7 @@
             </div>
             <div>
                 <RouterLink
-                    to="#"
+                    :to="{ name: 'admin-categories' }"
                     class="font-extralight py-2 px-3 cursor-pointer uppercase flex items-center gap-2"
                     :class="route.name === 'admin-categories' ? 'border border-gray-300 dark:border-slate-700 rounded-full py-2 px-3 bg-white dark:bg-slate-800 text-black dark:text-white' : 'text-gray-500' ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
