@@ -6,12 +6,22 @@
     const swimmingStore = useSwimmingCategoriesStore()
 
     const message = ref('')
-    
+    const filePath = ref(null)
 
     const handleSubmit = (data) => {
-        console.log(data)
+
+        const formData = {
+            ...data,
+            image: filePath.value
+        };
+
+        // Enviando data para crear nueva categoría
+        console.log(formData)
     }
     
+    const handleImageUpload = (path) => {
+        filePath.value = path;
+    };
 
 </script>
 
@@ -84,23 +94,8 @@
                             message-class="text-red-500 text-sm px-2 font-light"/>
                     </div>
 
-                    <div class="my-3">
-                        <label for="image" class="uppercase dark:text-slate-300 font-light"> Imagen </label>
-                        <FormKit
-                            type="file"
-                            name="image"
-                            id="image"
-                            accept=".jpg,.png"
-                            multiple="false"
-                            input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
-                            validation="required"
-                            :validation-messages="{
-                                required: 'Selecciona una imagen',
-                            }"
-                            message-class="text-red-500 text-sm px-2 font-light"/>
-                    </div>
-
-                    <Dropzone/>
+                    <Dropzone
+                        @uploaded="handleImageUpload"/>
 
                     <div class="my-3">
                         <label for="message" class="uppercase dark:text-slate-300 font-light"> Mensaje de felicitación </label>
