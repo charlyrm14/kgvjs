@@ -19,9 +19,9 @@
             </div>
             <div>
                 <RouterLink
-                    to="#"
+                    :to="{ name: 'admin-content' }"
                     class="font-extralight py-2 px-3 cursor-pointer uppercase flex items-center gap-2"
-                    :class="route.name === 'mis-clases' ? 'border border-gray-300 dark:border-slate-700 rounded-full py-2 px-3 bg-white dark:bg-slate-800 text-black dark:text-white' : 'text-gray-500' ">
+                    :class="route.name === 'admin-content' ? 'border border-gray-300 dark:border-slate-700 rounded-full py-2 px-3 bg-white dark:bg-slate-800 text-black dark:text-white' : 'text-gray-500' ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                         </svg> Contenido

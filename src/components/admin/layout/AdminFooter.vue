@@ -7,7 +7,7 @@
 <template>
 <footer class="fixed bottom-0 left-0 right-0 bg-white border border-gray-300 shadow-lg dark:border-0 dark:bg-gray-900 p-3 flex justify-around items-center z-20 mx-3 mb-3 rounded-lg md:hidden">
         <RouterLink 
-            :to="{ name: 'chat-ia' }"
+            :to="{ name: 'admin-home' }"
             class="flex flex-col items-center text-xs cursor-pointer"
             :class="route.name === 'admin-home' ? 'text-blue-700' : 'text-gray-500 dark:text-gray-500' ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
@@ -15,9 +15,9 @@
                 </svg>
         </RouterLink>
         <RouterLink
-            to="#"
+            :to="{ name: 'admin-content' }"
             class="flex flex-col items-center text-xs cursor-pointer"
-            :class="route.name === 'mi-progreso' ? 'text-blue-700' : 'text-gray-500 dark:text-gray-500' ">
+            :class="route.name === 'admin-content' ? 'text-blue-700' : 'text-gray-500 dark:text-gray-500' ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg> 
@@ -32,7 +32,7 @@
                 </svg>
         </RouterLink>
         <RouterLink 
-            :to="{ name: 'eventos' }"
+            to="#"
             class="flex flex-col items-center text-blue-500 text-xs cursor-pointer"
             :class="route.name === 'eventos' ? 'text-blue-700' : 'text-gray-500 dark:text-gray-500' ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">

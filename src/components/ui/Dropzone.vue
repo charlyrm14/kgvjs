@@ -116,7 +116,7 @@
                     <button 
                         v-if="!previewUrl"
                         @click.prevent="selectFile" 
-                        class="text-white dark:text-slate-300 bg-blue-500 px-4 p-1 rounded-lg mt-4 cursor-pointer hover:opacity-75"> 
+                        class="text-white dark:text-slate-300 bg-purple-500 px-4 p-1 rounded-lg mt-4 cursor-pointer hover:opacity-75"> 
                             Seleccionar archivo 
                     </button>
                 </div>
