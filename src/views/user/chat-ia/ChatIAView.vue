@@ -55,25 +55,7 @@
 <template>
     <section class="p-3 md:p-8 lg:p-8 md:my-8 lg:my-8">
         <div class="md:px-8 lg:px-8 mt-10">
-            <div class="bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-xl h-[85vh] md:h-[75vh] lg:h-[75vh] flex flex-col">
-
-                <!-- Header -->
-                <div class="py-2 px-6 border-b border-gray-300 dark:border-slate-600 text-white text-center">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <div class="bg-gray-300 dark:bg-slate-500 rounded-full w-12 md:w-14 lg:w-14">
-                                <img src="../../../assets/img/sharky.png" alt="sharky" class="p-1 md:p-2 lg:p-2">
-                            </div>
-                            <p class="uppercase text-xl text-start text-blue-500"> 
-                                Sharky 
-                                <span class="block text-sm text-blue-500 font-light"> King Dreams </span>
-                            </p>
-                        </div>
-                        <div>
-                            <p class="uppercase font-light text-lg text-gray-500 dark:text-slate-400"> Sábado 17 de mayo </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="h-[85vh] md:h-[75vh] lg:h-[75vh] flex flex-col">
 
                 <!-- Mensajes del chat -->
                 <div class="flex-1 overflow-y-auto px-6 py-4 space-y-4" ref="chatContainer">
@@ -112,7 +94,7 @@
                 <Spinner v-if="chat.loading"/>
 
                 <!-- Input al final del contenedor -->
-                <div class="px-6 py-3 border-t border-gray-300 dark:border-slate-600">
+                <div class="px-6 py-3">
                     <form @submit.prevent="handleSubmit">
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3">

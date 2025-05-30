@@ -59,7 +59,7 @@ import { ref } from 'vue';
                                     <span class="block font-light text-sm dark:text-slate-400"> admin </span>
                                 </p>
                             </div>
-                            <div class="border-b dark:border-slate-500"></div>
+                            <div class="border-b border-gray-300 dark:border-slate-500"></div>
                             <div class="mt-3">
                                 <div 
                                     class=" hover:bg-gray-200 dark:hover:bg-slate-500 px-4 py-2 cursor-pointer"> 
