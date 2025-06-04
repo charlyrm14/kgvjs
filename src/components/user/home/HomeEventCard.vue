@@ -21,7 +21,7 @@
         <p 
             v-if="event"
             class="text-gray-600 dark:text-white text-lg mt-2 uppercase">
-            {{ event?.title}}
+                {{ event?.title}}
         </p>
         <p
             v-else
@@ -50,7 +50,7 @@
         <div v-if="event">
             <RouterLink
                 :to="{
-                    name: 'evento-info',
+                    name: 'contents-info',
                     params: {
                         slug: event.slug
                     }

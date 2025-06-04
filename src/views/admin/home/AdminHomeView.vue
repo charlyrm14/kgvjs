@@ -49,21 +49,11 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
+        <div class="mt-10 bg-white dark:bg-slate-700 p-4 rounded-lg shadow-lg">
             <UserItem
                 v-for="user in userStore?.users"
                 :key="user.id"
                 :user="user"/>
-        </div>
-
-        <div
-            v-if="userStore?.users.length >= 16"
-            class="mt-15">
-                <div class="flex justify-center items-center">
-                    <button class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg uppercase font-extralight cursor-pointer hover:opacity-75">
-                        Mostrar más
-                    </button>
-                </div>
         </div>
 
     </section>

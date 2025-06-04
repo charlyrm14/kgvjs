@@ -67,6 +67,11 @@
                 </div>
                 <div
                     v-else>
+                        <div 
+                            v-if="contentStore.errorEventMessage.status"
+                            class="flex justify-center">
+                                <p class="text-red-500 my-3"> {{ contentStore.errorEventMessage.text }} </p>
+                        </div>
                         <FormNewEvent/>
                 </div>
             </div>
