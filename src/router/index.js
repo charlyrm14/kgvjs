@@ -43,14 +43,14 @@ const router = createRouter({
           component: () => import('../views/user/my-classes/MyClassesView.vue')
         },
         {
-          path: 'eventos',
-          name: 'eventos',
-          component: () => import('../views/user/events/EventsView.vue')
+          path: 'publicaciones',
+          name: 'contents',
+          component: () => import('../views/user/contents/ContentsView.vue')
         },
         {
-          path: 'eventos/:slug',
-          name: 'evento-info',
-          component: () => import('../views/user/events/EventInfoView.vue')
+          path: 'publicaciones/:slug',
+          name: 'contents-info',
+          component: () => import('../views/user/contents/ContentInfoView.vue')
         },
       ]
     },

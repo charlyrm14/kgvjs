@@ -6,7 +6,11 @@
         getDayByDate, 
         getMonthNameByDate
     } from '@/helpers'
-import ContentAPI from '@/api/ContentAPI';
+
+    import ContentAPI from '@/api/ContentAPI';
+    import { useContentStore } from '@/stores/contents';
+
+    const contentStore = useContentStore()
 
     const route = useRoute()
     const { slug } = route.params
@@ -25,7 +29,7 @@ import ContentAPI from '@/api/ContentAPI';
     <section class="p-8 my-8">
         <div class="flex justify-end items-center my-6">
             <RouterLink
-                :to="{ name: 'eventos' }"
+                :to="{ name: 'contents' }"
                 class="uppercase bg-pink-500 text-white  inline-flex gap-x-2 items-center px-4 py-2 cursor-pointer rounded-lg hover:opacity-75">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
@@ -37,7 +41,7 @@ import ContentAPI from '@/api/ContentAPI';
                 <div
                     class="md:col-span-2 lg:col-span-1 p-4">
                     <img 
-                        src="../../assets/img/img-53.jpg" 
+                        :src="contentStore.url_api + '/' + event?.cover_image" 
                         alt="Imagen evento" 
                         class="rounded-lg md:h-full">
                 </div>
@@ -54,27 +58,29 @@ import ContentAPI from '@/api/ContentAPI';
                     <h3 class="text-4xl my-2 text-purple-600 uppercase font-extrabold text-shadow"> {{ event?.title }} </h3>
                     <p class="dark:text-slate-400 text-lg"> {{ event?.content }} </p>
 
-                    <div class="flex justify-start items-center gap-4">
-                        <div
-                            :class="randomColor()"
-                            class="bg-green-100 text-center px-4 py-2 rounded-md md:w-30 mt-5">
-                            <span class="uppercase"> Inicia </span>
-                            <p class="text-2xl font-semibold text-gray-600">
-                                {{ getDayByDate(event?.start_date) }}
-                                    <span class="block uppercase font-light text-base"> {{ getMonthNameByDate(event?.start_date) }} </span>
-                            </p>
-                            <p class="text-2xl font-light text-gray-800 mt-1"> {{ event?.start_hour }} </p>
-                        </div>
-                        <div
-                            :class="randomColor()"
-                            class="bg-green-100 text-center px-4 py-2 rounded-md md:w-30 mt-5">
-                            <span class="uppercase"> Termina </span>
-                            <p class="text-2xl font-semibold text-gray-600">
-                                {{ getDayByDate(event?.end_date) }}
-                                    <span class="block uppercase font-light text-base"> {{ getMonthNameByDate(event?.end_date) }} </span>
-                            </p>
-                            <p class="text-2xl font-light text-gray-800 mt-1"> {{ event?.end_hour }} </p>
-                        </div>
+                    <div
+                        v-if="event?.content_category_id ===  2"
+                        class="flex justify-start items-center gap-4">
+                            <div
+                                :class="randomColor()"
+                                class="bg-green-100 text-center px-4 py-2 rounded-md md:w-30 mt-5">
+                                <span class="uppercase"> Inicia </span>
+                                <p class="text-2xl font-semibold text-gray-600">
+                                    {{ getDayByDate(event?.start_date) }}
+                                        <span class="block uppercase font-light text-base"> {{ getMonthNameByDate(event?.start_date) }} </span>
+                                </p>
+                                <p class="text-2xl font-light text-gray-800 mt-1"> {{ event?.start_hour }} </p>
+                            </div>
+                            <div
+                                :class="randomColor()"
+                                class="bg-green-100 text-center px-4 py-2 rounded-md md:w-30 mt-5">
+                                <span class="uppercase"> Termina </span>
+                                <p class="text-2xl font-semibold text-gray-600">
+                                    {{ getDayByDate(event?.end_date) }}
+                                        <span class="block uppercase font-light text-base"> {{ getMonthNameByDate(event?.end_date) }} </span>
+                                </p>
+                                <p class="text-2xl font-light text-gray-800 mt-1"> {{ event?.end_hour }} </p>
+                            </div>
                     </div>
 
                     <div class="mt-8">

@@ -1,19 +1,25 @@
 <script setup>
-    import { useUserStore } from '@/stores/user';
     import { onMounted, onUnmounted, ref } from 'vue';
+    import { formattedDate } from '@/helpers/index.js'
+    import { useContentStore } from '@/stores/contents';
     
-    const menuOptions = ref(false)
     const targetRef = ref(null)
+    const menuOptions = ref(false)
+    
+    const contentStore = useContentStore()
 
-    const userStore = useUserStore()
+    const colorCategory = {
+        1: 'bg-pink-500',
+        2: 'bg-cyan-500'
+    }
 
     defineProps({
-        user: {
+        content: {
             type: Object,
             required: true
         }
     })
-
+    
     onMounted(() => {
         document.addEventListener('click', handleClickOutside)
     })
@@ -28,11 +34,6 @@
         }
     }
 
-    const colorRole = {
-        1: 'bg-pink-500',
-        2: 'bg-blue-500',
-        3: 'bg-amber-500'
-    }
 </script>
 
 <template>
@@ -41,29 +42,33 @@
             <div class="flex items-center gap-x-3">
                 <div>
                     <img 
-                        src="../../../assets/img/300-27.jpg" 
+                        :src="contentStore.url_api + '/' + content?.cover_image" 
                         alt=""
-                        class="w-15 h-15 rounded border-2 border-cyan-500 p-0.5">
+                        class="w-15 h-15 rounded">
                 </div>
                 <div>
                     <p class="uppercase text-gray-600 dark:text-slate-200">
-                        {{ user?.name }} 
-                        <span class="block text-sm"> {{ user?.last_name }} {{ user?.mothers_name }} </span>
+                        {{ content?.title }}
+                        <span 
+                            class="block text-sm text-white w-20 text-center rounded mt-1"
+                            :class="colorCategory[content?.content_category_id]">
+                                {{ content?.content_category?.title }}
+                        </span>
                     </p>
                 </div>
             </div>
             <div class="flex justify-start md:justify-center lg:justify-center my-3 md:my-0 lg:my-0">
                 <span 
-                    class="block text-sm text-white w-auto px-3 text-center rounded mt-1"
-                    :class="colorRole[user?.role_id] ?? 'bg-red-500' ">
-                        {{ user?.role?.name }}
+                    class="block text-sm w-auto text-center rounded mt-1 px-2"
+                    :class="content?.active == 1 ? 'bg-green-500 text-white' : 'bg-gray-400 text-white dark:bg-slate-400 dark:text-white' ">
+                        {{ content?.active == 1 ? 'Publicado' : 'No publicado' }}
                 </span>
             </div>
             <div class="relative flex justify-start md:justify-center lg:justify-center my-3 md:my-0 lg:my-0" ref="targetRef">
                 <button
                     @click="menuOptions = !menuOptions"
                     class="flex justify-center items-center gap-x-1 px-4 py-2 border border-gray-300 dark:border-slate-500 text-gray-700 dark:text-slate-300 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-400 font-extralight shadow">
-                        Administrar 
+                        Administrar
                             <svg 
                                 v-if="!menuOptions"
                                 xmlns="http://www.w3.org/2000/svg" 
@@ -88,9 +93,23 @@
                 <div
                     v-if="menuOptions"
                     :class="menuOptions ? 'z-50' : '' "
-                    class="absolute top-14 -right-1 w-45 border border-gray-300 dark:border-slate-500 bg-white dark:bg-slate-700 rounded-lg p-1.5">
+                    class="absolute top-14 -right-1 w-50 border border-gray-300 dark:border-slate-500 bg-white dark:bg-slate-700 rounded-lg p-1.5">
                         <div
-                            @click="userStore.showEditUserModal()"
+                            class="flex items-center justify-start gap-x-3 hover:bg-gray-200 dark:hover:bg-slate-500 p-1 rounded-lg cursor-pointer">
+                                <div>
+                                    <button type="button" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 transition-colors duration-300 ease-in-out focus:outline-none peer">
+                                        <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ease-in-out translate-x-1 peer-checked:translate-x-6"></span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <p class="dark:text-slate-200"> 
+                                        Visible
+                                            <span class="block text-xs text-slate-400"> Mostrar contenido </span> 
+                                    </p>
+                                </div>
+                        </div>
+                        <div class="my-2 border-t border-gray-300 dark:border-slate-600"></div>
+                        <div
                             class="flex items-center justify-start gap-x-3 hover:bg-gray-200 dark:hover:bg-slate-500 p-1 rounded-lg cursor-pointer">
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-slate-400">
@@ -103,27 +122,10 @@
                                             <span class="block text-xs text-slate-400"> Editar usuario </span> 
                                     </p>
                                 </div>
-                        </div>
-                        <div class="my-2 border-t border-gray-300 dark:border-slate-600"></div>
-                        <div 
-                            v-if="user?.phone_number !== null"
-                            @click="userStore.showSendMessageModal(user)"
-                            class="flex items-center justify-start gap-x-3 hover:bg-gray-200 dark:hover:bg-slate-500 p-1 rounded-lg cursor-pointer">
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-slate-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="dark:text-slate-200"> 
-                                        Mensaje
-                                            <span class="block text-xs text-slate-400"> Enviar mensaje </span> 
-                                    </p>
-                                </div>
-                        </div>
+                        </div>                            
                         <div class="my-2 border-t border-gray-300 dark:border-slate-600"></div>
                         <div
-                            @click="userStore.showDeletetUserModal(user)"
+                            @click="contentStore.showDeleteContentModal(content)"
                             class="flex items-center justify-start gap-x-3 hover:bg-gray-200 dark:hover:bg-slate-500 hover:text-red-500 p-1 rounded-lg cursor-pointer">
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-slate-400">
@@ -137,7 +139,7 @@
                                     </p>
                                 </div>
                         </div>
-                </div>
+            </div>
             </div>
         </div>
         <div class="border-b border-dashed border-gray-300 dark:border-slate-400 my-3"></div>

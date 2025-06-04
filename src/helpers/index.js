@@ -85,3 +85,22 @@ export const currentDate = () => {
 
     return `${year}-${month}-${day}`;
 }
+
+/**
+ * The function formattedDate returns the  date in the format "YYYY-MM-DD".
+ * @returns The function `formattedDate` is returning a formatted date string in the format "YYYY-MM-DD".
+ */
+export const formattedDate = (isoDate = '2025-05-14 09:00:00') => {
+    const date = new Date(isoDate);
+
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+export const formattedTimeAndDate = (date = '2025-05-14 00:00') => {
+    const originalDate = date;
+    return originalDate.replace("T", " ");
+}

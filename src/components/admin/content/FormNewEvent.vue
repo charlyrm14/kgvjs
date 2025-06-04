@@ -2,9 +2,11 @@
     import Dropzone from '@/components/ui/Dropzone.vue';
     import { useContentStore } from '@/stores/contents';
     import { ref } from 'vue';
+    import { formattedTimeAndDate } from '@/helpers/index.js'
 
     const contentStore = useContentStore()
 
+    const statusContent = ref(0)
     const filePath = ref(null)
 
     const handleImageUpload = (path) => {
@@ -12,12 +14,27 @@
     };
 
     const handleSubmit = ( data ) => {
-        console.log('Enviando data de evento...')
+
+        data.start_date = formattedTimeAndDate(data.start_date)
+        data.end_date = formattedTimeAndDate(data.end_date)
+        
+        const formData = {
+            ...data,
+            cover_image: filePath.value,
+            active: statusContent.value
+        };
+
+        contentStore.newEvent(formData)
+    }
+
+    const toggle = () => {
+        statusContent.value = statusContent.value === 1 ? 0 : 1
     }
 
 </script>
 
 <template>
+    
     <FormKit
         id="addEventForm"
         type="form"
@@ -28,8 +45,14 @@
 
             <div class="mt-6 flex justify-end items-center gap-x-3">
                 <p class="dark:text-slate-300 uppercase"> Publicar Evento </p>
-                <button type="button" class="relative inline-flex h-6 w-11 items-center rounded-full bg-green-500 transition-colors duration-300 ease-in-out focus:outline-none peer">
-                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ease-in-out translate-x-1 peer-checked:translate-x-6"></span>
+                <button 
+                    type="button" 
+                    class="relative inline-flex h-6 w-11 items-center rounded-full bg-green-500 transition-colors duration-300 ease-in-out focus:outline-none peer cursor-pointer"
+                    :class="statusContent  === 1 ? 'bg-green-500' : 'bg-slate-400'"
+                    @click="toggle">
+                        <span 
+                        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ease-in-out translate-x-1 peer-checked:translate-x-6"
+                        :class="statusContent  === 1 ? 'translate-x-6' : 'translate-x-1'"></span>
                 </button>
             </div>
 
@@ -67,7 +90,7 @@
                 <div>
                     <label for="start_date" class="uppercase dark:text-slate-300 font-light"> Fecha Inicio </label>
                     <FormKit
-                        type="date"
+                        type="datetime-local"
                         name="start_date"
                         input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
                         message-class="text-red-500 text-sm px-2 font-light"
@@ -79,7 +102,7 @@
                 <div>
                     <label for="end_date" class="uppercase dark:text-slate-300 font-light"> Fecha fin </label>
                     <FormKit
-                        type="date"
+                        type="datetime-local"
                         name="end_date"
                         input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
                         message-class="text-red-500 text-sm px-2 font-light"

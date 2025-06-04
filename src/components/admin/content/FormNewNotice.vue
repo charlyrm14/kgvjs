@@ -5,6 +5,7 @@
 
     const contentStore = useContentStore()
 
+    const statusContent = ref(0)
     const filePath = ref(null)
 
     const handleImageUpload = (path) => {
@@ -12,7 +13,18 @@
     };
 
     const handleSubmit = ( data ) => {
-        console.log('Enviando data de aviso...')
+
+        const formData = {
+            ...data,
+            cover_image: filePath.value,
+            active: statusContent.value
+        };
+
+        contentStore.newNotice(formData)
+    }
+
+    const toggle = () => {
+        statusContent.value = statusContent.value === 1 ? 0 : 1
     }
 
 </script>
@@ -28,8 +40,14 @@
 
             <div class="mt-6 flex justify-end items-center gap-x-3">
                 <p class="dark:text-slate-300 uppercase"> Publicar Aviso </p>
-                <button type="button" class="relative inline-flex h-6 w-11 items-center rounded-full bg-green-500 transition-colors duration-300 ease-in-out focus:outline-none peer">
-                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ease-in-out translate-x-1 peer-checked:translate-x-6"></span>
+                <button 
+                    type="button" 
+                    class="relative inline-flex h-6 w-11 items-center rounded-full bg-green-500 transition-colors duration-300 ease-in-out focus:outline-none peer cursor-pointer"
+                    :class="statusContent  === 1 ? 'bg-green-500' : 'bg-slate-400'"
+                    @click="toggle">
+                        <span 
+                        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ease-in-out translate-x-1 peer-checked:translate-x-6"
+                        :class="statusContent  === 1 ? 'translate-x-6' : 'translate-x-1'"></span>
                 </button>
             </div>
 
