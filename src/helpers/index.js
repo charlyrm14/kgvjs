@@ -87,6 +87,17 @@ export const currentDate = () => {
 }
 
 /**
+ * The function currentMonthYear returns the current date in the format "June 2025".
+ * @returns The function `currentMonthYear` is returning a formatted date string in the format "June 2025".
+ */
+export const currentMonthYear = () => {
+    const date = new Date();
+    const options = { month: 'long', year: 'numeric' };
+
+    return new Intl.DateTimeFormat('es-ES', options).format(date).toUpperCase();
+}
+
+/**
  * The function formattedDate returns the  date in the format "YYYY-MM-DD".
  * @returns The function `formattedDate` is returning a formatted date string in the format "YYYY-MM-DD".
  */

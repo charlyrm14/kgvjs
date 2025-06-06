@@ -74,7 +74,7 @@
         <div class="mt-6 flex justify-center">
             <div class="w-60 bg-white dark:bg-slate-600 rounded-lg shadow">
                 <p class="text-center uppercase text-sm mt-2 dark:text-gray-300"> Nivel Actual </p>
-                <h2 class="text-amber-500 text-center uppercase text-4xl mb-2"> FOCA </h2>
+                <h2 class="text-amber-500 text-center uppercase text-4xl mb-2"> {{ userCurrentCategory.category }} </h2>
             </div>
         </div>
 
@@ -82,6 +82,7 @@
 
     <section class="p-8">
         <div class="px-8">
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-3 lg:gap-1">
 
                 <div

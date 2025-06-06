@@ -1,6 +1,7 @@
 <script setup>
     import { useUserClassesStore } from '@/stores/classes';
     import { computed, ref } from 'vue'
+    import { currentMonthYear } from '@/helpers/index.js'
 
     const userClasses = useUserClassesStore()
 
@@ -14,6 +15,12 @@
         { id: 5, day: "VIERNES" },
         { id: 6, day: "SÁBADO" },
         { id: 7, day: "DOMINGO" },
+    ];
+
+    const statusAssistence = [
+        { status: 0, textColor: 'text-red-500', text: '', icon: 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'},
+        { status: 1, textColor: 'text-green-500', text: '', icon: 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'},
+        { status: 2, textColor: 'text-gray-700 dark:text-slate-400', text: 'Día no asignado', icon: 'M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'}
     ];
 
     const userHasDay = (dayName) => {
@@ -65,7 +72,7 @@
                 <div class="flex min-w-0 gap-x-4 items-center mb-3">
                     <div class="min-w-0 flex-auto">
                         <p class="text-gray-600 dark:text-gray-100 text-base md:text-lg lg:text-xl"> Historial de asistencias </p>
-                        <span class="text-sm md:text-xl lg:text-2xl dark:text-gray-400"> Este mes </span>
+                        <span class="text-sm md:text-xl lg:text-2xl dark:text-gray-400"> {{ currentMonthYear() }} </span>
                     </div>
                     <div>
                         <button
@@ -98,20 +105,25 @@
                 <div
                     v-if="showThisMonthContent"
                     class="mt-3 mb-5 px-5 transition-all">
-                        <p class="font-light flex items-center gap-3 uppercase text-red-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg> Miércoles 14
+                        <p 
+                            v-for="historyClass in userClasses.historyClasses"
+                            :key="historyClass.id"
+                            class="font-light flex items-center gap-3 uppercase my-2"
+                            :class="statusAssistence[historyClass.assistance]['textColor']">
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    stroke-width="1.5" 
+                                    stroke="currentColor" 
+                                    class="size-6">
+                                        <path 
+                                            stroke-linecap="round" 
+                                            stroke-linejoin="round" 
+                                            :d="statusAssistence[historyClass.assistance]['icon']" />
+                                </svg> {{ historyClass.translated_format + ' ' + statusAssistence[historyClass.assistance]['text'] }}
                         </p> 
-
-                        <p class="text-green-500 font-light flex items-center gap-3 my-2 uppercase">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                            </svg> Lunes 12
-                        </p> 
-
                 </div>
-            </div>
-
+        </div>
     </section>
 </template>
