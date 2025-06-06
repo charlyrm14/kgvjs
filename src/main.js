@@ -6,11 +6,15 @@ import { plugin, defaultConfig } from '@formkit/vue'
 
 import App from './App.vue'
 import router from './router'
+import { useThemeStore } from './stores/theme'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(plugin, defaultConfig)
+
+const themeStore = useThemeStore()
+themeStore.applyTheme()
 
 app.mount('#app')

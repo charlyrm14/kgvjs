@@ -41,7 +41,7 @@ export const useNotificationsStore = defineStore('notifications', () => {
             notificationStatus.value = true
             content.title = data.content.title
             content.content = data.content.content.slice(0, 30)
-            content.slug = `${contentCategories[data.content.content_category_id].url}/${data.content.slug}`         
+            content.slug = `publicaciones/${data.content.slug}`         
         });
     }
 

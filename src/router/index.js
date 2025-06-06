@@ -52,6 +52,11 @@ const router = createRouter({
           name: 'contents-info',
           component: () => import('../views/user/contents/ContentInfoView.vue')
         },
+        {
+          path: 'configuracion',
+          name: 'settings',
+          component: () => import('../views/user/settings/SettingsView.vue')
+        },
       ]
     },
     {

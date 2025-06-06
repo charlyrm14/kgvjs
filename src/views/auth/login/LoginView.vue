@@ -20,9 +20,9 @@
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col md:flex-row dark:text-white">
+    <div class="min-h-screen flex flex-col md:flex-row bg dark:text-white">
         
-        <div class="hidden md:flex md:w-1/2 items-center justify-center bg-gray-800 p-10">
+        <div class="hidden md:flex md:w-1/2 items-center justify-center bg-gray-100 dark:bg-gray-800 p-10">
             <div class="text-center">
             <img 
                 src="../../../assets/img/agency-dark.png" 
