@@ -16,9 +16,9 @@ export const useUserClassesStore = defineStore('user-classes', () => {
                 UserClassesAPI.getHistoryClassesByUser()
             ]);
 
-            classes.value = days_classes.data
-            historyClasses.value = history_classes.data.data
-
+            classes.value = days_classes.data.data
+            historyClasses.value = history_classes.data.data    
+            
         } catch (error) {
             console.error(error)
         }

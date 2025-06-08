@@ -25,8 +25,9 @@
             await user.loadUser()
 
             const data = await SwimmingCategoriesAPI.getUserSwimmingCategories(user.user.id)
-            userCategories.value = data.data.categories
-            Object.assign(userCurrentCategory, data.data.current_category)
+            
+            userCategories.value = data.data.data.categories
+            Object.assign(userCurrentCategory, data.data.data.current_category)
             hasCategories.value = true
             
         } catch (error) {
@@ -71,10 +72,17 @@
                 </div>
         </div>
 
-        <div class="mt-6 flex justify-center">
+        <div
+            class="mt-6 flex justify-center">
             <div class="w-60 bg-white dark:bg-slate-600 rounded-lg shadow">
-                <p class="text-center uppercase text-sm mt-2 dark:text-gray-300"> Nivel Actual </p>
-                <h2 class="text-amber-500 text-center uppercase text-4xl mb-2"> {{ userCurrentCategory.category }} </h2>
+                <p 
+                    class="text-center uppercase text-sm mt-2  p-2"
+                    :class="userCurrentCategory?.category ? 'dark:text-gray-300' : 'text-amber-500'"> 
+                        {{ userCurrentCategory?.category ? 'Nivel Actual' : 'Empieza tu aventura para ser el mejor nadador' }} 
+                </p>
+                <h2 
+                    v-if="userCurrentCategory?.category"
+                    class="text-amber-500 text-center uppercase text-4xl mb-2"> {{ userCurrentCategory?.category }} </h2>
             </div>
         </div>
 

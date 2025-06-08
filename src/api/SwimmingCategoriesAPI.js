@@ -23,7 +23,11 @@ export default {
             const response = await fetch(`${url}/api/v1/swimming-categories/by-user/${userId}`)
 
             const result = await response.json();
-            return result
+            
+            return {
+                data: result,
+                status: response.status
+            }
             
         } catch (error) {
             console.error(error);
