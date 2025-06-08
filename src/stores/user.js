@@ -4,6 +4,7 @@ import { defineStore } from "pinia"
 import { onMounted, reactive, ref } from "vue"
 import { useChatIAStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
+import UserClassesAPI from "@/api/UserClassesAPI"
 
 export const useUserStore = defineStore('user', () => {
 
@@ -19,6 +20,7 @@ export const useUserStore = defineStore('user', () => {
     const statusEditUserModal = ref(false)
     const statusDeleteUserModal = ref(false)
     const statusSendMessageUserModal = ref(false)
+    const statusAssistanceAssignModal = ref(false)
     
     const alert = reactive({
         status: false,
@@ -30,6 +32,12 @@ export const useUserStore = defineStore('user', () => {
     const errorMessage = reactive({
         text: '',
         status: false
+    })
+
+    const userMessageAssistanceAssign = reactive({
+        text: '',
+        status: false,
+        textColor: '',
     })
 
     onMounted( async () => {
@@ -219,6 +227,67 @@ export const useUserStore = defineStore('user', () => {
         statusSendMessageUserModal.value = false
     }
 
+    /**
+     * Asistencia usuario
+     */
+    const showAssistanceAssignModal = () => {
+        statusAssistanceAssignModal.value = true
+    }
+
+    const hideAssistanceAssignModal = () => {
+        statusAssistanceAssignModal.value = false
+        userMessageAssistanceAssign.status = false
+        userMessageAssistanceAssign.text = ''
+        userMessageAssistanceAssign.textColor = ''
+    }
+
+    const userAssistance = async(data) => {
+        try {
+            
+            const response = await UserClassesAPI.userAssistance(data)
+
+            if(response.status === 201) {
+                userMessageAssistanceAssign.status = true
+                userMessageAssistanceAssign.text = response.data.message
+                userMessageAssistanceAssign.textColor = 'text-green-500'
+
+                setTimeout(() => {
+                    userMessageAssistanceAssign.status = false
+                    userMessageAssistanceAssign.text = ''
+                    userMessageAssistanceAssign.textColor = ''
+
+                }, 3000);
+            }
+
+            if(response.status === 400) {
+                userMessageAssistanceAssign.status = true
+                userMessageAssistanceAssign.text = response.data.message
+                userMessageAssistanceAssign.textColor = 'text-red-500'
+
+                setTimeout(() => {
+                    userMessageAssistanceAssign.status = false
+                    userMessageAssistanceAssign.text = ''
+                    userMessageAssistanceAssign.textColor = ''
+                }, 3000);
+            }
+
+            if(response.status === 422) {
+                userMessageAssistanceAssign.status = true
+                userMessageAssistanceAssign.text = response.data.message
+                userMessageAssistanceAssign.textColor = 'text-red-500'
+
+                setTimeout(() => {
+                    userMessageAssistanceAssign.status = false
+                    userMessageAssistanceAssign.text = ''
+                    userMessageAssistanceAssign.textColor = ''
+                }, 3000);
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
 return {
         users,
         user,
@@ -241,6 +310,11 @@ return {
         statusSendMessageUserModal,
         showSendMessageModal,
         hideSendMessageModal,
-        userToSendMessage
+        userToSendMessage,
+        statusAssistanceAssignModal,
+        showAssistanceAssignModal,
+        hideAssistanceAssignModal,
+        userAssistance,
+        userMessageAssistanceAssign
     }
 })

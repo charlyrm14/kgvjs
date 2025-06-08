@@ -106,6 +106,7 @@
                     v-if="showThisMonthContent"
                     class="mt-3 mb-5 px-5 transition-all">
                         <p 
+                            v-if="userClasses.historyClasses.length > 0"
                             v-for="historyClass in userClasses.historyClasses"
                             :key="historyClass.id"
                             class="font-light flex items-center gap-3 uppercase my-2"
@@ -123,6 +124,11 @@
                                             :d="statusAssistence[historyClass.assistance]['icon']" />
                                 </svg> {{ historyClass.translated_format + ' ' + statusAssistence[historyClass.assistance]['text'] }}
                         </p> 
+
+                        <p  
+                            v-else
+                            class="text-orange-600"> 
+                                No hay información de asistencias </p>
                 </div>
         </div>
     </section>

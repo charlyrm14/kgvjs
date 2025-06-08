@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 
     const user = useUserStore()
     const dropdownMenu = ref(false)
-
+    
 </script>
 
 <template>
@@ -49,20 +49,24 @@ import { RouterLink } from 'vue-router';
                     </div>
                     <div
                         v-if="dropdownMenu"
-                        class="absolute -bottom-68 -left-75 w-85 bg-white dark:bg-slate-600 rounded-lg shadow-2xl border border-gray-300 dark:border-slate-500 z-50">
+                        class="absolute w-85 bg-white dark:bg-slate-600 rounded-lg shadow-2xl border border-gray-300 dark:border-slate-500 z-50"
+                        :class="user?.user?.role_id !== 1 ? '-bottom-58 -left-75' : '-bottom-68 -left-75' ">
                             <div class="flex justify-start items-center gap-x-2 px-4 py-3">
                                 <img 
                                     src="../../../assets/img/300-27.jpg" 
                                     alt="Profile image"
                                     class="rounded-full w-13 h-13 p-1 border-2 dark:border-white">
                                 <p class="text-gray-800 dark:text-slate-300">
-                                    Carlos I.
-                                    <span class="block font-light text-sm dark:text-slate-400"> admin </span>
+                                    {{ user?.user?.name }}
+                                        <span class="block font-light text-sm dark:text-slate-400">
+                                            {{ user?.user?.role?.name }}
+                                        </span>
                                 </p>
                             </div>
                             <div class="border-b border-gray-300 dark:border-slate-500"></div>
                             <div class="mt-3">
-                                <div 
+                                <div
+                                    v-if="user?.user?.role_id === 1"
                                     class=" hover:bg-gray-200 dark:hover:bg-slate-500 px-4 py-2 cursor-pointer"> 
                                         <RouterLink
                                             :to="{ name: 'admin-home' }"
