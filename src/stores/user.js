@@ -4,7 +4,6 @@ import { defineStore } from "pinia"
 import { onMounted, reactive, ref } from "vue"
 import { useChatIAStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
-import UserClassesAPI from "@/api/UserClassesAPI"
 
 export const useUserStore = defineStore('user', () => {
 
@@ -15,12 +14,8 @@ export const useUserStore = defineStore('user', () => {
     const user = ref({})
     const users = ref([])
     const userToDelete = ref(null)
-    const userToSendMessage = ref(null)
     const statusAddUserModal = ref(false) 
-    const statusEditUserModal = ref(false)
     const statusDeleteUserModal = ref(false)
-    const statusSendMessageUserModal = ref(false)
-    const statusAssistanceAssignModal = ref(false)
     
     const alert = reactive({
         status: false,
@@ -32,12 +27,6 @@ export const useUserStore = defineStore('user', () => {
     const errorMessage = reactive({
         text: '',
         status: false
-    })
-
-    const userMessageAssistanceAssign = reactive({
-        text: '',
-        status: false,
-        textColor: '',
     })
 
     onMounted( async () => {
@@ -145,17 +134,6 @@ export const useUserStore = defineStore('user', () => {
     }
     
     /**
-     * Edit user
-     */
-    const showEditUserModal = () => {
-        statusEditUserModal.value = true
-    }
-
-    const hideEditUserModal = () => {
-        statusEditUserModal.value = false
-    }
-
-    /**
      * Delete user
      */
     const showDeletetUserModal = (dataUser) => {
@@ -214,80 +192,6 @@ export const useUserStore = defineStore('user', () => {
         statusDeleteUserModal.value = false
     }
 
-    /**
-     * Send Message
-     */
-
-    const showSendMessageModal = (dataUser) => {
-        statusSendMessageUserModal.value = true
-        userToSendMessage.value = dataUser
-    }
-
-    const hideSendMessageModal = () => {
-        statusSendMessageUserModal.value = false
-    }
-
-    /**
-     * Asistencia usuario
-     */
-    const showAssistanceAssignModal = () => {
-        statusAssistanceAssignModal.value = true
-    }
-
-    const hideAssistanceAssignModal = () => {
-        statusAssistanceAssignModal.value = false
-        userMessageAssistanceAssign.status = false
-        userMessageAssistanceAssign.text = ''
-        userMessageAssistanceAssign.textColor = ''
-    }
-
-    const userAssistance = async(data) => {
-        try {
-            
-            const response = await UserClassesAPI.userAssistance(data)
-
-            if(response.status === 201) {
-                userMessageAssistanceAssign.status = true
-                userMessageAssistanceAssign.text = response.data.message
-                userMessageAssistanceAssign.textColor = 'text-green-500'
-
-                setTimeout(() => {
-                    userMessageAssistanceAssign.status = false
-                    userMessageAssistanceAssign.text = ''
-                    userMessageAssistanceAssign.textColor = ''
-
-                }, 3000);
-            }
-
-            if(response.status === 400) {
-                userMessageAssistanceAssign.status = true
-                userMessageAssistanceAssign.text = response.data.message
-                userMessageAssistanceAssign.textColor = 'text-red-500'
-
-                setTimeout(() => {
-                    userMessageAssistanceAssign.status = false
-                    userMessageAssistanceAssign.text = ''
-                    userMessageAssistanceAssign.textColor = ''
-                }, 3000);
-            }
-
-            if(response.status === 422) {
-                userMessageAssistanceAssign.status = true
-                userMessageAssistanceAssign.text = response.data.message
-                userMessageAssistanceAssign.textColor = 'text-red-500'
-
-                setTimeout(() => {
-                    userMessageAssistanceAssign.status = false
-                    userMessageAssistanceAssign.text = ''
-                    userMessageAssistanceAssign.textColor = ''
-                }, 3000);
-            }
-
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
 return {
         users,
         user,
@@ -297,9 +201,6 @@ return {
         showAddUserModal,
         hideAddUserModal,
         createUser,
-        statusEditUserModal,
-        showEditUserModal,
-        hideEditUserModal,
         statusDeleteUserModal,
         showDeletetUserModal,
         hideDeleteUserModal,
@@ -307,14 +208,5 @@ return {
         deleteUser,
         alert,
         errorMessage,
-        statusSendMessageUserModal,
-        showSendMessageModal,
-        hideSendMessageModal,
-        userToSendMessage,
-        statusAssistanceAssignModal,
-        showAssistanceAssignModal,
-        hideAssistanceAssignModal,
-        userAssistance,
-        userMessageAssistanceAssign
     }
 })

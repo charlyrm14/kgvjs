@@ -11,17 +11,6 @@ export const useNotificationsStore = defineStore('notifications', () => {
         slug: ''
     })
 
-    const contentCategories = {
-        1: {
-            title: 'Nuevo aviso de King Dreams',
-            url: '/avisos' 
-        },
-        2: {
-            title: 'Nuevo evento en King Dreams',
-            url: '/eventos' 
-        }
-    }
-
     let channel;
     
     /**

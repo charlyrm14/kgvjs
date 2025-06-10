@@ -1,6 +1,5 @@
 <script setup>
     import { useThemeStore } from '@/stores/theme';
-    import { storeToRefs } from 'pinia';
 
     const themeStore = useThemeStore()
 
@@ -72,6 +71,3 @@
             </div>
     </section>
 </template>
-
-<style scoped>
-</style>
