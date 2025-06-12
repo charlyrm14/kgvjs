@@ -1,21 +1,11 @@
 <script setup>
     import { useUserClassesStore } from '@/stores/classes';
     import { computed, ref } from 'vue'
-    import { currentMonthYear } from '@/helpers/index.js'
+    import { currentMonthYear, weeklyDays } from '@/helpers/index.js'
 
     const userClasses = useUserClassesStore()
 
     const showThisMonthContent = ref(false)
-
-    const daysWeek = [
-        { id: 1, day: "LUNES" },
-        { id: 2, day: "MARTES" },
-        { id: 3, day: "MIÉRCOLES" },
-        { id: 4, day: "JUEVES" },
-        { id: 5, day: "VIERNES" },
-        { id: 6, day: "SÁBADO" },
-        { id: 7, day: "DOMINGO" },
-    ];
 
     const statusAssistence = [
         { status: 0, textColor: 'text-red-500', text: '', icon: 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'},
@@ -51,7 +41,7 @@
             <div class="px-8">
                 <div class="flex justify-center items-center gap-2">
                     <div
-                        v-for="day in daysWeek"
+                        v-for="day in weeklyDays()"
                         :key="day.id"
                         class="rounded-full border-4 flex justify-center items-center w-10 h-10 md:w-16 md:h-16"
                         :class="userHasDay(day.day) ? 'bg-green-200 border-green-600' : 'bg-gray-200 dark:bg-slate-300  border-gray-400 dark:border-slate-500'">
@@ -106,7 +96,7 @@
                     v-if="showThisMonthContent"
                     class="mt-3 mb-5 px-5 transition-all">
                         <p 
-                            v-if="userClasses.historyClasses.length > 0"
+                            v-if="userClasses?.historyClasses?.length > 0"
                             v-for="historyClass in userClasses.historyClasses"
                             :key="historyClass.id"
                             class="font-light flex items-center gap-3 uppercase my-2"

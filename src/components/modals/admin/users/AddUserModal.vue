@@ -138,7 +138,7 @@
                             :options="{
                                 3: 'Estudiante',
                                 2: 'Profesor',
-                                1: 'Estudiante'
+                                1: 'Administrador'
                             }"/>
                     </div>
 

@@ -29,7 +29,11 @@ export default {
             })
 
             const result = await response.json();
-            return result;
+
+            return {
+                data: result,
+                status: response.status
+            }
 
         } catch (error) {
             console.error(error);
@@ -65,13 +69,30 @@ export default {
                 }
             })
 
-            if (response.ok) {
+            const result = await response.json();
 
-                const result = await response.json();
-                return result
+            return {
+                data: result,
+                status: response.status
             }
-            
-            if (response.status === 404) return null;
+
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
+    async getUserById(userId) {
+
+        try {
+
+            const response = await fetch(`${url}/api/v1/users/${userId}`)
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
 
         } catch (error) {
             console.error(error)

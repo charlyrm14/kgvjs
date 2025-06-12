@@ -4,11 +4,14 @@ import { defineStore } from "pinia"
 import { onMounted, reactive, ref } from "vue"
 import { useChatIAStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
+import { typeAlertTextColor, typeAlertIcon } from "@/helpers"
+import UserClassesAPI from "@/api/UserClassesAPI"
+import SwimmingCategoriesAPI from "@/api/SwimmingCategoriesAPI"
 
 export const useUserStore = defineStore('user', () => {
 
     const router = useRouter()
-
+    
     const chat = useChatIAStore()
 
     const user = ref({})
@@ -19,9 +22,10 @@ export const useUserStore = defineStore('user', () => {
     
     const alert = reactive({
         status: false,
-        bgColor: '',
+        title: '',
+        subtitle: '',
         textColor: '',
-        text: ''
+        icon: ''
     })
 
     const errorMessage = reactive({
@@ -89,37 +93,15 @@ export const useUserStore = defineStore('user', () => {
         try {
 
             const response = await UserAPI.addUser(data)
+            
+            if (response.status === 201) {
+                handleAddUserSuccess(response.data.data)
+                setTimeout(resetAlert, 4000)
+            } 
 
-            if (response.data) {
-
-                users.value.unshift(response.data)
-
-                alert.status = true,
-                alert.bgColor = 'bg-green-500',
-                alert.textColor = 'text-white',
-                alert.text = response.message
-
-                statusAddUserModal.value = false
-                
-                setTimeout(() => {
-                    alert.status = false,
-                    alert.bgColor = '',
-                    alert.textColor = '',
-                    alert.text = ''
-                }, 3000);
-
-            }   
-
-            if (response.errors) {
-                if (response.errors.email) {
-                    errorMessage.text = response.errors.email[0]
-                    errorMessage.status = true
-                }
-                if (response.errors.role_id) {
-                    errorMessage.text = response.errors.role_id[0]
-                    errorMessage.status = true
-                }
-            }    
+            if(response.status === 422) {
+                handleValidationErrors(response.data.errors)
+            }
 
         } catch (error) {
 
@@ -132,6 +114,28 @@ export const useUserStore = defineStore('user', () => {
         errorMessage.text = ''
         errorMessage.status = false
     }
+
+    const handleAddUserSuccess = (data) => {
+        showAlert(
+            'Usuario agregado con éxito', 
+            `El usuario ${data.name} ha sido agregado con éxito.`,
+            'success'
+        )
+        statusAddUserModal.value = false
+        users.value.unshift(data)
+    }
+
+    const handleValidationErrors = (errors) => {
+        if (errors.email) {
+            errorMessage.text = errors.email[0]
+            errorMessage.status = true
+        }
+
+        if (errors.role_id) {
+            errorMessage.text = errors.role_id[0]
+            errorMessage.status = true
+        }
+    } 
     
     /**
      * Delete user
@@ -141,55 +145,147 @@ export const useUserStore = defineStore('user', () => {
         userToDelete.value = dataUser
     }
 
-    const deleteUser = async (userId) => {
-        
+    const deleteUser = async (userId, userName) => {
+
         try {
 
             const response = await UserAPI.deleteUser(userId)
 
-            if (response) {
-
-                statusDeleteUserModal.value = false
-
-                alert.status = true,
-                alert.bgColor = 'bg-green-500',
-                alert.textColor = 'text-white',
-                alert.text = 'Usuario eliminado con éxito'
-
-                setTimeout(() => {
-                    alert.status = false,
-                    alert.bgColor = '',
-                    alert.textColor = '',
-                    alert.text = ''
-                }, 3000);
-
-                users.value = users.value.filter((usr) => usr.id !== userId)
-
-            } else {
-                
-                    statusDeleteUserModal.value = false
-
-                    alert.status = true,
-                    alert.bgColor = 'bg-red-500',
-                    alert.textColor = 'text-white',
-                    alert.text = 'Usuario no encontrado'
-
-                    setTimeout(() => {
-                        alert.status = false,
-                        alert.bgColor = '',
-                        alert.textColor = '',
-                        alert.text = ''
-                    }, 3000);
+            if(response.status === 200) {
+                handleDeleteUserSuccess(userId, userName)
+                setTimeout(resetAlert, 4000)
             }
-
-
+            
         } catch (error) {
-            console.error(error)
+            handleDeleteUserError(error, userName)
+            setTimeout(resetAlert, 4000)
         }
     }
 
     const hideDeleteUserModal = () => {
         statusDeleteUserModal.value = false
+    }
+
+    const handleDeleteUserSuccess = (userId, userName) => {
+        showAlert(
+            'Usuario eliminado con éxito', 
+            `El usuario ${userName} ha sido eliminado con éxito.`,
+            'success'
+        )
+        removeUserFromList(userId)
+        statusDeleteUserModal.value = false
+        router.push({ name: 'admin-home'})
+    }
+
+    const handleDeleteUserError = (error, userName) => {
+        console.error(error)
+        showAlert(
+            'Operación fallida', 
+            `Hubo un error al eliminar a ${userName}`,
+            'error'
+        )
+        statusDeleteUserModal.value = false
+        router.push({ name: 'admin-home'})
+    }
+
+    const removeUserFromList = (userId) => {
+        users.value = users.value.filter(user => user.id !== userId)
+    }
+
+    /**
+     * Assign classes to user
+    */
+    const assignClassesToUser = async(data) => {
+        try {
+
+                const response = await UserClassesAPI.assignClassesToUser(data)
+
+                if(response.status === 201) {
+                    handleAssignClassesSuccess(response.data.message)
+                    setTimeout(resetAlert, 4000)
+                }
+
+                if(response.status === 400) {
+                    handleAssignClassesError(response.data.message)
+                    setTimeout(resetAlert, 4000)
+                }
+                
+        } catch (error) {
+            
+        }
+    }
+
+    const handleAssignClassesSuccess = (message) => {
+        showAlert(
+            'Clases asignadas con éxito',
+            message,
+            'success'
+        )
+    }
+
+    const handleAssignClassesError = (message) => {
+        showAlert(
+            'Operación fallida',
+            message,
+            'error'
+        )
+    }
+
+    /**
+     * Asignar categorías natación
+     */
+    const assignSwimminCategoryToUser = async(data) => {
+        try {
+            
+            const response = await SwimmingCategoriesAPI.assignCategoryToUser(data)
+
+            if(response.status === 201) {
+                handleAssignsSwimminCategoryToUserSuccess(data.user_name)
+                setTimeout(resetAlert, 4000)
+            }
+
+            if(response.status === 400) {
+                handleAssignsSwimminCategoryToUserError(response.data.message)
+                setTimeout(resetAlert, 4000)
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const handleAssignsSwimminCategoryToUserSuccess = (userName) => {
+        showAlert(
+            'Categoría asignada con éxito',
+            `Se ha asignado con éxito la categoría a ${userName}`,
+            'success'
+        )
+    }
+
+    const handleAssignsSwimminCategoryToUserError = (message) => {
+        showAlert(
+            'Operación fallida',
+            message,
+            'error'
+        )
+    }
+
+    /**
+     * Alert
+     */
+    const showAlert = (title, subtitle, type = 'success') => {
+        alert.status = true,
+        alert.title = title,
+        alert.subtitle = subtitle,
+        alert.textColor = typeAlertTextColor(type),
+        alert.icon = typeAlertIcon(type)
+    }
+
+    const resetAlert = () => {
+        alert.status = false,
+        alert.title = '',
+        alert.subtitle = '',
+        alert.textColor = '',
+        alert.icon = ''
     }
 
 return {
@@ -208,5 +304,7 @@ return {
         deleteUser,
         alert,
         errorMessage,
+        assignClassesToUser,
+        assignSwimminCategoryToUser
     }
 })

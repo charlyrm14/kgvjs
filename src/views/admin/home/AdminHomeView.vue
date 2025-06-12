@@ -13,13 +13,14 @@
 
     <Alert
         v-if="userStore.alert.status"
-        :bgColor="userStore.alert.bgColor"
+        :title="userStore.alert.title"
+        :subtitle="userStore.alert.subtitle"
         :textColor="userStore.alert.textColor"
-        :text="userStore.alert.text"/>
+        :icon="userStore.alert.icon"/>
     
-    <section class="p-8 my-8">
+    <section class="p-8">
 
-        <div class="my-4">
+        <div class="mt-4">
             <div class="flex justify-end items-center">
                 <div>
                     <button
@@ -33,7 +34,7 @@
             </div>
         </div>
 
-        <div class="my-4">
+        <div class="mt-4">
             <div class="flex justify-start items-center">
                 <input 
                     type="text"

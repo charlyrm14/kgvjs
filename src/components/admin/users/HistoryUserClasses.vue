@@ -6,7 +6,7 @@
     <section class="px-8 my-5">
         <div class="bg-white dark:bg-slate-700 rounded-lg">
             <div class="border-b border-gray-300 dark:border-slate-600 p-4">
-                <h2 class="px-4 text-gray-700 dark:text-slate-300 uppercase"> Historial clases </h2>
+                <h2 class="px-4 text-gray-700 dark:text-slate-300 uppercase"> Historial asistencias </h2>
             </div>
             <div class="p-4 mt-2">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 my-4">

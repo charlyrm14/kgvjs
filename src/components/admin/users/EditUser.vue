@@ -1,4 +1,21 @@
 <script setup>
+    import { ref, watch } from 'vue';
+
+    const props = defineProps({
+        user: {
+            type: Object,
+            requiered: true
+        }
+    })
+
+    const userEdit = ref({})
+
+    watch(() => props.user, (newUser) => {
+            if (newUser) {
+                userEdit.value = { ...newUser }
+            }
+        },{ immediate: true }
+    )
 
 </script>
 
@@ -18,7 +35,9 @@
                         <div>
                             <input 
                                 type="text"
-                                placeholder="Carlos I."
+                                placeholder="Ejemplo: Juan"
+                                name="name"
+                                v-model="userEdit.name"
                                 class="p-4 bg-gray-200 dark:bg-slate-800 rounded-lg w-full shadow text-gray-700 dark:text-slate-300">
                         </div>
                     </div>
@@ -30,8 +49,10 @@
                         </div>
                         <div>
                             <input 
-                                type="text"
-                                placeholder="charlyrm14@gmail.com"
+                                type="email"
+                                placeholder="Ej: correo@correo.com"
+                                name="email"
+                                v-model="userEdit.email"
                                 class="p-4 bg-gray-200 dark:bg-slate-800 rounded-lg w-full shadow text-gray-700 dark:text-slate-300">
                         </div>
                     </div>

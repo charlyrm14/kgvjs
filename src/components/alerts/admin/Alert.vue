@@ -1,7 +1,11 @@
 <script setup>
 
     defineProps({
-        bgColor: {
+        title: {
+            type: String,
+            required: true
+        },
+        subtitle: {
             type: String,
             required: true
         },
@@ -9,7 +13,7 @@
             type: String,
             required: true
         },
-        text: {
+        icon: {
             type: String,
             required: true
         },
@@ -18,21 +22,55 @@
 </script>
 
 <template>
-    <div
-        :class="[bgColor, textColor]" 
-        class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50  p-2 rounded shadow-lg animate-fade-in">
-        <div class="flex justify-start items-center gap-x-2 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-            </svg>
-            <p class="text-xl font-extralight"> {{ text }} </p>
-        </div>
-        <div class="absolute -top-3 -right-2 hover:opacity-90 cursor-pointer">
-            <div class="bg-red-500 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
+    <div 
+        class="fixed top-4 left-1/2 w-[90%] sm:w-auto max-w-md transform -translate-x-1/2 z-50 px-6 py-4 rounded-lg shadow-lg animate-fade-in bg-white dark:bg-slate-900 transition-all"
+        role="alert"
+        aria-live="polite">
+
+            <div class="flex items-start gap-4">
+                <!-- Icono de éxito -->
+                <div class="flex-shrink-0">
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                        :class="textColor"
+                        aria-hidden="true">
+                            <path 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round" 
+                                :d="icon" />
+                    </svg>
+                </div>
+
+                <!-- Contenido -->
+                <div class="flex-1">
+                    <p class="text-base font-medium text-gray-800 dark:text-slate-100">
+                        {{ title }}
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">
+                        {{ subtitle }}
+                    </p>
+                </div>
+
+                <!-- Botón de cierre -->
+                <button 
+                    type="button" 
+                    class="text-gray-500 hover:text-gray-700 dark:hover:text-white transition"
+                    aria-label="Cerrar alerta">
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke-width="1.5" 
+                            stroke="currentColor" 
+                            class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                </button>
             </div>
-        </div>
     </div>
 </template>
