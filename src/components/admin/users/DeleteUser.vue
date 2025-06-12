@@ -1,4 +1,14 @@
 <script setup>
+    import { useUserStore } from '@/stores/user';
+
+    const userStore = useUserStore()
+
+    defineProps({
+        user: {
+            type: Object,
+            requiered: true
+        }
+    })
 
 </script>
 

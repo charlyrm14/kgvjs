@@ -50,7 +50,7 @@
                 </button>
                 <button
                     v-if="userStore.userToDelete !== null"
-                    @click="userStore.deleteUser(userStore.userToDelete.id)"
+                    @click="userStore.deleteUser(userStore.userToDelete.id, userStore.userToDelete.name)"
                     class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-700 transition uppercase cursor-pointer">
                         Eliminar
                 </button>

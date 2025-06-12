@@ -17,8 +17,8 @@
         :textColor="contentStore.alert.textColor"
         :text="contentStore.alert.text"/>
 
-    <section class="p-8 my-8">
-        <div class="my-4">
+    <section class="p-8">
+        <div class="mt-4">
             <div class="flex justify-end items-center">
                 <div>
                     <button

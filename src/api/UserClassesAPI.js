@@ -78,5 +78,28 @@ export default {
         } catch (error) {
             console.error(error)
         }
+    },
+    
+    async assignClassesToUser(data) {
+        try {
+
+            const response = await fetch(`${url}/api/v1/classes`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }, 
+                body: JSON.stringify(data)
+            })
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
+            
+        } catch (error) {
+            console.error(error)
+        }
     }
 }

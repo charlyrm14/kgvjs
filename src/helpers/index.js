@@ -111,7 +111,78 @@ export const formattedDate = (isoDate = '2025-05-14 09:00:00') => {
     return `${year}-${month}-${day}`;
 }
 
+/**
+ * Formats a datetime string by replacing the "T" character with a space.
+ *
+ * This is useful when converting ISO-formatted date strings (e.g., "2025-05-14T00:00")
+ * into a more readable format (e.g., "2025-05-14 00:00").
+ *
+ * @param {string} date - The date string to format. Default is '2025-05-14 00:00'.
+ * @returns {string} The formatted date string with "T" replaced by a space.
+ */
 export const formattedTimeAndDate = (date = '2025-05-14 00:00') => {
     const originalDate = date;
     return originalDate.replace("T", " ");
+}
+
+/**
+ * Returns the CSS text color classes for a given alert type.
+ *
+ * This is typically used to dynamically assign Tailwind CSS classes
+ * to alert icons or messages based on the alert type (e.g., "success" or "error").
+ *
+ * @param {string} type - The type of alert. Supported values are 'success' and 'error'.
+ *                        Defaults to 'success'.
+ * @returns {string} A string containing Tailwind CSS classes for text color.
+ */
+export const typeAlertTextColor = (type = 'success') => {
+
+    const colors = {
+        success: 'text-green-600 dark:text-green-400',
+        error: 'text-red-600 dark:text-red-400'
+    }
+
+    return colors[type] || colors.success
+}
+
+/**
+ * Returns the SVG path string corresponding to an alert icon type.
+ *
+ * This is typically used to dynamically set the `d` attribute of a <path> element in an SVG icon,
+ * depending on the alert type (e.g., "success" or "error").
+ *
+ * @param {string} type - The type of alert. Supported values are 'success' and 'error'.
+ *                        Defaults to 'success'.
+ * @returns {string} An SVG path string representing the corresponding icon.
+ */
+export const typeAlertIcon = (type = 'success') => {
+
+    const icons = {
+        success: 'M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z',
+        error: 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+    }
+
+    return icons[type] || icons.success
+}
+
+/**
+ * Returns an array of objects representing the days of the week in Spanish.
+ *
+ * Each object contains:
+ * - `id`: A numeric identifier for the day (1 for Monday, 7 for Sunday).
+ * - `day`: The name of the day in uppercase Spanish.
+ *
+ * @returns {Array<{ id: number, day: string }>} An array of week day objects.
+ */
+export const weeklyDays = () => {
+
+    return [
+        { id: 1, day: 'LUNES'},
+        { id: 2, day: 'MARTES'},
+        { id: 3, day: 'MIÉRCOLES'},
+        { id: 4, day: 'JUEVES'},
+        { id: 5, day: 'VIERNES'},
+        { id: 6, day: 'SÁBADO'},
+        { id: 7, day: 'DOMINGO'},
+    ]
 }
