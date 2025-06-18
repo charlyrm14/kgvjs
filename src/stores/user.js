@@ -64,11 +64,21 @@ export const useUserStore = defineStore('user', () => {
      * The `logOut` function clears the authentication token, resets the user value and chat
      * conversation, and navigates to the login page.
      */
-    const logOut = () => {
-        localStorage.removeItem('auth_token')
-        user.value = {}
-        chat.conversation = [];
-        router.push({ name: 'login' })
+    const logOut = async() => {
+        try {
+
+                const response = await AuthAPI.logout()
+
+                if (response.status === 200) {
+                    localStorage.removeItem('auth_token')
+                    user.value = {}
+                    chat.conversation = [];
+                    router.push({ name: 'login' })
+                }
+            
+        } catch (error) {
+            
+        }
     }
 
 
