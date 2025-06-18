@@ -1,20 +1,51 @@
 <script setup>
     
-    import { onMounted, ref } from 'vue';
+    import { reactive } from 'vue';
     import { useRouter } from 'vue-router';
     import AuthApi from '@/api/AuthAPI';
+    import { reset } from '@formkit/core'
 
-    const activeForm = ref(true)
     const router = useRouter()
 
+    const alert = reactive({
+        status: false,
+        text: '',
+        color: ''
+    })
+
     const handleLoginSubmit = async (dataLoginForm) => {
-        const { data }  = await AuthApi.login(dataLoginForm)
-        localStorage.setItem('auth_token', data.access_token)
-        router.push({ name: 'home' })
+        try {
+            const response   = await AuthApi.login(dataLoginForm)
+            
+            if(response.status === 200) {
+                localStorage.setItem('auth_token', response.data.data.access_token)
+                router.push({ name: 'home' })
+            }
+
+            if (response.status === 400) {
+                handleAlert('error', response.data.error)
+                reset('loginForm')
+            }
+
+            resetAlert()
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
-    const handleRegisterSubmit = ( dataRegisterForm ) => {
-        console.log(dataRegisterForm)
+    const handleAlert = (type = 'success', text) => {
+        alert.status = true
+        alert.text = text
+        alert.color = type === 'success' ? 'text-green-500' : 'text-red-600'
+    }
+
+    const resetAlert = () => {
+        setTimeout(() => {
+            alert.status = false
+            alert.text = ''
+            alert.color = ''
+        }, 3000);
     }
 
 </script>
@@ -24,18 +55,18 @@
         
         <div class="hidden md:flex md:w-1/2 items-center justify-center bg-gray-100 dark:bg-gray-800 p-10">
             <div class="text-center">
-            <img 
-                src="../../../assets/img/agency-dark.png" 
-                alt="Login img" 
-                class="mx-auto mb-6">
-            <h2 class="text-2xl font-bold mb-4 uppercase">
-                King Dreams 
-                    <span class="block font-light"> Escuela de natación </span>
-            </h2>
-            <p class="text-sm text-gray-400">
-                Promovemos el  <span class="text-blue-500"> aprendizaje </span> de la natación
-                como seguro de vida.
-            </p>
+                <img 
+                    src="../../../assets/img/agency-dark.png" 
+                    alt="Login img" 
+                    class="mx-auto mb-6">
+                <h2 class="text-2xl font-bold mb-4 uppercase">
+                    King Dreams 
+                        <span class="block font-light"> Escuela de natación </span>
+                </h2>
+                <p class="text-sm text-gray-400">
+                    Promovemos el  <span class="text-blue-500"> aprendizaje </span> de la natación
+                    como seguro de vida.
+                </p>
             </div>
         </div>
 
@@ -46,6 +77,10 @@
                     <p class="text-2xl text-center font-extralight uppercase cursor-pointer"> 
                         Iniciar sesión 
                     </p>
+                </div>
+
+                <div class="flex justify-center items-center">
+                    <p :class="alert.color" class="uppercase text-center"> {{  alert.text }} </p>
                 </div>
 
                 <div>
@@ -94,9 +129,11 @@
 
                     </FormKit>
 
-                    <p class="flex justify-start text-sm text-gray-400 dark_text-slate-700 underline cursor-pointer mt-5">
-                        ¿Olvidaste tu contraseña?
-                    </p>
+                    <RouterLink 
+                        :to="{ name: 'password-email' }"
+                        class="flex justify-start text-sm text-blue-500 dark_text-slate-700 underline cursor-pointer mt-5">
+                            ¿Olvidaste tu contraseña?
+                    </RouterLink>
 
                 </div>
 

@@ -2,11 +2,10 @@ const url = import.meta.env.VITE_API_URL
 
 export default {
 
-    async login(data) {
-
+    async sendToken (data) {
         try {
 
-            const response = await fetch(`${url}/api/v1/login`, {
+            const response = await fetch(`${url}/api/v1/password/email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,51 +19,38 @@ export default {
                 data: result,
                 status: response.status
             }
-
+            
         } catch (error) {
             console.error(error);
         }
     },
 
-    async auth() { 
-
+    async verifyToken(token) {
         try {
 
-            const token = localStorage.getItem('auth_token')
-
-            if(!token) return
-
-            const response = await fetch(`${url}/api/v1/auth/user`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                }, 
-            })
+            const response = await fetch(`${url}/api/v1/password/validate-token/${token}`)
 
             const result = await response.json();
-            return result;
             
+            return {
+                data: result,
+                status: response.status
+            }
+
         } catch (error) {
-            console.error(error);
-            
+            console.error(error)
         }
-        
     },
-    
-    async logout() {
+
+    async changePassword(data) {
         try {
             
-            const token = localStorage.getItem('auth_token')
-
-            if(!token) return
-
-            const response = await fetch(`${url}/api/v1/auth/logout`, {
+            const response = await fetch(`${url}/api/v1/password/reset`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 }, 
+                body: JSON.stringify(data)
             })
 
             const result = await response.json();

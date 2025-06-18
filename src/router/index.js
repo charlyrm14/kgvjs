@@ -16,6 +16,22 @@ const router = createRouter({
       ]
     },
     {
+      path: '/password',
+      component: () => import('../views/password/layout/PasswordLayoutView.vue'),
+      children: [
+        {
+          path: 'email',
+          name:'password-email',
+          component: () => import('../views/password/email/EmailView.vue')
+        },
+        {
+          path: 'reset',
+          name: 'password-reset',
+          component: () => import('../views/password/reset/ResetView.vue')
+        }
+      ]
+    },
+    {
       path: '/',
       component: () => import('../views/user/layout/AppLayoutView.vue'),
       meta: { 
