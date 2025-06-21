@@ -186,3 +186,17 @@ export const weeklyDays = () => {
         { id: 7, day: 'DOMINGO'},
     ]
 }
+
+/**
+ * Generates a unique ID based on the current timestamp in milliseconds.
+ *
+ * @function uniqueId
+ * @returns {number} A numeric unique identifier based on `Date.now()`.
+ *
+ * @example
+ * const id = uniqueId();
+ * console.log(id); // e.g., 1729438293657
+ */
+export const uniqueId = () => {
+    return Date.now();
+}

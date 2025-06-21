@@ -44,9 +44,9 @@ const router = createRouter({
           component: () => import('../views/user/home/HomeView.vue')
         },
         {
-          path: 'i/chat',
-          name: 'chat-ia',
-          component: () => import('../views/user/chat-ia/ChatIAView.vue')
+          path: 'chat',
+          name: 'chat',
+          component: () => import('../views/user/chat/ChatView.vue')
         },
         {
           path: 'mi-progreso',

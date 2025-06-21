@@ -2,7 +2,7 @@ import AuthAPI from "@/api/AuthAPI"
 import { useRouter } from "vue-router"
 import { defineStore } from "pinia"
 import { onMounted, reactive, ref } from "vue"
-import { useChatIAStore } from "./chat"
+import { useChatStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
 import { typeAlertTextColor, typeAlertIcon } from "@/helpers"
 import UserClassesAPI from "@/api/UserClassesAPI"
@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
 
     const router = useRouter()
     
-    const chat = useChatIAStore()
+    const chat = useChatStore()
 
     const user = ref({})
     const users = ref([])

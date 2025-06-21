@@ -1,5 +1,5 @@
 <script setup>
-    import Dropzone from '@/components/ui/Dropzone.vue';
+    import Dropzone from '@/components/ui/helpers/Dropzone.vue';
     import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
     import { ref } from 'vue';
     
