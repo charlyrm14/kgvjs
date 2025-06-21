@@ -1,44 +1,19 @@
 <script setup>
-    import BirthdateModal from '@/components/modals/user/BirthdateModal.vue';
-    import { useHomeStore } from '@/stores/home';
-    import UserBirthdate from '@/components/user/home/UserBirthdate.vue';
-    import UserFeatured from '@/components/user/home/UserFeatured.vue';
-    import HomeEventCard from '@/components/user/home/HomeEventCard.vue';
-    import HomeNoticeCard from '@/components/user/home/HomeNoticeCard.vue';
-    import HomeMainCard from '@/components/user/home/HomeMainCard.vue';
+    import UserProfile from '@/components/user/home/UserProfile.vue';
+    import Sections from '@/components/user/home/Sections.vue';
+    import Tips from '@/components/user/home/Tips.vue';
+    import TeamAndTeachers from '@/components/user/home/TeamAndTeachers.vue';
     
-    const home = useHomeStore()
-
 </script>
 
 <template>
-    <section class="px-4 sm:px-6 py-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mt-8">
+    
+    <UserProfile/>
 
-            <!-- Card principal -->
-            <HomeMainCard/>
+    <Sections/>
 
-            <!-- Tarjeta 1 -->
-            <UserFeatured
-                :usersFeatured="home?.info?.featured_users"/>
+    <Tips/>
 
-            <!-- Tarjeta 2 -->
-            <UserBirthdate
-                :users="home?.info?.users_birthdate"/>
+    <TeamAndTeachers/>
 
-            <!-- Tarjeta 3 -->
-            <HomeNoticeCard
-                :notice="home?.info?.important_notice"/>
-
-            <!-- Tarjeta 4 -->
-            <HomeEventCard
-                :event="home?.info?.last_event"/>
-
-        </div>
-    </section>
-
-    <BirthdateModal
-        v-if="home.modalBirthdate"
-        :name="home?.info?.name"
-        :age="home?.info?.age"/>
 </template>

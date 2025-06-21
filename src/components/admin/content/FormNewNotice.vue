@@ -1,5 +1,5 @@
 <script setup>
-    import Dropzone from '@/components/ui/Dropzone.vue';
+    import Dropzone from '@/components/ui/helpers/Dropzone.vue';
     import { useContentStore } from '@/stores/contents';
     import { ref } from 'vue';
 

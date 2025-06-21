@@ -76,6 +76,7 @@
                 <div class="flex justify-center items-center gap-5">
                     <p class="text-2xl text-center font-extralight uppercase cursor-pointer"> 
                         Iniciar sesión 
+                            <span class="block md:hidden text-sm text-blue-500 font-bold"> King Dreams </span>
                     </p>
                 </div>
 
