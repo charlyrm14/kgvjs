@@ -41,7 +41,7 @@
                             <div
                                 @click="themeStore.toggleTheme()"
                                 class="flex items-center  px-2 py-0.5 rounded-full cursor-pointer gap-x-2 hover:opacity-75"
-                                :class="themeStore.theme === 'light' ? 'bg-white dark:bg-slate-400 text-black dark:text-white' : 'font-extralight'">
+                                :class="themeStore.theme === 'light' ? 'bg-white dark:bg-slate-400 text-black dark:text-white' : 'font-light text-gray-500 dark:text-slate-300'">
                                     <svg 
                                         xmlns="http://www.w3.org/2000/svg" 
                                         viewBox="0 0 24 24" 
@@ -54,7 +54,7 @@
                             <div
                                 @click="themeStore.toggleTheme()"
                                 class="flex items-center px-2 py-0.5 rounded-full cursor-pointer gap-x-2 hover:opacity-75"
-                                :class="themeStore.theme === 'dark' ? 'dark:bg-slate-400 dark:text-white' : 'font-extralight' "> 
+                                :class="themeStore.theme === 'dark' ? 'dark:bg-slate-400 dark:text-white' : 'font-light text-gray-500 dark:text-slate-300' "> 
                                     <svg 
                                         xmlns="http://www.w3.org/2000/svg" 
                                         viewBox="0 0 24 24" 

@@ -1,7 +1,7 @@
 <script setup>
     import UserItem from '@/components/admin/users/UserItem.vue';
-    import Alert from '@/components/alerts/admin/Alert.vue';
-    import AddUserModal from '@/components/modals/admin/users/AddUserModal.vue';
+    import Alert from '@/components/ui/alerts/admin/Alert.vue';
+    import AddUserModal from '@/components/ui/modals/admin/users/AddUserModal.vue';
 
     import { useUserStore } from '@/stores/user';
 
