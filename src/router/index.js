@@ -56,7 +56,7 @@ const router = createRouter({
         {
           path: 'mis-clases',
           name: 'mis-clases',
-          component: () => import('../views/user/my-classes/MyClassesView.vue')
+          component: () => import('../views/user/my-class-schedule/MyClassScheduleView.vue')
         },
         {
           path: 'publicaciones',
