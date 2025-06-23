@@ -1,7 +1,7 @@
 <script setup>
     
     import SwimmiCategoryItem from '@/components/admin/categories/SwimmiCategoryItem.vue';
-    import NewCategoryModal from '@/components/modals/admin/categories/NewCategoryModal.vue';
+    import NewCategoryModal from '@/components/ui/modals/admin/categories/NewCategoryModal.vue';
     import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
     import { ref } from 'vue';
         
