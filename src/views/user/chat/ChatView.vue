@@ -20,7 +20,7 @@
 </script>
 
 <template>
-    <section class="px-3 md:px-12 lg:px-16 py-8 md:py-10">
+    <section class="px-6 md:px-12 lg:px-16 py-8 md:py-10">
         <div class="mt-10">
             <div class="h-[85vh] md:h-[75vh] lg:h-[75vh] flex flex-col">
 

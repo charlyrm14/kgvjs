@@ -1,96 +1,143 @@
 <script setup>
-    import ContentItem from '@/components/admin/content/ContentItem.vue';
-    import Alert from '@/components/alerts/admin/Alert.vue';
-    import DeleteContent from '@/components/modals/admin/content/DeleteContent.vue';
-    import NewContent from '@/components/modals/admin/content/NewContent.vue';
-    import { useContentStore } from '@/stores/contents';
-    
-    const contentStore = useContentStore()
-    
+    import NewContent from '@/components/ui/modals/admin/content/NewContent.vue';
+    import { ref } from 'vue';
+
+    const showModal = ref(false)
 </script>
 
 <template>
-
-    <Alert
-        v-if="contentStore.alert.status"
-        :bgColor="contentStore.alert.bgColor"
-        :textColor="contentStore.alert.textColor"
-        :text="contentStore.alert.text"/>
-
-    <section class="p-8">
-        <div class="mt-4">
-            <div class="flex justify-end items-center">
-                <div>
-                    <button
-                        @click="contentStore.showContentModal()"
-                        class="bg-indigo-500 text-white px-4 py-2 cursor-pointer hover:opacity-75 rounded flex items-center gap-2 font-extralight">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg> Nuevo contenido
-                    </button>
+    <section class="px-6 md:px-12 lg:px-16 py-8 md:py-10">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <div>
+                <div class="flex items-center gap-x-3">
+                    <h2 class="text-lg font-medium text-gray-800 dark:text-white"> Contenido </h2>
                 </div>
+            </div>
+
+            <div class="flex justify-end items-center mt-4 gap-x-3">
+                <button
+                    @click="showModal = !showModal"
+                    class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-indigo-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-indigo-600 dark:hover:bg-indigo-500 dark:bg-indigo-600 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        <span> Agregar contenido </span>
+                </button>
             </div>
         </div>
 
-        <div class="mt-10 rounded-lg">
-            <div class="flex justify-between items-center">
-                <div class="flex justify-start items-center gap-x-2">
-                    <div 
-                        class="bg-blue-400 rounded-full p-1 flex items-center justify-between gap-x-2 px-3">
-                            <button
-                                @click="contentStore.contentSelected = 0"
-                                class="uppercase py-1 px-4 rounded-full font-extralight cursor-pointer text-gray-200 dark:text-slate-300 flex items-center gap-x-2"
-                                :class="contentStore.contentSelected == 0 ? 'bg-blue-600 text-white' : '' ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                    </svg> Todo
-                            </button>
-                            <button
-                                @click="contentStore.contentSelected = 1"
-                                class="uppercase py-1 px-4 rounded-full font-extralight cursor-pointer text-gray-200 dark:text-slate-300 flex items-center gap-x-2"
-                                :class="contentStore.contentSelected == 1 ? 'bg-blue-600 text-white' : '' ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
-                                    </svg> Avisos
-                            </button>
-                            <button
-                                @click="contentStore.contentSelected = 2"
-                                class="uppercase py-1 px-4 rounded-full font-extralight cursor-pointer text-gray-200 dark:text-slate-300 flex items-center gap-x-2"
-                                :class="contentStore.contentSelected == 2 ? 'bg-blue-600 text-white' : '' ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                    </svg> Eventos
-                            </button>
+        <div class="mt-6 md:flex md:items-center md:justify-between">
+            <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
+                <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300">
+                    Ver todo
+                </button>
+                <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    Avisos
+                </button>
+                <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    Eventos
+                </button>
+            </div>
+
+            <div class="relative flex items-center mt-4 md:mt-0">
+                <span class="absolute">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </span>
+                <input type="text" placeholder="Buscar" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+            </div>
+        </div>
+
+        <div class="flex flex-col mt-6 p-4 md:p-0">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-800">
+                                <tr>
+
+                                    <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        <button class="flex items-center gap-x-3 focus:outline-none">
+                                            <span> Título </span>
+                                        </button>
+                                    </th>
+
+                                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        Status
+                                    </th>
+
+                                    <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                        Fecha publicación
+                                    </th>
+
+                                    <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                                <tr>
+                                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white "> Triatlon </h2>
+                                            <p class="text-sm font-normal text-gray-600 dark:text-gray-400"> Zumpango de ocampo </p>
+                                        </div>
+                                    </td>
+                                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                            Publicado
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <div>
+                                            <h4 class="text-gray-700 dark:text-gray-200"> 2025-06-23 </h4>
+                                        </div>
+                                    </td>
+
+                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <div class="rounded-lg flex justify-end">
+                                            <button class="bg-indigo-400 text-white cursor-pointer px-4 py-2 rounded-lg">
+                                                Administrar
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-10 bg-white dark:bg-slate-700 p-4 rounded-lg shadow-lg">
-            <ContentItem
-                v-for="content in contentStore.filteredItems"
-                :key="content.id"
-                :content="content"/>
-            <RouterLink 
-                v-if="contentStore.errorTokenExpired.status"
-                class="dark:text-pink-500 text-2xl uppercase underline cursor-pointer flex justify-center"
-                :to="{ name: 'login' }">
-                    {{ contentStore.errorTokenExpired.text }}
-            </RouterLink>
-            <p
-                v-if="contentStore.contents.length === 0"
-                @click="contentStore.showContentModal()"
-                class="dark:text-pink-500 text-2xl uppercase underline cursor-pointer flex justify-center">
-                    {{ contentStore.contentsNotFound.text }}
-            </p>
+        <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
+            <div class="text-sm text-gray-500 dark:text-gray-400">
+                Página <span class="font-medium text-gray-700 dark:text-gray-100">1 de 10</span> 
+            </div>
+
+            <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+                <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                    </svg>
+
+                    <span>
+                        Anterior
+                    </span>
+                </a>
+
+                <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <span>
+                        Siguiente
+                    </span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                    </svg>
+                </a>
+            </div>
         </div>
 
     </section>
 
-    <NewContent
-        v-if="contentStore.statusContentModal"/>
-
-    <DeleteContent
-        v-if="contentStore.statusDeleteContentModal"/>
-
+    <NewContent v-if="showModal"/>
 </template>

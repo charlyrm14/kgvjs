@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <section class="px-3 md:px-12 lg:px-16 py-2 mt-10 md:mt-0">
+    <section class="px-6 md:px-12 lg:px-16 py-2 mt-10 md:mt-0">
 
         <div class="text-center mb-8">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white uppercase tracking-wide">

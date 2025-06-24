@@ -98,6 +98,11 @@ const router = createRouter({
           path: 'categorias',
           name: 'admin-categories',
           component: () => import('../views/admin/categories/CategoriesView.vue')
+        },
+        {
+          path: 'reportes',
+          name: 'admin-reports',
+          component: () => import('../views/admin/reports/ReportsView.vue')
         }
       ]
     }

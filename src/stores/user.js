@@ -5,8 +5,6 @@ import { onMounted, reactive, ref } from "vue"
 import { useChatStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
 import { typeAlertTextColor, typeAlertIcon } from "@/helpers"
-import UserClassesAPI from "@/api/UserClassesAPI"
-import SwimmingCategoriesAPI from "@/api/SwimmingCategoriesAPI"
 
 export const useUserStore = defineStore('user', () => {
 
