@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <section class="px-3 md:px-12 lg:px-16 py-8 md:py-10 block md:hidden">
+    <section class="px-6 md:px-12 lg:px-16 py-8 md:py-10 block md:hidden">
         <div class="rounded-lg bg-white dark:bg-slate-600 border border-gray-300 dark:border-slate-600 shadow p-4">
             <div class="flex gap-x-4">
                 <div>

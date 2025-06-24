@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <footer class="fixed bottom-0 left-0 right-0 bg-blue-500 border border-gray-300 shadow-lg dark:border-0 dark:bg-gray-900 p-3 flex justify-around items-center z-20 mx-3 mb-3 rounded-lg md:hidden">
+    <footer class="fixed bottom-0 left-0 right-0 bg-blue-500 border border-gray-300 shadow-lg dark:border-0 dark:bg-gray-900 p-3 flex justify-around items-center z-20 mx-6 mb-3 rounded-lg md:hidden">
         <RouterLink 
             :to="{ name: 'home' }"
             class="flex flex-col items-center text-xs cursor-pointer"

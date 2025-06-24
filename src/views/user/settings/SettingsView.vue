@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <section class="p-8 mt-8">
+    <section class="px-6 md:px-12 lg:px-16 py-8 md:py-10">
         <div class="mt-2 border-b-1 border-gray-300 dark:border-slate-700">
                 <div class="flex justify-between items-center">
                     <div class="flex min-w-0 gap-x-4 items-center mb-3">
