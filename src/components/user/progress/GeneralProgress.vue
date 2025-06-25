@@ -1,5 +1,12 @@
 <script setup>
 
+    defineProps({
+        progressPercentage: {
+            type: Number,
+            required: true
+        }
+    })
+
 </script>
 
 <template>
@@ -10,12 +17,18 @@
             </h2>
             <div class="flex justify-between items-center mt-3">
                 <p class="uppercase font-light text-lg dark:text-slate-400"> Completado </p>
-                <p class="uppercase font-light text-lg dark:text-slate-400"> 20% </p>
+                <p 
+                    class="uppercase text-lg"
+                    :class="progressPercentage === 100 ? 'font-bold text-green-500' : 'font-light dark:text-slate-400'"> 
+                    {{ progressPercentage ?? 0 }}% 
+                </p>
             </div>
             <div class="my-3">
                 <div class="w-full mx-auto p-1 bg-gray-100 rounded-lg shadow">
                     <div class="w-full bg-blue-100 h-4 rounded-lg relative overflow-hidden">
-                        <div class="bg-blue-500/70 h-full rounded-lg" style="width: 20%;"></div>
+                        <div 
+                            class="bg-blue-500/70 h-full rounded-lg" 
+                            :style="'width: ' + progressPercentage + '%'"></div>
                         <div class="absolute top-1 left-2 w-12 h-2 bg-blue-200/50 rounded-lg blur-sm"></div>
                         <div class="absolute top-1 left-1/ w-2 h-2 bg-blue-200/70 rounded-lg blur-sm"></div>
                     </div>

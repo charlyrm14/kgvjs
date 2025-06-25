@@ -1,7 +1,7 @@
 import ChatAPI from '@/api/ChatAPI'
 import { uniqueId } from '@/helpers'
 import { defineStore } from 'pinia'
-import { onMounted, reactive, ref, nextTick, watch } from 'vue'
+import { reactive, ref } from 'vue'
 
 export const useChatStore = defineStore('chat', () => {
 
@@ -9,10 +9,9 @@ export const useChatStore = defineStore('chat', () => {
     const loading = ref(false)
     const prompt = reactive({
         message: '',
-        user_id: null
     })
 
-    onMounted(async () => {
+    const fetchGetConversation = async() => {
         try {
             const response = await ChatAPI.getConversationHistory()
 
@@ -23,18 +22,16 @@ export const useChatStore = defineStore('chat', () => {
             if (response.status === 404) {
                 conversation.value = []
             }
-
         } catch (error) {
             console.error
         }
-    })
+    }
 
     const sendMessage = async(text) => {
 
         loading.value = true
 
         prompt.message = text
-        prompt.user_id = 1
 
         conversation.value.push({
             id: uniqueId(), // temporal id
@@ -84,6 +81,7 @@ export const useChatStore = defineStore('chat', () => {
     return {
         conversation,
         sendMessage,
-        loading
+        loading,
+        fetchGetConversation
     }
 })

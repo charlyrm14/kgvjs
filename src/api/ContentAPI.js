@@ -34,8 +34,12 @@ export default {
 
             const response = await fetch(`${url}/api/v1/contents/${contentSlug}/detail`)
 
-            const result = response.json();
-            return result
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
             
         } catch (error) {
             console.error(error);

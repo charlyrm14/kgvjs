@@ -65,14 +65,14 @@ export const useUserStore = defineStore('user', () => {
     const logOut = async() => {
         try {
 
-                const response = await AuthAPI.logout()
+            const response = await AuthAPI.logout()
 
-                if (response.status === 200) {
-                    localStorage.removeItem('auth_token')
-                    user.value = {}
-                    chat.conversation = [];
-                    router.push({ name: 'login' })
-                }
+            if (response.status === 200) {
+                localStorage.removeItem('auth_token')
+                user.value = {}
+                chat.conversation = [];
+                router.push({ name: 'login' })
+            }
             
         } catch (error) {
             
