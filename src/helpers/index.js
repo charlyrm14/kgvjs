@@ -200,3 +200,31 @@ export const weeklyDays = () => {
 export const uniqueId = () => {
     return Date.now();
 }
+
+export const typeAttendanceIcon = (type = 0) => {
+    const icons = {
+        0: 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+        1: 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+        2: 'M5 12h14'
+    }
+
+    return icons[type] || icons[0]
+}
+
+export const typeAttendanceColor = (type = 0) => {
+    const icons = {
+        0: 'text-red-500',
+        1: 'text-green-500',
+        2: 'text-slate-400'
+    }
+
+    return icons[type] || icons[2]
+}
+
+export const attendanceStatus = () => {
+    return  [
+        { value: 0, text: 'No Asistio', bgColor: 'bg-red-500'},
+        { value: 1, text: 'Asistio', bgColor: 'bg-green-500'},
+        { value: 2, text: 'Día no asignado', bgColor: 'bg-gray-500'},
+    ]
+}
