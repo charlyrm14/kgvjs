@@ -1,10 +1,14 @@
 <script setup>
     import Spinner from '@/components/ui/spinners/Spinner.vue';
     import { useChatStore } from '@/stores/chat';
-    import { computed, ref } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     
     const chatStore = useChatStore()
     const message = ref('')
+
+    onMounted(async() => {
+        await chatStore.fetchGetConversation()
+    })
 
     const handleSubmit = () => {
         if(!message.value.trim()) return

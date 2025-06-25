@@ -43,7 +43,11 @@ export default {
             })
 
             const result = await response.json();
-            return result;
+
+            return {
+                data: result,
+                status: response.status
+            }
             
         } catch (error) {
             console.error(error);
