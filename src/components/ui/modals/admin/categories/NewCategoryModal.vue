@@ -1,9 +1,9 @@
 <script setup>
     import Dropzone from '@/components/ui/helpers/Dropzone.vue';
-    import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
+    //import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
     import { ref } from 'vue';
     
-    const swimmingStore = useSwimmingCategoriesStore()
+    //const swimmingStore = useSwimmingCategoriesStore()
 
     const message = ref('')
     const filePath = ref(null)
@@ -38,7 +38,6 @@
                     </svg> Nueva categoría 
                 </h2>
                 <button
-                    @click="swimmingStore.hideNewCategoryModal()"
                     class="text-slate-400 hover:text-red-500 transition cursor-pointer">
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 
@@ -119,7 +118,6 @@
                 <!-- Acciones -->
                 <div class="flex justify-end gap-2">
                     <button
-                        @click.prevent="swimmingStore.hideNewCategoryModal()"
                         class="px-4 py-2 border text-gray-500 dark:text-slate-400 rounded-lg text-sm transition uppercase cursor-pointer hover:opacity-75">
                             Cancelar
                     </button>

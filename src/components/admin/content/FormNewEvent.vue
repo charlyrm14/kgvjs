@@ -1,10 +1,10 @@
 <script setup>
     import Dropzone from '@/components/ui/helpers/Dropzone.vue';
-    import { useContentStore } from '@/stores/contents';
+    //import { useContentStore } from '@/stores/contents';
     import { ref } from 'vue';
     import { formattedTimeAndDate } from '@/helpers/index.js'
 
-    const contentStore = useContentStore()
+    //const contentStore = useContentStore()
 
     const statusContent = ref(0)
     const filePath = ref(null)
@@ -24,7 +24,7 @@
             active: statusContent.value
         };
 
-        contentStore.newEvent(formData)
+        //contentStore.newEvent(formData)
     }
 
     const toggle = () => {

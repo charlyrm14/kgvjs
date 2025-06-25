@@ -5,78 +5,64 @@
 <template>
     <div class="p-1 md:p-4 mt-4 md:mt-0">
         <div>
-            <p for="name" class="text-gray-700 dark:text-slate-300 text-lg font-extralight"> Historial de pagos </p>
+            <p for="name" class="text-cyan-500 text-lg font-light"> Historial de pagos </p>
         </div>
         <div class="mt-3 overflow-y-auto max-h-[300px]">
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
+            <div class="border-b border-gray-300 dark:border-slate-600 flex justify-between items-center mb-1">
+                <p class="text-black dark:text-slate-300 text-lg"> 
                     Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
+                        <span class="block dark:text-slate-500 font-light"> 2025-06-01 </span> 
                 </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
-            </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
-                    Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
-                </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
-            </div>
-            <div class="border-b dark:border-slate-600 flex justify-between items-center mb-1">
-                <p class="dark:text-slate-300 text-lg"> 
-                    Inscripción
-                        <span class="block dark:text-slate-500 text-base"> 2025-06-01 </span> 
-                </p>
-                <p class="dark:text-slate-300 text-xl"> $600 </p>
+                <p class="text-green-500 text-xl"> $600 </p>
             </div>
         </div>
         <div class="mt-4 flex justify-end items-center">

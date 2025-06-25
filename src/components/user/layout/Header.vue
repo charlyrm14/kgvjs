@@ -1,9 +1,9 @@
 <script setup>
-    import { useUserStore } from '@/stores/user';
+    import { useAuthStore } from '@/stores/auth';
     import { ref } from 'vue';
     import { RouterLink } from 'vue-router';
 
-    const user = useUserStore()
+    const authStore = useAuthStore()
     const dropdownMenu = ref(false)
     
 </script>
@@ -57,7 +57,7 @@
                                     alt="Profile image"
                                     class="rounded-full w-13 h-13 p-1 border-2 dark:border-white">
                                 <p class="text-gray-800 dark:text-slate-300">
-                                    {{ user?.user?.name }}
+                                    {{ authStore?.user?.name }}
                                         <span class="block font-light text-sm dark:text-slate-400">
                                             {{ user?.user?.role?.name }}
                                         </span>
@@ -66,7 +66,7 @@
                             <div class="border-b border-gray-300 dark:border-slate-500"></div>
                             <div class="mt-3">
                                 <div
-                                    v-if="user?.user?.role_id === 1"
+                                    v-if="authStore?.user?.role_id === 1"
                                     class=" hover:bg-gray-200 dark:hover:bg-slate-500 px-4 py-2 cursor-pointer"> 
                                         <RouterLink
                                             :to="{ name: 'admin-home' }"
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class=" hover:bg-gray-200 dark:hover:bg-slate-500 px-4 py-2 cursor-pointer">
                                     <button
-                                        @click="user.logOut()"
+                                        @click="authStore.logOut()"
                                         class="uppercase font-light inline-flex items-center gap-1 text-red-500 cursor-pointer hover:opacity-75">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />

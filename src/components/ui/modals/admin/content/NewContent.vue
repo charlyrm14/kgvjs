@@ -1,10 +1,10 @@
 <script setup>
     import FormNewEvent from '@/components/admin/content/FormNewEvent.vue';
     import FormNewNotice from '@/components/admin/content/FormNewNotice.vue';
-    import { useContentStore } from '@/stores/contents';
+    //import { useContentStore } from '@/stores/contents';
     import { ref } from 'vue';
 
-    const contentStore = useContentStore()
+    //const contentStore = useContentStore()
 
     const contentType = ref(0)
     
@@ -37,7 +37,6 @@
                     </div>
                 </div>
                 <button
-                    @click="contentStore.hideContentModal()"
                     class="text-slate-400 hover:text-red-500 transition cursor-pointer">
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 
@@ -59,9 +58,8 @@
                 <div
                     v-else>
                         <div 
-                            v-if="contentStore.errorEventMessage.status"
                             class="flex justify-center">
-                                <p class="text-red-500 my-3"> {{ contentStore.errorEventMessage.text }} </p>
+                                <p class="text-red-500 my-3"> Un mensaje </p>
                         </div>
                         <FormNewEvent/>
                 </div>
