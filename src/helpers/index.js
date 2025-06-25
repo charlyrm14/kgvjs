@@ -201,6 +201,12 @@ export const uniqueId = () => {
     return Date.now();
 }
 
+/**
+ * Returns an SVG path string corresponding to the attendance type icon.
+ *
+ * @param {number} [type=0] - The type of attendance (0 = Absent, 1 = Present, 2 = Unassigned).
+ * @returns {string} The SVG path string for the given type.
+ */
 export const typeAttendanceIcon = (type = 0) => {
     const icons = {
         0: 'm9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
@@ -211,6 +217,12 @@ export const typeAttendanceIcon = (type = 0) => {
     return icons[type] || icons[0]
 }
 
+/**
+ * Returns a Tailwind CSS text color class based on the attendance type.
+ *
+ * @param {number} [type=0] - The type of attendance (0 = Absent, 1 = Present, 2 = Unassigned).
+ * @returns {string} The CSS class for the text color.
+ */
 export const typeAttendanceColor = (type = 0) => {
     const icons = {
         0: 'text-red-500',
@@ -221,10 +233,54 @@ export const typeAttendanceColor = (type = 0) => {
     return icons[type] || icons[2]
 }
 
+/**
+ * Returns an array of attendance status objects with value, label, and background color.
+ *
+ * @returns {Array<{ value: number, text: string, bgColor: string }>} List of attendance status options.
+ */
 export const attendanceStatus = () => {
     return  [
         { value: 0, text: 'No Asistio', bgColor: 'bg-red-500'},
         { value: 1, text: 'Asistio', bgColor: 'bg-green-500'},
         { value: 2, text: 'Día no asignado', bgColor: 'bg-gray-500'},
     ]
+}
+
+/**
+ * Returns a Tailwind CSS text color class based on the user type.
+ *
+ * @param {string} [type='administrador'] - The user type (e.g., 'administrador', 'profesor', 'alumnos').
+ * @returns {string} The CSS class for the text color.
+ */
+export const colorForUserType = (type = 'administrador') => {
+
+    const colors = {
+        administrador: 'text-emerald-500',
+        profesor: 'text-indigo-500',
+        alumnos: 'text-amber-500'
+    }
+
+    return colors[type] || colors.administrador
+}
+
+export const backGroundColorForUserType = (type = 'administrador') => {
+
+    const colors = {
+        administrador: 'bg-emerald-100/60',
+        profesor: 'bg-indigo-100/60',
+        alumnos: 'bg-amber-100/60'
+    }
+
+    return colors[type] || colors.administrador
+}
+
+export const userTypeByRole = (type = 1) => {
+
+    const userType = {
+        1: 'Administrador',
+        2: 'Profesor',
+        3: 'Alumno'
+    }
+
+    return userType[type] || userType[1]
 }

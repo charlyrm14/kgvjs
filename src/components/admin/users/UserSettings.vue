@@ -1,13 +1,18 @@
 <script setup>
-    import { useUserStore } from '@/stores/user';
 
-    const userStore = useUserStore()
+    defineProps({
+        user: {
+            type: Object,
+            required: false
+        }    
+    })
 
-    const user = {
-        id: 1,
-        name: 'Carlos I.',
-        last_name: 'Ramos Morales'
+    const emit = defineEmits(['statusDeleteUserModal'])
+
+    const openDeleteModal = () =>  {
+        emit('statusDeleteUserModal')
     }
+
 </script>
 
 <template>
@@ -28,19 +33,19 @@
                 <!-- Contenido del mensaje -->
                 <div>
                     <p class="text-gray-700 dark:text-white font-semibold"> Atención </p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
-                        Por seguridad se te solicitara tu confirmación para eliminar a Carlos I. Una vez eliminado el usuario no podra acceder a la plataforma.
+                    <p class="text-base text-gray-600 dark:text-gray-400">
+                        Por seguridad se te solicitara tu confirmación para eliminar a <span class="text-red-400 font-base"> {{ user?.first_name }} </span> . Una vez eliminado el usuario no podra acceder a la plataforma.
                     </p>
                 </div>
             </div>
         </div>
         <div class="flex justify-between items-center mt-12">
-            <button class="px-3 py-2 dark:bg-slate-600 dark:text-slate-400 rounded-lg hover:opacity-75 cursor-pointer">
+            <button class="px-3 py-2 bg-gray-200 dark:bg-slate-600 text-gray-500 dark:text-slate-400 rounded-lg hover:opacity-75 cursor-pointer">
                 Descartar
             </button>
             <button 
-                @click="userStore.showDeletetUserModal(user)"
-                class="px-6 py-2 border border-red-500 dark:text-white rounded-lg hover:bg-red-500 cursor-pointer font-light">
+                @click.prevent="openDeleteModal"
+                class="px-6 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white cursor-pointer font-light">
                     Eliminar usuario
             </button>
         </div>

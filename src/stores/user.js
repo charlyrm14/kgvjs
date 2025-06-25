@@ -1,318 +1,178 @@
-import AuthAPI from "@/api/AuthAPI"
 import { useRouter } from "vue-router"
 import { defineStore } from "pinia"
-import { onMounted, reactive, ref } from "vue"
-import { useChatStore } from "./chat"
 import UserAPI from "@/api/UserAPI"
-import { typeAlertTextColor, typeAlertIcon } from "@/helpers"
+import { computed, reactive, ref } from "vue"
+import { typeAlertIcon } from "@/helpers"
 
 export const useUserStore = defineStore('user', () => {
 
     const router = useRouter()
     
-    const chat = useChatStore()
-
-    const user = ref({})
+    const userProfile = ref(null)
     const users = ref([])
-    const userToDelete = ref(null)
-    const statusAddUserModal = ref(false) 
-    const statusDeleteUserModal = ref(false)
-    
+    const selectedRole = ref(0)
+
     const alert = reactive({
-        status: false,
-        title: '',
+        title: '',   
         subtitle: '',
-        textColor: '',
-        icon: ''
+        color: '',
+        icon: '',
+        status: false,
     })
 
-    const errorMessage = reactive({
+    const messageError = reactive({
         text: '',
         status: false
     })
 
-    onMounted( async () => {
-
+    const fetchGetUsers = async() => {
         try {
-
             const response = await UserAPI.getUsers()
-            users.value = response.data
-
-        } catch (error) {
             
-        }
-    })
+            if (response.status === 200) {
+                users.value = response.data.data
+            }
 
-    /**
-     * The function `loadUser` asynchronously loads user data from an authentication API and assigns it
-     * to a variable `user.value`, handling errors if they occur.
-     */
-    const loadUser = async () => {
-
-        try {
-            const data = await AuthAPI.auth()
-            user.value = data.data
+            if (response.status !== 200) {
+                users.value = []
+            }
 
         } catch (error) {
-            console.error('Error cargando usuario:', error)
+            console.error(error)
         }
     }
 
-    /**
-     * The `logOut` function clears the authentication token, resets the user value and chat
-     * conversation, and navigates to the login page.
-     */
-    const logOut = async() => {
+    const fetchUserById = async(userId) => {
         try {
 
-            const response = await AuthAPI.logout()
+            const response = await UserAPI.getUserById(userId)
 
             if (response.status === 200) {
-                localStorage.removeItem('auth_token')
-                user.value = {}
-                chat.conversation = [];
-                router.push({ name: 'login' })
+                userProfile.value = response.data.data
             }
-            
+
+            if (response.status !== 200) {
+                router.push({ name: 'admin-home' })
+            }
+
         } catch (error) {
-            
+            console.error(error)
         }
     }
 
-
-    /**
-     * Add user
-     */
-    const showAddUserModal = () => {
-        statusAddUserModal.value = true
-    }
-
-    
-    /**
-     * The function `createUser` is an asynchronous function that adds a new user using data from a
-     * form, displays success or error messages, and handles errors gracefully.
-     * @param data - The `data` parameter in the `createUser` function likely contains information
-     * about the user being created. This data could include details such as the user's name, email,
-     * role ID, and any other relevant information needed to create a new user. This data is passed to
-     * the `UserAPI.add
-     */
-    const createUser = async (data) => {
-        
+    const createUser = async(data) => {
         try {
 
             const response = await UserAPI.addUser(data)
-            
+
             if (response.status === 201) {
-                handleAddUserSuccess(response.data.data)
-                setTimeout(resetAlert, 4000)
-            } 
-
-            if(response.status === 422) {
-                handleValidationErrors(response.data.errors)
+                handleAlert(
+                    'Usuario creado correctamente',
+                    response.data.message,
+                    'success'
+                )
+                users.value.unshift(response.data.data)
+                resetAlert()
+                return true
             }
 
-        } catch (error) {
-
-            console.log(error)
-        } 
-    }
-
-    const hideAddUserModal = () => {
-        statusAddUserModal.value = false
-        errorMessage.text = ''
-        errorMessage.status = false
-    }
-
-    const handleAddUserSuccess = (data) => {
-        showAlert(
-            'Usuario agregado con éxito', 
-            `El usuario ${data.name} ha sido agregado con éxito.`,
-            'success'
-        )
-        statusAddUserModal.value = false
-        users.value.unshift(data)
-    }
-
-    const handleValidationErrors = (errors) => {
-        if (errors.email) {
-            errorMessage.text = errors.email[0]
-            errorMessage.status = true
-        }
-
-        if (errors.role_id) {
-            errorMessage.text = errors.role_id[0]
-            errorMessage.status = true
-        }
-    } 
-    
-    /**
-     * Delete user
-     */
-    const showDeletetUserModal = (dataUser) => {
-        statusDeleteUserModal.value = true
-        userToDelete.value = dataUser
-    }
-
-    const deleteUser = async (userId, userName) => {
-
-        try {
-
-            const response = await UserAPI.deleteUser(userId)
-
-            if(response.status === 200) {
-                handleDeleteUserSuccess(userId, userName)
-                setTimeout(resetAlert, 4000)
-            }
-            
-        } catch (error) {
-            handleDeleteUserError(error, userName)
-            setTimeout(resetAlert, 4000)
-        }
-    }
-
-    const hideDeleteUserModal = () => {
-        statusDeleteUserModal.value = false
-    }
-
-    const handleDeleteUserSuccess = (userId, userName) => {
-        showAlert(
-            'Usuario eliminado con éxito', 
-            `El usuario ${userName} ha sido eliminado con éxito.`,
-            'success'
-        )
-        removeUserFromList(userId)
-        statusDeleteUserModal.value = false
-        router.push({ name: 'admin-home'})
-    }
-
-    const handleDeleteUserError = (error, userName) => {
-        console.error(error)
-        showAlert(
-            'Operación fallida', 
-            `Hubo un error al eliminar a ${userName}`,
-            'error'
-        )
-        statusDeleteUserModal.value = false
-        router.push({ name: 'admin-home'})
-    }
-
-    const removeUserFromList = (userId) => {
-        users.value = users.value.filter(user => user.id !== userId)
-    }
-
-    /**
-     * Assign classes to user
-    */
-    const assignClassesToUser = async(data) => {
-        try {
-
-                const response = await UserClassesAPI.assignClassesToUser(data)
-
-                if(response.status === 201) {
-                    handleAssignClassesSuccess(response.data.message)
-                    setTimeout(resetAlert, 4000)
+            if (response.status === 422) {
+                console.log(response.data)
+                if (response.data?.errors?.email[0]) {
+                    messageError.text = 'El correo ingresado ya está asociado a otra cuenta'
+                    messageError.status = true
                 }
+                resetMessage()
+            }
 
-                if(response.status === 400) {
-                    handleAssignClassesError(response.data.message)
-                    setTimeout(resetAlert, 4000)
-                }
-                
         } catch (error) {
-            
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al crear el usuario',
+                'error'
+            )
+            resetAlert()
+            return true
         }
     }
 
-    const handleAssignClassesSuccess = (message) => {
-        showAlert(
-            'Clases asignadas con éxito',
-            message,
-            'success'
-        )
-    }
-
-    const handleAssignClassesError = (message) => {
-        showAlert(
-            'Operación fallida',
-            message,
-            'error'
-        )
-    }
-
-    /**
-     * Asignar categorías natación
-     */
-    const assignSwimminCategoryToUser = async(data) => {
+    const deleteUser = async(user) => {
         try {
             
-            const response = await SwimmingCategoriesAPI.assignCategoryToUser(data)
+            const response = await UserAPI.deleteUser(user?.id)
 
-            if(response.status === 201) {
-                handleAssignsSwimminCategoryToUserSuccess(data.user_name)
-                setTimeout(resetAlert, 4000)
+            if (response.status === 200) {
+                handleAlert(
+                    'Usuario eliminado',
+                    `Se ha eliminado con éxito a ${user?.first_name}`,
+                    'error'
+                )
+                router.push({ name: 'admin-home' })
+                resetAlert()
             }
-
-            if(response.status === 400) {
-                handleAssignsSwimminCategoryToUserError(response.data.message)
-                setTimeout(resetAlert, 4000)
-            }
-        } catch (error) {
             
+            if(response.status === 404) {
+                messageError.text = response.data.message
+                messageError.status = true
+                resetMessage()
+            }
+
+        } catch (error) {
+            console.error
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al crear el usuario',
+                'error'
+            )
+            resetAlert()
+            return true
         }
     }
 
-    const handleAssignsSwimminCategoryToUserSuccess = (userName) => {
-        showAlert(
-            'Categoría asignada con éxito',
-            `Se ha asignado con éxito la categoría a ${userName}`,
-            'success'
-        )
-    }
-
-    const handleAssignsSwimminCategoryToUserError = (message) => {
-        showAlert(
-            'Operación fallida',
-            message,
-            'error'
-        )
-    }
-
-    /**
-     * Alert
-     */
-    const showAlert = (title, subtitle, type = 'success') => {
-        alert.status = true,
-        alert.title = title,
+    const handleAlert = (title, subtitle, type = 'success') => {
+        alert.title = title,   
         alert.subtitle = subtitle,
-        alert.textColor = typeAlertTextColor(type),
-        alert.icon = typeAlertIcon(type)
+        alert.color = type === 'success' ? 'green' : 'red',
+        alert.icon = typeAlertIcon(type),
+        alert.status = true
     }
 
     const resetAlert = () => {
-        alert.status = false,
-        alert.title = '',
-        alert.subtitle = '',
-        alert.textColor = '',
-        alert.icon = ''
+        setTimeout(() => {
+            alert.title = '',   
+            alert.subtitle = '',
+            alert.color = '',
+            alert.icon = '',
+            alert.status = false 
+        }, 4000);
     }
 
-return {
+    const resetMessage = () => {
+        setTimeout(() => {
+            messageError.text = ''
+            messageError.status = false
+        }, 6000);
+    }
+
+    const filterUsers = computed(() => {
+        if(selectedRole.value === 0) return users.value
+        if(selectedRole.value === 1) return users.value.filter(u => u.role_id === 1)
+        if(selectedRole.value === 2) return users.value.filter(u => u.role_id === 2)
+        if(selectedRole.value === 3) return users.value.filter(u => u.role_id === 3)
+        return []
+    })
+
+    return {
+        userProfile,
         users,
-        user,
-        loadUser,
-        logOut,
-        statusAddUserModal,
-        showAddUserModal,
-        hideAddUserModal,
+        selectedRole,
+        fetchGetUsers,
+        fetchUserById,
         createUser,
-        statusDeleteUserModal,
-        showDeletetUserModal,
-        hideDeleteUserModal,
-        userToDelete,
-        deleteUser,
         alert,
-        errorMessage,
-        assignClassesToUser,
-        assignSwimminCategoryToUser
+        messageError,
+        deleteUser,
+        filterUsers
     }
 })

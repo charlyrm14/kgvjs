@@ -1,9 +1,9 @@
 <script setup>
     import Dropzone from '@/components/ui/helpers/Dropzone.vue';
-    import { useContentStore } from '@/stores/contents';
+    //import { useContentStore } from '@/stores/contents';
     import { ref } from 'vue';
 
-    const contentStore = useContentStore()
+    //const contentStore = useContentStore()
 
     const statusContent = ref(0)
     const filePath = ref(null)
@@ -20,7 +20,7 @@
             active: statusContent.value
         };
 
-        contentStore.newNotice(formData)
+        //contentStore.newNotice(formData)
     }
 
     const toggle = () => {
@@ -86,7 +86,6 @@
 
             <div class="flex justify-end gap-2">
                 <button
-                    @click.prevent="contentStore.hideContentModal()"
                     class="px-4 py-2 border text-gray-500 dark:text-slate-400 rounded-lg text-sm transition uppercase cursor-pointer hover:opacity-75">
                         Cancelar
                 </button>
