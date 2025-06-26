@@ -1,12 +1,18 @@
 <script setup>
     import FormNewEvent from '@/components/admin/content/FormNewEvent.vue';
     import FormNewNotice from '@/components/admin/content/FormNewNotice.vue';
-    //import { useContentStore } from '@/stores/contents';
+    import { useContentStore } from '@/stores/content';
     import { ref } from 'vue';
 
-    //const contentStore = useContentStore()
-
     const contentType = ref(0)
+
+    const contentStore = useContentStore()
+    
+    const emit = defineEmits(['closeContentModal'])
+
+    const closeNewContentModal = () => {
+        emit('closeContentModal')
+    }
     
 </script>
 
@@ -37,6 +43,7 @@
                     </div>
                 </div>
                 <button
+                    @click="closeNewContentModal"
                     class="text-slate-400 hover:text-red-500 transition cursor-pointer">
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 
@@ -53,15 +60,27 @@
             <div class="my-5">
                 <div
                     v-if="contentType == 0">
-                        <FormNewNotice/>
+                        <FormNewNotice
+                            @closeContentModal="closeNewContentModal"/>
                 </div>
                 <div
                     v-else>
-                        <div 
-                            class="flex justify-center">
-                                <p class="text-red-500 my-3"> Un mensaje </p>
+                        <div
+                            v-if="contentStore?.messageError?.status"
+                            class="my-3 bg-red-200 rounded-lg p-2">
+                                <div class="flex justify-start items-center gap-x-3">
+                                    <div class="bg-red-500 p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                        </svg>
+                                    </div>
+                                    <p class="dark:text-red-600 text-sm md:text-base">
+                                        {{ contentStore?.messageError?.text  ?? '' }}
+                                    </p>
+                                </div>
                         </div>
-                        <FormNewEvent/>
+                        <FormNewEvent
+                            @closeContentModal="closeNewContentModal"/>
                 </div>
             </div>
 

@@ -8,7 +8,7 @@
     } from '@/helpers'
 
     import ContentAPI from '@/api/ContentAPI';
-    import { useContentStore } from '@/stores/contents';
+    import { useContentStore } from '@/stores/content';
 
     const contentStore = useContentStore()
 

@@ -6,7 +6,7 @@
         getHourByDate,
         formattedDate
     } from '@/helpers'
-    import { useContentStore } from '@/stores/contents';
+    import { useContentStore } from '@/stores/content';
 
     const contentStore = useContentStore()
 

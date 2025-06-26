@@ -95,6 +95,11 @@ const router = createRouter({
           component: () => import('../views/admin/content/ContentView.vue')
         },
         {
+          path: 'contenido-edit/:slug',
+          name: 'admin-content-edit',
+          component: () => import('../views/admin/content/ContentEditView.vue')
+        },
+        {
           path: 'categorias',
           name: 'admin-categories',
           component: () => import('../views/admin/categories/CategoriesView.vue')
