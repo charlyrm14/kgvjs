@@ -77,7 +77,6 @@ export const useUserStore = defineStore('user', () => {
             }
 
             if (response.status === 422) {
-                console.log(response.data)
                 if (response.data?.errors?.email[0]) {
                     messageError.text = 'El correo ingresado ya está asociado a otra cuenta'
                     messageError.status = true

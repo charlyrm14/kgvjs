@@ -181,13 +181,13 @@
                             class="px-4 py-2 border text-gray-500 dark:text-slate-400 rounded-lg text-sm transition uppercase cursor-pointer hover:opacity-75 shadow">
                                 Cancelar
                         </button>
-                            <button 
-                                type="submit"
-                                :disabled="isSubmitting"
-                                class="px-4 py-2  text-white rounded-lg text-sm transition uppercase"
-                                :class="!isSubmitting ? 'bg-blue-500 hover:bg-blue-700 cursor-pointer' : 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed'"> 
-                                    {{ isSubmitting ? 'Procesando...' : 'Agregar' }} 
-                            </button>
+                        <button 
+                            type="submit"
+                            :disabled="isSubmitting"
+                            class="px-4 py-2  text-white rounded-lg text-sm transition uppercase"
+                            :class="!isSubmitting ? 'bg-blue-500 hover:bg-blue-700 cursor-pointer' : 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed'"> 
+                                {{ isSubmitting ? 'Procesando...' : 'Agregar' }} 
+                        </button>
                     </div>
 
             </FormKit>
