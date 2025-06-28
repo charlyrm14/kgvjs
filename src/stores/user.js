@@ -110,6 +110,16 @@ export const useUserStore = defineStore('user', () => {
                 router.push({ name: 'admin-home' })
                 resetAlert()
             }
+
+            if (response.status === 401 || response.status === 403) {
+                handleAlert(
+                    'Operación fallida',
+                    response.data.message,
+                    'error'
+                )
+                router.push({ name: 'admin-home' })
+                resetAlert()
+            }
             
             if(response.status === 404) {
                 messageError.text = response.data.message

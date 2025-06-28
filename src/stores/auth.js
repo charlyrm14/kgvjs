@@ -7,7 +7,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const router = useRouter()
 
-    const user = ref({})
+    const user = ref(null)
 
     /**
      * The function `loadUser` asynchronously loads user data from an authentication API and assigns it
@@ -16,8 +16,11 @@ export const useAuthStore = defineStore('auth', () => {
     const loadUser = async () => {
 
         try {
-            const data = await AuthAPI.auth()
-            user.value = data.data
+            const response = await AuthAPI.auth()
+
+            if (response.status === 200) {
+                user.value = response.data.data
+            }
 
         } catch (error) {
             console.error('Error cargando usuario:', error)
@@ -30,14 +33,14 @@ export const useAuthStore = defineStore('auth', () => {
      */
     const logOut = async() => {
         try {
-
+            
             const response = await AuthAPI.logout()
 
             if (response.status === 200) {
-                localStorage.removeItem('auth_token')
-                //user.value = {}
-                //chat.conversation = [];
                 router.push({ name: 'login' })
+                localStorage.removeItem('auth_token')
+                user.value = null
+                chat.conversation = [];
             }
             
         } catch (error) {

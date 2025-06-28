@@ -44,6 +44,31 @@ const router = createRouter({
           component: () => import('../views/user/home/HomeView.vue')
         },
         {
+          path: 'users-birthday',
+          name: 'users-birthday',
+          component: () => import('../views/user/users/UsersBirthdayView.vue')
+        },
+        {
+          path: 'usuarios-destacados',
+          name: 'featured-users',
+          component: () => import('../views/user/users/UsersFeaturedView.vue')
+        },
+        {
+          path: 'equipo-king-dreams',
+          name: 'team',
+          component: () => import('../views/user/team/TeamView.vue')
+        },
+        {
+          path: 'profesores-king-dreams',
+          name: 'coach',
+          component: () => import('../views/user/coach/CoachView.vue')
+        },
+        {
+          path: 'tips',
+          name: 'tips',
+          component: () => import('../views/user/tips/TipsView.vue')
+        },
+        {
           path: 'chat',
           name: 'chat',
           component: () => import('../views/user/chat/ChatView.vue')
@@ -59,14 +84,19 @@ const router = createRouter({
           component: () => import('../views/user/my-class-schedule/MyClassScheduleView.vue')
         },
         {
-          path: 'publicaciones',
-          name: 'contents',
-          component: () => import('../views/user/contents/ContentsView.vue')
+          path: 'eventos',
+          name: 'events',
+          component: () => import('../views/user/content/EventView.vue')
         },
         {
-          path: 'publicaciones/:slug',
-          name: 'contents-info',
-          component: () => import('../views/user/contents/ContentInfoView.vue')
+          path: 'notices',
+          name: 'notices',
+          component: () => import('../views/user/content/NoticeView.vue')
+        },
+        {
+          path: 'contenido-detalle/:slug',
+          name: 'content-detail',
+          component: () => import('../views/user/content/ContentDetailView.vue')
         },
         {
           path: 'configuracion',

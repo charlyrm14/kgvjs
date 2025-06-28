@@ -17,70 +17,80 @@
         <div class="flex gap-4 overflow-x-auto sm:overflow-visible md:grid md:grid-cols-4 md:grid-rows-2 md:gap-6">
 
             <!-- Tip 1 (ocupa 2 columnas y 2 filas) -->
-            <div class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center md:col-span-2 md:row-span-2">
-                <div class="mb-2 flex justify-center">
-                    <img 
-                        src="../../../assets/img/swimmer.png" 
-                        alt="tip 1" 
-                        class="w-10 md:w-50 rounded-full">
-                </div>
-                <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase"> Postura hidrodinámica </h3>
-                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                    Mantén el cuerpo alineado con la superficie del agua para reducir la resistencia.
-                </p>
-            </div>
+            <RouterLink 
+                :to="{ name: 'tips' }"
+                class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center md:col-span-2 md:row-span-2 cursor-pointer hover:opacity-75">
+                    <div class="mb-2 flex justify-center">
+                        <img 
+                            src="../../../assets/img/tip-1.png" 
+                            alt="tip 1" 
+                            class="w-10 md:w-50 rounded-full">
+                    </div>
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase"> Postura hidrodinámica </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Mantén el cuerpo alineado con la superficie del agua para reducir la resistencia.
+                    </p>
+            </RouterLink>
 
             <!-- Tip 2 -->
-            <div class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center">
-                <div class="mb-2 flex justify-center">
-                    <img 
-                        src="../../../assets/img/swimmer.png" 
-                        alt="tip" 
-                        class="w-10 rounded-full">
-                </div>
-                <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Respira correctamente</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                    Respirar de forma lateral y a ritmo evita el agotamiento.
-                </p>
-            </div>
+            <RouterLink 
+                :to="{ name: 'tips' }"
+                class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center cursor-pointer hover:opacity-75">
+                    <div class="mb-2 flex justify-center">
+                        <img 
+                            src="../../../assets/img/tip-2.png" 
+                            alt="tip" 
+                            class="w-10 rounded-full">
+                    </div>
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Respira correctamente</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Respirar de forma lateral y a ritmo evita el agotamiento.
+                    </p>
+            </RouterLink>
 
             <!-- Tip 3 -->
-            <div class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center">
-                <div class="mb-2 flex justify-center">
-                    <img
-                        src="../../../assets/img/swimmer.png" 
-                        alt="tip" 
-                        class="w-10 rounded-full">
-                </div>
-                <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                    Una patada constante y ligera te ayuda a mantener el equilibrio.
-                </p>
-            </div>
+            <RouterLink 
+                :to="{ name: 'tips' }"
+                class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center cursor-pointer hover:opacity-75">
+                    <div class="mb-2 flex justify-center">
+                        <img
+                            src="../../../assets/img/tip-3.png" 
+                            alt="tip" 
+                            class="w-10 rounded-full">
+                    </div>
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Una patada constante y ligera te ayuda a mantener el equilibrio.
+                    </p>
+            </RouterLink>
 
             <!-- Tip 4 -->
-            <div class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center hidden md:block">
-                <div class="mb-2 flex justify-center">
-                    <img 
-                        src="../../../assets/img/swimmer.png" 
-                        alt="tip" 
-                        class="w-10 rounded-full">
-                </div>
-                <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                    Una patada constante y ligera te ayuda a mantener el equilibrio.
-                </p>
-            </div>
+            <RouterLink 
+                :to="{ name: 'tips' }"
+                class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center hidden md:block cursor-pointer hover:opacity-75">
+                    <div class="mb-2 flex justify-center">
+                        <img 
+                            src="../../../assets/img/tip-4.png" 
+                            alt="tip" 
+                            class="w-10 rounded-full">
+                    </div>
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Una patada constante y ligera te ayuda a mantener el equilibrio.
+                    </p>
+            </RouterLink>
 
             <!-- Ver más -->
-            <div class="min-w-[220px] flex-1 bg-blue-100 dark:bg-blue-900/40 rounded-xl shadow p-4 flex items-center justify-center hover:opacity-75 cursor-pointer">
-                <a href="#" class="text-blue-700 dark:text-blue-300 font-semibold flex items-center gap-1 uppercase">
-                    Ver más
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </div>
+            <RouterLink 
+                :to="{ name: 'tips' }"
+                class="min-w-[220px] flex-1 bg-blue-100 dark:bg-blue-900/40 rounded-xl shadow p-4 flex items-center justify-center hover:opacity-75 cursor-pointer">
+                    <p class="text-blue-700 dark:text-blue-300 font-semibold flex items-center gap-1 uppercase">
+                        Ver más
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </p>
+            </RouterLink>
 
         </div>
     </section>

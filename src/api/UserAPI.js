@@ -93,9 +93,14 @@ export default {
 
         try {
 
+            const token = localStorage.getItem('auth_token')
+
+            if(!token) return
+
             const response = await fetch(`${url}/api/v1/users/${userId}`, {
                 method: 'DELETE',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 }
             })
