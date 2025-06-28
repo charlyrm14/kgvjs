@@ -1,10 +1,22 @@
 <script setup>
     import { useAuthStore } from '@/stores/auth';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { RouterLink } from 'vue-router';
 
     const authStore = useAuthStore()
     const dropdownMenu = ref(false)
+
+    onMounted(async() => {
+        await authStore.loadUser()
+    })
+
+    const logout = async() => {
+        try {
+            await authStore?.logOut()
+        } catch (error) {
+            console.error(error)
+        }
+    }
     
 </script>
 
@@ -19,7 +31,7 @@
                     <div class="relative">
                         <img
                             @click="dropdownMenu = !dropdownMenu"
-                            src="../../../assets/img/300-27.jpg" 
+                            src="../../../assets/img/user-profile.png" 
                             alt="Profile image"
                             class="rounded-full w-13 h-13 p-1 border-2 border-cyan-500 cursor-pointer">
                         <div
@@ -50,16 +62,16 @@
                     <div
                         v-if="dropdownMenu"
                         class="absolute w-85 bg-white dark:bg-slate-600 rounded-lg shadow-2xl border border-gray-300 dark:border-slate-500 z-50"
-                        :class="user?.user?.role_id !== 1 ? '-bottom-58 -left-75' : '-bottom-68 -left-75' ">
+                        :class="authStore?.user?.role_id !== 1 ? '-bottom-58 -left-75' : '-bottom-68 -left-75' ">
                             <div class="flex justify-start items-center gap-x-2 px-4 py-3">
                                 <img 
                                     src="../../../assets/img/300-27.jpg" 
                                     alt="Profile image"
                                     class="rounded-full w-13 h-13 p-1 border-2 dark:border-white">
                                 <p class="text-gray-800 dark:text-slate-300">
-                                    {{ authStore?.user?.name }}
+                                    {{ authStore?.user?.first_name }}
                                         <span class="block font-light text-sm dark:text-slate-400">
-                                            {{ user?.user?.role?.name }}
+                                            {{ authStore?.user?.role?.name }}
                                         </span>
                                 </p>
                             </div>
@@ -95,7 +107,7 @@
                                 </div>
                                 <div class=" hover:bg-gray-200 dark:hover:bg-slate-500 px-4 py-2 cursor-pointer">
                                     <button
-                                        @click="authStore.logOut()"
+                                        @click.prevent="logout"
                                         class="uppercase font-light inline-flex items-center gap-1 text-red-500 cursor-pointer hover:opacity-75">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
