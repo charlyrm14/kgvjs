@@ -15,7 +15,34 @@
                 Conoce al equipo que nos representa en competencias a nivel nacional, destacando esfuerzo, disciplina y pasión deportiva.
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 py-4 gap-y-4 md:gap-x-4 md:gap-y-0">
+        <div class="grid grid-cols-2 md:grid-cols-4 py-4 gap-4 md:gap-y-0">
+            <div class="bg-indigo-100 border border-indigo-200 p-4 rounded-lg">
+                <div class="border-b border-indigo-200">
+                    <div class="flex justify-center">
+                        <img 
+                            src="../../../assets/img/winner.png" 
+                            alt="Equipo king dreams"
+                            class="w-30">
+                    </div>
+                    <div class="flex justify-center my-2">
+                        <h2 class="text-xl text-indigo-500 text-center"> 
+                            Valentina E. 
+                                <span class="block text-base"> Hérnandez Ramos </span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="bg-indigo-200 my-1 p-1 rounded px-3">
+                        <p class="font-light"> Le gustan los insectos </p>
+                    </div>
+                    <div class="bg-indigo-200 my-1 p-1 rounded px-3">
+                        <p class="font-light"> Le gusta leer </p>
+                    </div>
+                    <div class="bg-indigo-200 mt-1 p-1 rounded px-3">
+                        <p class="font-light"> Le gusta el espacio </p>
+                    </div>
+                </div>
+            </div>
             <div class="bg-indigo-100 border border-indigo-200 p-4 rounded-lg">
                 <div class="border-b border-indigo-200">
                     <div class="flex justify-center">

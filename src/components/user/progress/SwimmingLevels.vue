@@ -1,5 +1,5 @@
 <script setup>
-    import { computed, ref } from 'vue';
+    import { ref } from 'vue';
 
     const props = defineProps({
         levels: {
@@ -41,15 +41,15 @@
             v-if="levels.length > 0"
             class="bg-blue-100 rounded-lg p-2 mt-3">
                 <div class="flex items-center gap-x-3">
-                    <div class="p-4 bg-blue-200 rounded-lg">
+                    <div>
                         <img 
                             :src="pathImage + '/' + (selectedLevel?.image ?? '../../../assets/img/shark.png')" 
                             alt="shark" 
-                            class="w-6">
+                            class="w-50 md:w-20">
                     </div>
                     <div>
                         <p class="uppercase text-lg"> {{ selectedLevel?.name }} </p>
-                        <span class="text-base text-slate-500 uppercase"> {{ selectedLevel?.skill_1 }}  · {{ selectedLevel?.skill_3 }} · {{ selectedLevel?.skill_3 }} </span>
+                        <span class="text-sm md:text-base text-slate-500 uppercase"> {{ selectedLevel?.skill_1 }}  · {{ selectedLevel?.skill_2 }} · {{ selectedLevel?.skill_3 }} </span>
                     </div>
                 </div>
         </div>

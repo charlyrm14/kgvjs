@@ -73,6 +73,13 @@
         <div class="flex w-full md:w-1/2 items-center justify-center p-6 h-screen">
             <div class="w-full max-w-md space-y-6">
 
+                <div class="md:hidden">
+                    <img 
+                        src="../../../assets/img/agency-dark.png" 
+                        alt="Login img" 
+                        class="mx-auto mb-6">
+                </div>
+
                 <div class="flex justify-center items-center gap-5">
                     <p class="text-2xl text-center font-extralight uppercase cursor-pointer"> 
                         Iniciar sesión 
