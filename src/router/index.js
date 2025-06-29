@@ -99,6 +99,11 @@ const router = createRouter({
           component: () => import('../views/user/content/ContentDetailView.vue')
         },
         {
+          path: 'mi-perfil',
+          name: 'my-profile',
+          component: () => import('../views/user/profile/ProfileView.vue')
+        },
+        {
           path: 'configuracion',
           name: 'settings',
           component: () => import('../views/user/settings/SettingsView.vue')

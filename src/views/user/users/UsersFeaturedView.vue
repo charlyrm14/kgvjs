@@ -23,7 +23,7 @@
                 <div class="px-4 py-2 flex justify-between items-center">
                     <div class="flex gap-x-4">
                         <img 
-                            src="../../../assets/img/kid.png" 
+                            src="../../../assets/img/winner-w.png" 
                             alt=""
                             class="rounded-full w-15">
                         <h2 class="text-lg"> 
