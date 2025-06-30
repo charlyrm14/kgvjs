@@ -11,6 +11,9 @@ export const useUserStore = defineStore('user', () => {
     const userProfile = ref(null)
     const users = ref([])
     const selectedRole = ref(0)
+    const todayBirthdayUsers = ref(null)
+    const coaches = ref(null)
+    const featuredStudents = ref(null)
 
     const alert = reactive({
         title: '',   
@@ -53,6 +56,47 @@ export const useUserStore = defineStore('user', () => {
 
             if (response.status !== 200) {
                 router.push({ name: 'admin-home' })
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const fetchBirthdayUsers = async() => {
+        try {
+            
+            const response = await UserAPI.getTodayBirthdayUsers()
+
+            if(response.status === 200) {
+                todayBirthdayUsers.value = response.data.data
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    
+    const fetchGetCoaches = async() => {
+        try {
+            const response = await UserAPI.getUsersByRole('profesor')
+            
+            if (response.status === 200) {
+                coaches.value = response.data.data.users
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const fetchFeaturedStudents = async() => {
+        try {
+            
+            const response = await UserAPI.getUsersByRole('alumno')
+
+            if(response.status === 200) {
+                featuredStudents.value = response.data.data.users
             }
 
         } catch (error) {
@@ -128,7 +172,7 @@ export const useUserStore = defineStore('user', () => {
             }
 
         } catch (error) {
-            console.error
+            console.error(error)
             handleAlert(
                 'Operacion fallida',
                 'Hubo un error al crear el usuario',
@@ -176,8 +220,14 @@ export const useUserStore = defineStore('user', () => {
         userProfile,
         users,
         selectedRole,
+        todayBirthdayUsers,
+        coaches,
+        featuredStudents,
         fetchGetUsers,
         fetchUserById,
+        fetchBirthdayUsers,
+        fetchGetCoaches,
+        fetchFeaturedStudents,
         createUser,
         alert,
         messageError,

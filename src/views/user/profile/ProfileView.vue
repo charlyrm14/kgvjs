@@ -21,15 +21,15 @@
                 </div>                
             </div>
             <div class="mt-8 md:mt-12">
-                <h2 class="dark:text-slate-300 text-2xl text-center"> Carlos I. </h2>
-                <p class="text-center dark:text-slate-400"> charlyrm14@gmail.com </p>
+                <h2 class="text-gray-700 dark:text-slate-300 text-2xl text-center"> Carlos I. </h2>
+                <p class="text-center text-gray-500 dark:text-slate-400"> charlyrm14@gmail.com </p>
             </div>
-            <div class="mt-10 dark:bg-slate-700 rounded-lg p-4">
+            <div class="mt-10 bg-white dark:bg-slate-700 rounded-lg p-4 shadow">
                 <div class="flex justify-between items-center">
-                    <h2 class="dark:text-slate-300 text-xl"> Información Personal </h2>
+                    <h2 class="text-gray-700 dark:text-slate-300 text-xl"> Información Personal </h2>
                     <button 
                         @click="showPersonalInfo = !showPersonalInfo"
-                        class="rounded-full p-1 dark:bg-slate-500 dark:text-slate-300 hover:opacity-75 cursor-pointer">
+                        class="rounded-full p-1 bg-gray-100 dark:bg-slate-500 text-gray-600 dark:text-slate-300 hover:opacity-75 cursor-pointer">
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
                                 fill="none" 
@@ -46,7 +46,7 @@
                 </div>
                 <div 
                     v-if="showPersonalInfo"
-                    class="mt-4 border-t dark:border-slate-600">
+                    class="mt-4 border-t border-gray-300 dark:border-slate-600">
                         <div class="mt-3">
                             <div>
                                 <label for="name" class="dark:text-slate-300 text-lg font-light"> Nombre </label>
@@ -55,7 +55,7 @@
                                     name="name"
                                     id="name"
                                     placeholder="Carlos I."
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -66,7 +66,7 @@
                                     name="name"
                                     id="name"
                                     placeholder="Ramos"
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                             <div class="mt-3">
                                 <label for="name" class="dark:text-slate-300 text-lg font-light"> Apellido materno </label>
@@ -75,7 +75,7 @@
                                     name="name"
                                     id="name"
                                     placeholder="Morales"
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                         </div>
                         <div class="mt-3">
@@ -86,7 +86,7 @@
                                     name="email"
                                     id="email"
                                     placeholder="charlyrm14@gmail.com"
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -97,7 +97,7 @@
                                     name="phone_number"
                                     id="phone_number"
                                     placeholder="55 7786 4159"
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                             <div class="mt-3">
                                 <label for="birth_date" class="dark:text-slate-300 text-lg font-light"> Fecha de nacimiento </label>
@@ -106,12 +106,12 @@
                                     name="birth_date"
                                     id="birth_date"
                                     placeholder="1990-12-01"
-                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border dark:border-slate-800 mt-2 rounded-lg">
+                                    class="w-full p-4 dark:bg-slate-800 dark:text-slate-200 border border-gray-300 dark:border-slate-800 mt-2 rounded-lg">
                             </div>
                         </div>
                         <div class="flex justify-between md:justify-end items-center gap-x-4 mt-8 md:mt-6">
                             <button
-                                class="dark:bg-slate-600 dark:text-slate-400 px-4 py-2 rounded-lg cursor-pointer hover:opacity-75">
+                                class="bg-gray-200 dark:bg-slate-600 text-gray-500 dark:text-slate-400 px-4 py-2 rounded-lg cursor-pointer hover:opacity-75">
                                     Cancelar
                             </button>
                             <button
