@@ -133,5 +133,59 @@ export default {
         } catch (error) {
             console.error(error)
         }
+    },
+
+    async getTodayBirthdayUsers () {
+        try {
+
+            const token = localStorage.getItem('auth_token')
+
+            if(!token) return
+
+            const response = await fetch(`${url}/api/v1/users/birthday/today`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }, 
+            })
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
+            
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
+    async getUsersByRole (role) {
+        try {
+
+            const token = localStorage.getItem('auth_token')
+
+            if(!token) return
+
+            const response = await fetch(`${url}/api/v1/users/by-role/${role}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }, 
+            })
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
+            
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
