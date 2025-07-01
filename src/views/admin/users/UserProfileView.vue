@@ -71,7 +71,8 @@
                     v-if="sections === 4"/>
 
                 <UserAttendance
-                    v-if="sections === 5"/>
+                    v-if="sections === 5"
+                    :user="userStore?.userProfile"/>
 
                 <UserSettings
                     v-if="sections === 6"

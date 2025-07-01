@@ -326,3 +326,44 @@ export const typeContentIcon = (type = 1) => {
 
     return icons[type] || icons[1]
 }
+
+/**
+ * The function `currentYear` returns the current year using JavaScript.
+ * @returns The function `currentYear` returns the current year as a number.
+ */
+export const currentYear = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+
+    return year;
+}
+
+/**
+ * The function `monthsOfTheYear` returns an array of objects representing months up to the current
+ * month.
+ * @returns The function `monthsOfTheYear` returns an array of objects representing the months of the
+ * year up to the current month. Each object in the array contains properties for the month's id, value
+ * (in numerical format), and name. The filtering is based on the current month obtained from the
+ * system date.
+ */
+export const monthsOfTheYear = () => {
+
+    const months = [
+        { id: 1, value: '01', name: 'Enero' }, 
+        { id: 2, value: '02', name: 'Febrero' }, 
+        { id: 3, value: '03', name: 'Marzo' }, 
+        { id: 4, value: '04', name: 'Abril' }, 
+        { id: 5, value: '05', name: 'Mayo' }, 
+        { id: 6, value: '06', name: 'Junio' },
+        { id: 7, value: '07', name: 'Julio' }, 
+        { id: 8, value: '08', name: 'Agosto' }, 
+        { id: 9, value: '09', name: 'Septiembre' }, 
+        { id: 10, value: '10', name: 'Octubre' }, 
+        { id: 11, value: '11', name: 'Noviembre' }, 
+        { id: 12, value: '12', name: 'Diciembre' }
+    ]
+
+    const currentMonth = new Date().getMonth() + 1
+
+    return months.filter(m => m.id <= currentMonth)
+}
