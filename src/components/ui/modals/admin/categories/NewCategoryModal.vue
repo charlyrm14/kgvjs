@@ -1,12 +1,11 @@
 <script setup>
     import Dropzone from '@/components/ui/helpers/Dropzone.vue';
-    //import { useSwimmingCategoriesStore } from '@/stores/swimming-categories';
     import { ref } from 'vue';
     
-    //const swimmingStore = useSwimmingCategoriesStore()
-
     const message = ref('')
     const filePath = ref(null)
+
+    const emit = defineEmits(['closeCreateModal'])
 
     const handleSubmit = (data) => {
 
@@ -23,6 +22,10 @@
         filePath.value = path;
     };
 
+    const closeModal = () => {
+        emit('closeCreateModal')
+    }
+
 </script>
 
 <template>
@@ -38,6 +41,7 @@
                     </svg> Nueva categoría 
                 </h2>
                 <button
+                    @click="closeModal"
                     class="text-slate-400 hover:text-red-500 transition cursor-pointer">
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 
@@ -75,22 +79,52 @@
                             }"/>
                     </div>
 
-                    <div class="my-3">
-                        <label for="image" class="uppercase dark:text-slate-300 font-light"> Clasificación </label>
-                        <FormKit
-                            type="select"
-                            name="classification"
-                            :options="[
-                                { label: 'Selecciona', attrs: { disabled: true } },
-                                { label: 'Niños', value: 1 },
-                                { label: 'Adultos', value: 2 },
-                            ]"
-                            input-class="border border-gray-300 dark:border-slate-500 text-gray-700 dark:text-slate-300 p-3 my-2 rounded-lg uppercase w-full"
+                    <div>
+                        <label for="skill_1" class="uppercase dark:text-slate-300 font-light"> Habilidad 1 </label>
+                        <FormKit 
+                            type="text"
+                            name="skill_1"
+                            id="skill_1"
+                            placeholder="Ej: Delfín"
+                            label-class="uppercase font-light dark:text-slate-500"
+                            input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
+                            message-class="text-red-500 text-sm px-2 font-light"
                             validation="required"
                             :validation-messages="{
-                                required: 'Selecciona una categoría',
-                            }"
-                            message-class="text-red-500 text-sm px-2 font-light"/>
+                                required: 'Ingresa el nombre de la categoría'
+                            }"/>
+                    </div>
+
+                    <div>
+                        <label for="skill_2" class="uppercase dark:text-slate-300 font-light"> Habilidad 2 </label>
+                        <FormKit 
+                            type="text"
+                            name="skill_2"
+                            id="skill_2"
+                            placeholder="Ej: Delfín"
+                            label-class="uppercase font-light dark:text-slate-500"
+                            input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
+                            message-class="text-red-500 text-sm px-2 font-light"
+                            validation="required"
+                            :validation-messages="{
+                                required: 'Ingresa el nombre de la categoría'
+                            }"/>
+                    </div>
+
+                    <div>
+                        <label for="skill_3" class="uppercase dark:text-slate-300 font-light"> Habilidad 3 </label>
+                        <FormKit 
+                            type="text"
+                            name="skill_3"
+                            id="skill_3"
+                            placeholder="Ej: Delfín"
+                            label-class="uppercase font-light dark:text-slate-500"
+                            input-class="border border-gray-300 dark:text-slate-300 dark:border-slate-500 w-full p-3 my-2 rounded-lg"
+                            message-class="text-red-500 text-sm px-2 font-light"
+                            validation="required"
+                            :validation-messages="{
+                                required: 'Ingresa el nombre de la categoría'
+                            }"/>
                     </div>
 
                     <Dropzone
@@ -118,6 +152,7 @@
                 <!-- Acciones -->
                 <div class="flex justify-end gap-2">
                     <button
+                        @click.prevent="closeModal"
                         class="px-4 py-2 border text-gray-500 dark:text-slate-400 rounded-lg text-sm transition uppercase cursor-pointer hover:opacity-75">
                             Cancelar
                     </button>

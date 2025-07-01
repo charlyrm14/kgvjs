@@ -22,8 +22,13 @@ export const useAuthStore = defineStore('auth', () => {
                 user.value = response.data.data
             }
 
+            if(response.status === 400) {
+                router.push({ name: 'login' })
+                localStorage.removeItem('auth_token')
+            }
+
         } catch (error) {
-            console.error('Error cargando usuario:', error)
+            console.error( error)
         }
     }
 
@@ -40,11 +45,10 @@ export const useAuthStore = defineStore('auth', () => {
                 router.push({ name: 'login' })
                 localStorage.removeItem('auth_token')
                 user.value = null
-                chat.conversation = [];
             }
             
         } catch (error) {
-            
+            console.error(error)
         }
     }
 
