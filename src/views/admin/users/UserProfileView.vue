@@ -2,7 +2,6 @@
 
     import UserAttendance from '@/components/admin/users/UserAttendance.vue';
     import UserDetail from '@/components/admin/users/UserDetail.vue';
-    import UserInfo from '@/components/admin/users/UserInfo.vue';
     import UserLevels from '@/components/admin/users/UserLevels.vue';
     import UserPayments from '@/components/admin/users/UserPayments.vue';
     import UserSchedule from '@/components/admin/users/UserSchedule.vue';
@@ -58,24 +57,21 @@
                     <UserSectionTabs :selected="sections" @update:section="val => sections = val"/>
                 </div>
 
-                <UserInfo
+                <UserSchedule
                     v-if="sections === 1"/>
 
-                <UserSchedule
+                <UserPayments
                     v-if="sections === 2"/>
 
-                <UserPayments
+                <UserLevels
                     v-if="sections === 3"/>
 
-                <UserLevels
-                    v-if="sections === 4"/>
-
                 <UserAttendance
-                    v-if="sections === 5"
+                    v-if="sections === 4"
                     :user="userStore?.userProfile"/>
 
                 <UserSettings
-                    v-if="sections === 6"
+                    v-if="sections === 5"
                     :user="userStore?.userProfile"
                     @statusDeleteUserModal="handleStatusDeleteUserModal"/>
             </div>

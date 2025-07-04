@@ -5,6 +5,7 @@ import { computed, reactive, ref } from "vue"
 import { typeAlertIcon } from "@/helpers"
 
 export const useUserStore = defineStore('user', () => {
+    const urlAPI = import.meta.env.VITE_API_URL
 
     const router = useRouter()
     
@@ -14,6 +15,7 @@ export const useUserStore = defineStore('user', () => {
     const todayBirthdayUsers = ref(null)
     const coaches = ref(null)
     const featuredStudents = ref(null)
+    const profileImage = ref('/img/user-profile.png')
 
     const alert = reactive({
         title: '',   
@@ -140,6 +142,67 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const updateUser = async(data) => {
+        try {
+            const response = await UserAPI.updateUser(data)
+
+            if (response.status == 200) {
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+            }
+
+            if(response.status === 422) {
+                handleAlert(
+                    'Oops algo salio mal!',
+                    response.data.message,
+                    'error'
+                )
+                resetAlert()
+            }
+
+        } catch (error) {
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al actualizar la información',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
+    const updateProfileImage = async(data) => {
+        try {
+
+            const response = await UserAPI.updateProfileImage(data)
+
+            if (response.status === 200) {
+                profileImage.value = urlAPI + '/' + response.data.data.profile_image
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+                return true
+            }
+            
+        } catch (error) {
+            profileImage.value = '/img/user-profile.png'
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al actualizar la información',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
     const deleteUser = async(user) => {
         try {
             
@@ -217,6 +280,7 @@ export const useUserStore = defineStore('user', () => {
     })
 
     return {
+        urlAPI,
         userProfile,
         users,
         selectedRole,
@@ -231,7 +295,10 @@ export const useUserStore = defineStore('user', () => {
         createUser,
         alert,
         messageError,
+        updateUser,
+        updateProfileImage,
         deleteUser,
-        filterUsers
+        filterUsers,
+        profileImage
     }
 })

@@ -10,21 +10,10 @@
 </script>
 
 <template>
-    <div 
+    <div
         :class="selected === 1 ? 'border-b-2 border-blue-500' : '' ">
             <button 
                 @click.prevent="$emit('update:section', 1)"
-                class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
-                :class="selected === 1 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-                    </svg> Información 
-            </button>
-    </div>
-    <div
-        :class="selected === 2 ? 'border-b-2 border-blue-500' : '' ">
-            <button 
-                @click.prevent="$emit('update:section', 2)"
                 class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
                 :class="selected === 2 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -33,9 +22,9 @@
             </button>
     </div>
     <div
-        :class="selected === 3 ? 'border-b-2 border-blue-500' : '' ">
+        :class="selected === 2 ? 'border-b-2 border-blue-500' : '' ">
             <button 
-                @click.prevent="$emit('update:section', 3)"
+                @click.prevent="$emit('update:section', 2)"
                 class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
                 :class="selected === 3 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -44,9 +33,9 @@
             </button>
     </div>
     <div
-        :class="selected === 4 ? 'border-b-2 border-blue-500' : '' ">
+        :class="selected === 3 ? 'border-b-2 border-blue-500' : '' ">
             <button 
-                @click.prevent="$emit('update:section', 4)"
+                @click.prevent="$emit('update:section', 3)"
                 class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
                 :class="selected === 4 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -55,9 +44,9 @@
             </button>
     </div>
     <div
-        :class="selected === 5 ? 'border-b-2 border-blue-500' : '' ">
+        :class="selected === 4 ? 'border-b-2 border-blue-500' : '' ">
             <button 
-                @click.prevent="$emit('update:section', 5)"
+                @click.prevent="$emit('update:section', 4)"
                 class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
                 :class="selected === 5 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -66,9 +55,9 @@
             </button>
     </div>
     <div
-        :class="selected === 6 ? 'border-b-2 border-blue-500' : '' ">
+        :class="selected === 5 ? 'border-b-2 border-blue-500' : '' ">
             <button 
-                @click.prevent="$emit('update:section', 6)"
+                @click.prevent="$emit('update:section', 5)"
                 class="text-base md:text-xl inline-flex items-center gap-x-2 hover:text-blue-500 cursor-pointer font-light"
                 :class="selected === 6 ? 'text-blue-500' : 'text-gray-400 dark:text-slate-500'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

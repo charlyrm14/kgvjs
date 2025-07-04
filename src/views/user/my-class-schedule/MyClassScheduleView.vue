@@ -27,5 +27,13 @@ import { onMounted } from 'vue';
             <AttendanceHistory
                 :attendances="scheduleStore?.attendanceHistory"/>
         </div>
+        <div 
+            v-else
+            class="py-4">
+                <h2 class="text-center text-pink-500 text-4xl"> 
+                    Aún no tienes un horario asignado
+                        <span class="block text-lg text-gray-700 dark:text-slate-400"> Solicita la asignación de tu horario en el area administrativa </span>
+                </h2>
+        </div>
     </section>
 </template>

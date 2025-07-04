@@ -50,7 +50,7 @@
             class="py-4">
                 <h2 class="text-center text-pink-500 text-4xl"> 
                     Aún no tienes asignado un nivel de natación 
-                        <span class="block text-lg text-gray-700 dark:text-slate-400"> Solicita la asignación en el area administrativa </span>
+                        <span class="block text-lg text-gray-700 dark:text-slate-400"> Solicita la asignación de tu nivel en el area administrativa </span>
                 </h2>
         </div>
     </section>
