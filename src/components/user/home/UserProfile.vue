@@ -1,5 +1,7 @@
 <script setup>
 
+    const urlAPI = import.meta.env.VITE_API_URL
+
     defineProps({
         user: {
             type: Object,
@@ -15,8 +17,8 @@
             <div class="flex gap-x-4">
                 <div>
                     <img 
-                        src="../../../assets/img/user-profile.png" 
-                        alt="profile image"
+                        :src="user?.profile_image ? urlAPI + '/' +  user?.profile_image  : '/img/user-profile.png'" 
+                        alt="Profile user"
                         class="rounded-lg w-30">
                 </div>
                 <div>

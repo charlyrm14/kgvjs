@@ -142,7 +142,7 @@
                             message-class="text-red-500 text-sm px-2 font-light"
                             validation="required|date_after:1950-01-01"
                             :validation-messages="{
-                                required: 'Ingre la fecha de nacimiento'
+                                required: 'Ingresa la fecha de nacimiento'
                             }"/>
                     </div>
 
