@@ -367,3 +367,16 @@ export const monthsOfTheYear = () => {
 
     return months.filter(m => m.id <= currentMonth)
 }
+
+/**
+ * The function `formattedEventTimeAndDate` takes a date string as input and returns the date portion
+ * with the time up to minutes.
+ * @param [date=2025-05-14 00:00] - The `formattedEventTimeAndDate` function takes a date string as a
+ * parameter and returns the formatted date and time. The default date is set to '2025-05-14 00:00'.
+ * @returns The function `formattedEventTimeAndDate` is returning the date and time portion of the
+ * input date string, up to the minute.
+ */
+export const formattedEventTimeAndDate = (date = '2025-05-14 00:00') => {
+    const formatDate = date
+    return formatDate.slice(0, 16)
+}

@@ -6,26 +6,31 @@
     import { onMounted, ref } from 'vue';
     import UserAPI from '@/api/UserAPI';
     import BirthdayModal from '@/components/ui/modals/user/BirthdayModal.vue';
+    import { useContentStore } from '@/stores/content';
     
     const userInfo = ref(null)
     const showBirthdayModal = ref(false)
 
+    const contentStore = useContentStore()
+
     onMounted(async() => {
         try {
 
-            const response = await UserAPI.infoHome()
+            const userResponse = await UserAPI.infoHome();
 
-            if (response.status === 200) {
-                userInfo.value = response.data.data
+            if (userResponse.status === 200) {
+                userInfo.value = userResponse.data.data
 
-                if (response.data.data.is_birthdate) {
+                if (userResponse.data.data.is_birthdate) {
                     showBirthdayModal.value = true
                 }
             }
 
-            if (response.status === 401 || response.status === 404) {
+            if (userResponse.status === 401 || userResponse.status === 404) {
                 userInfo.value = null
             }
+
+            await contentStore.fetchGetTipsContent()
 
         } catch (error) {
             console.error(error)
@@ -42,7 +47,9 @@
 
     <Sections/>
 
-    <Tips/>
+    <Tips
+        v-if="contentStore?.tips"
+        :tips="contentStore?.tips"/>
 
     <TeamAndTeachers/>
 

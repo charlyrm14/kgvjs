@@ -10,6 +10,7 @@ export const useContentStore = defineStore('content', () => {
     const router = useRouter()
     const contentDetail = ref(null)
     const contents = ref([])
+    const tips = ref(null)
     const selectedContentType = ref(0)
     const messageError = reactive({
         text: '',
@@ -34,6 +35,24 @@ export const useContentStore = defineStore('content', () => {
 
             if(response.status === 404){
                 contents.value = []
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const fetchGetTipsContent = async() => {
+        try {
+            
+            const response = await ContentAPI.getTipsContent()
+
+            if (response.status === 200) {
+                tips.value = response.data.data
+            }
+
+            if(response.status === 404){
+                tips.value = null
             }
 
         } catch (error) {
@@ -116,8 +135,73 @@ export const useContentStore = defineStore('content', () => {
                 contentDetail.value = response.data.data
             }
 
+            if (response.status === 404 ) {
+                contentDetail.value = null
+            }
+
         } catch (error) {
             console.error(error)
+        }
+    }
+
+    const updateNotice = async(slug, data) => {
+        try {
+            const response = await ContentAPI.updateNotice(slug, data)
+
+            if (response.status === 200) {
+                router.push({ name: 'admin-content' })
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+            }
+
+        } catch (error) {
+            console.error(error)
+            router.push({ name: 'admin-content' })
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al editar el contenido seleccionado',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
+    const updateEvent = async(slug, data) => {
+        try {
+            const response = await ContentAPI.updateEvent(slug, data)
+
+            if (response.status === 200) {
+                router.push({ name: 'admin-content' })
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+            }
+
+            if (response.status === 422) {
+                handleAlert(
+                    'Operacion fallida',
+                    'Por favor vuelve a recargar',
+                    'error'
+                )
+                resetAlert()
+            }
+
+        } catch (error) {
+            console.error(error)
+            router.push({ name: 'admin-content' })
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al editar el contenido seleccionado',
+                'error'
+            )
+            resetAlert()
         }
     }
 
@@ -161,19 +245,19 @@ export const useContentStore = defineStore('content', () => {
     }
 
     const handleAlert = (title, subtitle, type = 'success') => {
-        alert.title = title,   
-        alert.subtitle = subtitle,
-        alert.color = type === 'success' ? 'green' : 'red',
-        alert.icon = typeAlertIcon(type),
+        alert.title = title   
+        alert.subtitle = subtitle
+        alert.color = type === 'success' ? 'green' : 'red'
+        alert.icon = typeAlertIcon(type)
         alert.status = true
     }
 
     const resetAlert = () => {
         setTimeout(() => {
-            alert.title = '',   
-            alert.subtitle = '',
-            alert.color = '',
-            alert.icon = '',
+            alert.title = ''   
+            alert.subtitle = ''
+            alert.color = ''
+            alert.icon = ''
             alert.status = false 
         }, 4000);
     }
@@ -196,13 +280,17 @@ export const useContentStore = defineStore('content', () => {
         urlAPI,
         contentDetail,
         contents,
+        tips,
         selectedContentType,
         messageError,
         alert,
         fetchGetContents,
+        fetchGetTipsContent,
         createNoticeContent,
         createEventContent,
         fetchGetContentBySlug,
+        updateNotice,
+        updateEvent,
         deleteContent,
         filterContent
     }
