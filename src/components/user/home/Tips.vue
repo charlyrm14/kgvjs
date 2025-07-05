@@ -1,5 +1,14 @@
 <script setup>
 
+    const urlAPI = import.meta.env.VITE_API_URL
+
+    defineProps({
+        tips: {
+            type: Array,
+            required: true
+        }
+    })
+
 </script>
 
 <template>
@@ -18,65 +27,69 @@
 
             <!-- Tip 1 (ocupa 2 columnas y 2 filas) -->
             <RouterLink 
+                v-if="tips?.[0]"
                 :to="{ name: 'tips' }"
                 class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center md:col-span-2 md:row-span-2 cursor-pointer hover:opacity-75">
                     <div class="mb-2 flex justify-center">
                         <img 
-                            src="../../../assets/img/tip-1.png" 
-                            alt="tip 1" 
+                            :src="urlAPI + '/' + tips?.[0]?.cover_image" 
+                            :alt="tips?.[0]?.title" 
                             class="w-10 md:w-50 rounded-full">
                     </div>
-                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase"> Postura hidrodinámica </h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        Mantén el cuerpo alineado con la superficie del agua para reducir la resistencia.
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase truncate"> {{ tips?.[0]?.title ?? '' }} </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 truncate">
+                        {{ tips?.[0]?.content ?? '' }}
                     </p>
             </RouterLink>
 
             <!-- Tip 2 -->
             <RouterLink 
+                v-if="tips?.[1]"
                 :to="{ name: 'tips' }"
                 class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center cursor-pointer hover:opacity-75">
                     <div class="mb-2 flex justify-center">
                         <img 
-                            src="../../../assets/img/tip-2.png" 
-                            alt="tip" 
+                            :src="urlAPI + '/' + tips?.[1]?.cover_image" 
+                            :alt="tips?.[1]?.title" 
                             class="w-10 rounded-full">
                     </div>
-                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Respira correctamente</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        Respirar de forma lateral y a ritmo evita el agotamiento.
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase truncate"> {{ tips?.[1]?.title ?? '' }} </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 truncate">
+                        {{ tips?.[1]?.content ?? '' }}
                     </p>
             </RouterLink>
 
             <!-- Tip 3 -->
             <RouterLink 
+                v-if="tips?.[2]"
                 :to="{ name: 'tips' }"
                 class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center cursor-pointer hover:opacity-75">
                     <div class="mb-2 flex justify-center">
                         <img
-                            src="../../../assets/img/tip-3.png" 
-                            alt="tip" 
+                            :src="urlAPI + '/' + tips?.[2]?.cover_image"  
+                            :alt="tips?.[2]?.title" 
                             class="w-10 rounded-full">
                     </div>
-                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        Una patada constante y ligera te ayuda a mantener el equilibrio.
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase truncate"> {{ tips?.[2]?.title ?? '' }} </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 truncate">
+                        {{ tips?.[2]?.content ?? '' }}
                     </p>
             </RouterLink>
 
             <!-- Tip 4 -->
             <RouterLink 
+                v-if="tips?.[3]"
                 :to="{ name: 'tips' }"
                 class="min-w-[220px] flex-1 bg-white dark:bg-slate-600 rounded-xl shadow p-4 text-center hidden md:block cursor-pointer hover:opacity-75">
                     <div class="mb-2 flex justify-center">
                         <img 
-                            src="../../../assets/img/tip-4.png" 
-                            alt="tip" 
+                            :src="urlAPI + '/' + tips?.[3]?.cover_image" 
+                            :alt="tips?.[3]?.title" 
                             class="w-10 rounded-full">
                     </div>
-                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase">Mejora tu patada</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        Una patada constante y ligera te ayuda a mantener el equilibrio.
+                    <h3 class="font-semibold text-sm text-gray-800 dark:text-white uppercase"> {{ tips?.[3]?.title ?? '' }} </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 truncate">
+                        {{ tips?.[3]?.content ?? '' }}
                     </p>
             </RouterLink>
 
