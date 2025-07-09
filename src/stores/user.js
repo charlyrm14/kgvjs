@@ -3,6 +3,7 @@ import { defineStore } from "pinia"
 import UserAPI from "@/api/UserAPI"
 import { computed, reactive, ref } from "vue"
 import { typeAlertIcon } from "@/helpers"
+import PasswordAPI from "@/api/PasswordAPI"
 
 export const useUserStore = defineStore('user', () => {
     const urlAPI = import.meta.env.VITE_API_URL
@@ -246,6 +247,36 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const changeUserPassword = async(data) => {
+        try {
+
+            const response = await PasswordAPI.changePassword(data)
+
+            if (response.status === 200) {
+                router.push({ name: 'login' })
+                localStorage.removeItem('auth_token')
+            }
+
+            if (response.status === 404 || response.status === 422) {
+                handleAlert(
+                    'Operacion fallida',
+                    'Hubo un error al actualizar tu contraseña',
+                    'error'
+                )
+                resetAlert()
+            }
+            
+        } catch (error) {
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al actualizar tu contraseña',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
     const handleAlert = (title, subtitle, type = 'success') => {
         alert.title = title,   
         alert.subtitle = subtitle,
@@ -299,6 +330,7 @@ export const useUserStore = defineStore('user', () => {
         updateProfileImage,
         deleteUser,
         filterUsers,
-        profileImage
+        profileImage,
+        changeUserPassword
     }
 })

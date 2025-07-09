@@ -58,7 +58,8 @@
             <PersonalDetails
                 :user="authStore?.user"/>
                 
-            <ChangePassword/>
+            <ChangePassword
+                :user="authStore?.user"/>
 
         </div>
     </section>
