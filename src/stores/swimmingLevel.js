@@ -1,6 +1,7 @@
 import SwimmingLevelsAPI from "@/api/SwimmingLevelsAPI"
+import { typeAlertIcon } from "@/helpers"
 import { defineStore } from "pinia"
-import { ref } from "vue"
+import { reactive, ref } from "vue"
 
 export const useSwimmingLevelStore = defineStore('swimmingLevel', () => {
 
@@ -8,6 +9,14 @@ export const useSwimmingLevelStore = defineStore('swimmingLevel', () => {
 
     const swimmingLevels = ref(null)
     const userSwimmingProgress = ref(null)
+
+    const alert = reactive({
+        title: '',   
+        subtitle: '',
+        color: '',
+        icon: '',
+        status: false,
+    })
 
     const fetchSwimmingLevels = async () => {
         try {
@@ -38,8 +47,53 @@ export const useSwimmingLevelStore = defineStore('swimmingLevel', () => {
             }
 
         } catch (error) {
-            console.error()
+            console.error(error)
         }
+    }
+
+    const updateSwimmingLevelInfo = async(levelId, data) => {
+        try {
+
+            const response = await SwimmingLevelsAPI.updateSwimmingLevelInfo(levelId, data)
+
+            if (response.status === 200) {
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+                return true
+            }
+            
+        } catch (error) {
+            console.error(error)
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al actualizar la información',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
+    const handleAlert = (title, subtitle, type = 'success') => {
+        alert.title = title,   
+        alert.subtitle = subtitle,
+        alert.color = type === 'success' ? 'green' : 'red',
+        alert.icon = typeAlertIcon(type),
+        alert.status = true
+    }
+
+    const resetAlert = () => {
+        setTimeout(() => {
+            alert.title = '',   
+            alert.subtitle = '',
+            alert.color = '',
+            alert.icon = '',
+            alert.status = false 
+        }, 4000);
     }
 
     return {
@@ -47,6 +101,8 @@ export const useSwimmingLevelStore = defineStore('swimmingLevel', () => {
         userSwimmingProgress,
         fetchUserSwimmingProgress,
         swimmingLevels,
-        fetchSwimmingLevels
+        fetchSwimmingLevels,
+        updateSwimmingLevelInfo,
+        alert
     }
 })
