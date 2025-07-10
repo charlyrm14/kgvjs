@@ -69,10 +69,10 @@
                                 <div class="border-t border-blue-200"></div>
                                 <div
                                     v-if="user?.profile"
-                                    v-for="featured in user?.profile?.filter(ft => ft.type === 'featured')"
-                                    :key="featured.id"
+                                    v-for="achievement in user?.profile?.filter(ft => ft.type === 'achievements')"
+                                    :key="achievement.id"
                                     class="my-2">
-                                        <p class="font-light"> {{ featured.content }} </p>
+                                        <p class="font-light"> {{ achievement.content }} </p>
                                 </div>
                         </div>
                         <div class="absolute -top-3 -left-3 bg-amber-50 rounded-full p-1.5">

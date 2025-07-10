@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', () => {
     const todayBirthdayUsers = ref(null)
     const coaches = ref(null)
     const featuredStudents = ref(null)
+    const dataProfileInfo = ref(null)
     const profileImage = ref('/img/user-profile.png')
 
     const alert = reactive({
@@ -277,6 +278,71 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const fetchUserProfileInfo = async(userId) => {
+        try {
+            
+            const response = await UserAPI.getUserProfileInfo(userId)
+
+            if (response.status === 200) {
+                dataProfileInfo.value = response.data.data
+            }
+
+            if (response.status !== 200) {
+                dataProfileInfo.value = null
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const assignUserProfileInfo = async(data) => {
+        try {
+            
+            const response = await UserAPI.assignUserProfileInfo(data)
+
+            if (response.status === 201) {
+
+                const type = response.data.data.type
+
+                if (type === 'hobbies' || type === 'achievements') {
+                    if (!Array.isArray(dataProfileInfo.value.profile[type])) {
+                        dataProfileInfo.value.profile[type] = []
+                    }
+
+                    dataProfileInfo.value.profile[type].push(response.data.data)
+
+                } else {
+                    // biography u otros tipos únicos
+                    dataProfileInfo.value.profile[type] = response.data.data
+                }
+
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                resetAlert()
+                return true
+            }
+
+            if (response.status === 422) {
+                messageError.text = response.data.message
+                messageError.status = true
+                resetMessage()
+            }
+            
+        } catch (error) {
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al actualizar tu contraseña',
+                'error'
+            )
+            resetAlert()
+        }
+    }
+
     const handleAlert = (title, subtitle, type = 'success') => {
         alert.title = title,   
         alert.subtitle = subtitle,
@@ -331,6 +397,9 @@ export const useUserStore = defineStore('user', () => {
         deleteUser,
         filterUsers,
         profileImage,
-        changeUserPassword
+        changeUserPassword,
+        dataProfileInfo,
+        fetchUserProfileInfo,
+        assignUserProfileInfo
     }
 })
