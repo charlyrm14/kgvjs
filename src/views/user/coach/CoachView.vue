@@ -50,7 +50,7 @@
                         </div>
                         <div
                             v-if="coach?.profile?.length > 0"
-                            v-for="hobbie in coach?.profile?.filter(hob => hob.type === 'hobbie')"
+                            v-for="hobbie in coach?.profile?.filter(hob => hob.type === 'hobbies')"
                             :key="hobbie"
                             class="mt-3">
                                 <div class="bg-red-200 my-1 p-1 rounded px-3">
