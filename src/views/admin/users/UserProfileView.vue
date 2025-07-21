@@ -72,7 +72,8 @@
                 </div>
 
                 <UserSchedule
-                    v-if="sections === 1"/>
+                    v-if="sections === 1"
+                    :user="userStore?.userProfile"/>
 
                 <UserPayments
                     v-if="sections === 2"/>
