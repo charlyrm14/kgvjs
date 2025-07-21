@@ -79,7 +79,8 @@
                     v-if="sections === 2"/>
 
                 <UserLevels
-                    v-if="sections === 3"/>
+                    v-if="sections === 3"
+                    :user="userStore?.userProfile"/>
 
                 <UserAttendance
                     v-if="sections === 4"
