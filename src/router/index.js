@@ -113,6 +113,9 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../views/admin/layout/AdminAppLayoutView.vue'),
+      meta: { 
+        requiresAdmin: true 
+      },
       children: [
         {
           path: '',
@@ -152,39 +155,50 @@ const router = createRouter({
 /**
  *  Protege rutas
  */
-router.beforeEach( async (to, from, next) => {
-  const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
-  
-  if (requiresAuth) {
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth)
+  const requiresAdmin = to.matched.some(route => route.meta.requiresAdmin)
 
-    try {
-
-      const { data } = await AuthApi.auth()
-
-      if (data) {
-
-        next()
-
-      } else {
-
-        next({
-          name: 'login'
-        })
-      }
-      
-    } catch (error) {
-
-      next({
-        name: 'login'
+  try {
+    const { data } = await AuthApi.auth()
+    const user = data?.data
+    
+    // No autenticado y requiere login
+    if (!user && requiresAuth) {
+      return next({ 
+        name: 'login' 
       })
-
     }
 
-  } else {
+    // No autenticado y requiere admin
+    if (!user && requiresAdmin) {
+      return next({ 
+        name: 'login' 
+      })
+    }
 
-    next()
+    // Está autenticado pero no es admin e intenta acceder a /admin
+    if (requiresAdmin && user.role_id !== 1) {
+      return next({ 
+        name: 'home' 
+      })
+    }
+
+    // Autenticación éxitosa
+    return next()
+
+  } catch (error) {
+    
+    if (requiresAuth || requiresAdmin) {
+      return next({ 
+        name: 'login' 
+      })
+    }
+
+    return next()
   }
-  
+
 })
+
 
 export default router
