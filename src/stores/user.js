@@ -4,6 +4,7 @@ import UserAPI from "@/api/UserAPI"
 import { computed, reactive, ref } from "vue"
 import { typeAlertIcon } from "@/helpers"
 import PasswordAPI from "@/api/PasswordAPI"
+import SwimmingLevelsAPI from "@/api/SwimmingLevelsAPI"
 
 export const useUserStore = defineStore('user', () => {
     const urlAPI = import.meta.env.VITE_API_URL
@@ -382,6 +383,44 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const assignUserSwimmingLevel = async(data) => {
+        try {
+
+            const response = await SwimmingLevelsAPI.assignLevelToUser(data)
+
+            if(response.status === 201) {
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                router.push({ name: 'admin-home' })
+                resetAlert()
+                return true
+            }
+
+            if (response.status === 400) {
+                handleAlert(
+                    'Operacion fallida',
+                    response.data.message,
+                    'error'
+                )
+                resetAlert()
+            }
+            
+        } catch (error) {
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al asignar el nivel de natación al usuario',
+                'error'
+            )
+            router.push({ name: 'admin-home' })
+            resetAlert()
+            return true
+        }
+    }
+
     const handleAlert = (title, subtitle, type = 'success') => {
         alert.title = title,   
         alert.subtitle = subtitle,
@@ -440,6 +479,7 @@ export const useUserStore = defineStore('user', () => {
         dataProfileInfo,
         fetchUserProfileInfo,
         assignUserProfileInfo,
-        assignUserClasses
+        assignUserClasses,
+        assignUserSwimmingLevel
     }
 })
