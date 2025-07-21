@@ -343,6 +343,45 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const assignUserClasses = async(data) => {
+        try {
+
+            const response = await UserAPI.assignUserClasses(data)
+
+            if (response.status === 201) {
+                handleAlert(
+                    'Éxito',
+                    response.data.message,
+                    'success'
+                )
+                router.push({ name: 'admin-home' })
+                resetAlert()
+                return true
+            }
+
+            if (response.status === 400) {
+                handleAlert(
+                    'Error',
+                    response.data.message,
+                    'error'
+                )
+                resetAlert()
+                return true
+            }
+            
+        } catch (error) {
+            console.error(error)
+            handleAlert(
+                'Operacion fallida',
+                'Hubo un error al asignar las clases del usuario',
+                'error'
+            )
+            router.push({ name: 'admin-home' })
+            resetAlert()
+            return true
+        }
+    }
+
     const handleAlert = (title, subtitle, type = 'success') => {
         alert.title = title,   
         alert.subtitle = subtitle,
@@ -400,6 +439,7 @@ export const useUserStore = defineStore('user', () => {
         changeUserPassword,
         dataProfileInfo,
         fetchUserProfileInfo,
-        assignUserProfileInfo
+        assignUserProfileInfo,
+        assignUserClasses
     }
 })
