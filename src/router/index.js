@@ -148,6 +148,12 @@ const router = createRouter({
           component: () => import('../views/admin/reports/ReportsView.vue')
         }
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('../views/errors/404View.vue'),
+      meta: { title: '404 Not Found' }
     }
   ],
 })

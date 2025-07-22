@@ -27,17 +27,17 @@
                         </button>
                         <div 
                             v-if="showOptions"
-                            class="absolute top-8 -right-1 rounded-md dark:bg-slate-500 w-50">
+                            class="absolute top-8 -right-1 rounded-md bg-white dark:bg-slate-500 w-50 shadow border border-gray-200 dark:border-none">
                                 <div class="hover:opacity-75 cursor-pointer px-4 py-1.5">
-                                    <p class="dark:text-slate-300 inline-flex justify-between items-center gap-x-3"> 
+                                    <p class="text-gray-600 dark:text-slate-300 inline-flex justify-between items-center gap-x-3"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                         </svg> Descargar reporte 
                                     </p>
                                 </div>
-                                <div class="border-b dark:border-slate-400"></div>
+                                <div class="border-b border-gray-200 dark:border-slate-400"></div>
                                 <div class="hover:opacity-75 cursor-pointer px-4 py-1.5">
-                                    <p class="dark:text-slate-300 inline-flex justify-between items-center gap-x-3"> 
+                                    <p class="text-gray-600 dark:text-slate-300 inline-flex justify-between items-center gap-x-3"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                                         </svg> Enviar reporte 
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-blue-100 rounded-lg py-4 mt-3">
+                <div class="bg-blue-100 rounded-lg py-4 mt-3">
                     <div class="mt-2">
                         <h2 class="text-center text-6xl"> 4 </h2>
                         <div class="mt-2 flex justify-center items-center">
@@ -77,7 +77,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-pink-100 rounded-lg py-4 mt-3">
+                <div class="bg-pink-100 rounded-lg py-4 mt-3">
                     <div class="mt-2">
                         <h2 class="text-center text-6xl"> 4 </h2>
                         <div class="mt-2 flex justify-center items-center">
@@ -108,7 +108,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-amber-100 rounded-lg py-4 mt-3">
+                <div class="bg-amber-100 rounded-lg py-4 mt-3">
                     <div class="mt-2">
                         <h2 class="text-center text-6xl"> 4 </h2>
                         <div class="mt-2 flex justify-center items-center">
@@ -139,7 +139,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-green-100 rounded-lg py-4 mt-3">
+                <div class="bg-green-100 rounded-lg py-4 mt-3">
                     <div class="mt-2">
                         <h2 class="text-center text-6xl"> 4 </h2>
                         <div class="mt-2 flex justify-center items-center">
