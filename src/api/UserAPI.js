@@ -308,5 +308,23 @@ export default {
         } catch (error) {
             console.error(error)
         }
-    }
+    },
+
+    async getUsersTeam() {
+
+        try {
+
+            const response = await fetch(`${url}/api/v1/users/list/team`)
+
+            const result = await response.json();
+
+            return {
+                data: result,
+                status: response.status
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
 }
